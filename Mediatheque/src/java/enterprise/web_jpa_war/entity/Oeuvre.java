@@ -23,7 +23,7 @@ public class Oeuvre implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long catalogueId;
+    private Long oeuvreId;
     
     private String author;
     private String title;
@@ -87,28 +87,28 @@ public class Oeuvre implements Serializable {
     }
 
     public Long getCatalogueId() {
-        return catalogueId;
+        return oeuvreId;
     }
 
-    public void setCatalogueId(Long catalogueId) {
-        this.catalogueId = catalogueId;
+    public void setCatalogueId(Long oeuvreId) {
+        this.oeuvreId = oeuvreId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (catalogueId != null ? catalogueId.hashCode() : 0);
+        hash += (oeuvreId != null ? oeuvreId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the catalogueId fields are not set
+        // TODO: Warning - this method won't work in the case the oeuvreId fields are not set
         if (!(object instanceof Oeuvre)) {
             return false;
         }
         Oeuvre other = (Oeuvre) object;
-        if ((this.catalogueId == null && other.catalogueId != null) || (this.catalogueId != null && !this.catalogueId.equals(other.catalogueId))) {
+        if ((this.oeuvreId == null && other.oeuvreId != null) || (this.oeuvreId != null && !this.oeuvreId.equals(other.oeuvreId))) {
             return false;
         }
         return true;
@@ -116,7 +116,7 @@ public class Oeuvre implements Serializable {
 
     @Override
     public String toString() {
-        return "enterprise.web_jpa_war.entity.Catalogue[ id=" + catalogueId + " ]";
+        return "enterprise.web_jpa_war.entity.Catalogue[ id=" + oeuvreId + " ]";
     }
     
 }
