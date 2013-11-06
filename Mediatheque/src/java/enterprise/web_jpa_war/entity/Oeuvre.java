@@ -7,11 +7,14 @@
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -28,8 +31,12 @@ public class Oeuvre implements Serializable {
     private String author;
     private String title;
     
+    @Column(name = "creationDate")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
+    
+    @OneToMany()
+    private Collection<DeliveryContains> deliveryContains;
 
     public String getAuthor() {
         return author;

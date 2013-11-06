@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,12 +22,12 @@ import javax.persistence.OneToOne;
 @IdClass(DeliveryContainsKey.class)
 @Entity
 class DeliveryContains implements Serializable {
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="deliveryNumber", referencedColumnName = "deliveryNumber")
     private Delivery delivery;
     
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="oeuvreId", referencedColumnName = "oeuvreId")
     private Oeuvre oeuvre;
 

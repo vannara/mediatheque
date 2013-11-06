@@ -36,11 +36,10 @@ public class Delivery implements Serializable {
     private Date deliveryDate;
     
     
-    @ManyToOne()
-    private DeliveryContains deliveryContains;
+    @OneToMany()
+    private Collection<DeliveryContains> deliveryContains;
     
     
-
     public Delivery(){
     }
     
