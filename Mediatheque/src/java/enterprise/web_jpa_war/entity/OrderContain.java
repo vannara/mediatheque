@@ -14,7 +14,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author user
+ * @author EmmanuelleDALLEAU
  */
 @Entity
 public class OrderContain implements Serializable {

@@ -7,7 +7,6 @@
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,13 +17,8 @@ import javax.persistence.Id;
  * @author EmmanuelleDALLEAU
  */
 @Entity
-public class Supplier implements Serializable {
+public class OrderContainKey implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String name;
-    //A revoir le join.
-    @Embedded
-    private Address adress;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -47,10 +41,10 @@ public class Supplier implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Supplier)) {
+        if (!(object instanceof OrderContainKey)) {
             return false;
         }
-        Supplier other = (Supplier) object;
+        OrderContainKey other = (OrderContainKey) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -59,7 +53,7 @@ public class Supplier implements Serializable {
 
     @Override
     public String toString() {
-        return "enterprise.web_jpa_war.entity.Supplier[ id=" + id + " ]";
+        return "enterprise.web_jpa_war.entity.OrderContainKey[ id=" + id + " ]";
     }
     
 }
