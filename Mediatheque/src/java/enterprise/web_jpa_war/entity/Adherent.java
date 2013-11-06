@@ -8,6 +8,7 @@ package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Collection;
 import javax.persistence.*;
 
 /**
@@ -22,13 +23,29 @@ public class Adherent implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer adherentId;
     
+    @Column(nullable = false)
     private String firstname;
+    
+    @Column(nullable = false)
     private String lastname;
+   
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateofBirth;
   
     @Temporal(TemporalType.DATE)
     private Date dateAdherent;
+    
+    @OneToMany(mappedBy = "adherent")
+    private Collection<Borrow> borrows;
+
+    public Collection<Borrow> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(Collection<Borrow> borrows) {
+        this.borrows = borrows;
+    }
 
     public Date getDateAdherent() {
         return dateAdherent;

@@ -33,6 +33,11 @@ public class Item implements Serializable {
 
     @ManyToMany(mappedBy = "itemCopies")
     private Collection<Borrow> borrows;
+      
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
+
 
     public Collection<Borrow> getBorrows() {
         return borrows;
@@ -49,13 +54,8 @@ public class Item implements Serializable {
     public void setExemplaires(Collection<ItemCopy> exemplaires) {
         this.exemplaires = exemplaires;
     }
-    
-    
-@ManyToOne
-    @JoinColumn(name = "categoryId")
-    private Category category;
-
-        public Category getCategory() {
+  
+     public Category getCategory() {
         return category;
     }
 
@@ -91,29 +91,4 @@ public class Item implements Serializable {
         
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (itemId != null ? itemId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the itemId fields are not set
-        if (!(object instanceof Item)) {
-            return false;
-        }
-        Item other = (Item) object;
-        if ((this.itemId == null && other.itemId != null) || (this.itemId != null && !this.itemId.equals(other.itemId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.Item[ id=" + itemId + " ]";
-    }
-    
 }
