@@ -29,7 +29,7 @@ public class Delivery implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "deliveryNumber")
-    private Integer deliveryNumber;
+    private Long deliveryNumber;
 
     @Column(name = "deliveryDate")
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -44,11 +44,11 @@ public class Delivery implements Serializable {
     public Delivery(){
     }
     
-    public Integer getDeliveryNumber() {
+    public Long getDeliveryNumber() {
         return deliveryNumber;
     }
 
-    public void setDeliveryNumber(Integer deliveryNumber) {
+    public void setDeliveryNumber(Long deliveryNumber) {
         this.deliveryNumber = deliveryNumber;
     }  
 }
