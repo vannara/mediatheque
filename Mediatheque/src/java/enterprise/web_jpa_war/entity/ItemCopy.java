@@ -14,7 +14,7 @@ import javax.persistence.*;
  * @author vannaraloch
  */
 @Entity
-public class ItemLine implements Serializable {
+public class ItemCopy implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +23,7 @@ public class ItemLine implements Serializable {
     @Column (name="itemLineCode")
     private String itemLineCode;
 
-    public ItemLine(){
+    public ItemCopy(){
         
     }
     
@@ -53,10 +53,10 @@ public class ItemLine implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the sampleId fields are not set
-        if (!(object instanceof ItemLine)) {
+        if (!(object instanceof ItemCopy)) {
             return false;
         }
-        ItemLine other = (ItemLine) object;
+        ItemCopy other = (ItemCopy) object;
         if ((this.sampleId == null && other.sampleId != null) || (this.sampleId != null && !this.sampleId.equals(other.sampleId))) {
             return false;
         }

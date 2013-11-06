@@ -29,13 +29,13 @@ public class Item implements Serializable {
     private String itemNumber ;
     
     @OneToMany(cascade = CascadeType.ALL)
-    private Collection<ItemLine> exemplaires;
+    private Collection<ItemCopy> exemplaires;
 
-    public Collection<ItemLine> getExemplaires() {
+    public Collection<ItemCopy> getExemplaires() {
         return exemplaires;
     }
 
-    public void setExemplaires(Collection<ItemLine> exemplaires) {
+    public void setExemplaires(Collection<ItemCopy> exemplaires) {
         this.exemplaires = exemplaires;
     }
     
