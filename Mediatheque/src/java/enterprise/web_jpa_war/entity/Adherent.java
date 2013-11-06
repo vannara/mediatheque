@@ -15,17 +15,29 @@ import javax.persistence.*;
  * @author vannaraloch
  */
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames = {"firstName", "lastName","dateofBirth"}))
 public class Adherent implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer adherentId;
     
     private String firstname;
     private String lastname;
     @Temporal(TemporalType.DATE)
     private Date dateofBirth;
   
+    @Temporal(TemporalType.DATE)
+    private Date dateAdherent;
+
+    public Date getDateAdherent() {
+        return dateAdherent;
+    }
+
+    public void setDateAdherent(Date dateAdherent) {
+        this.dateAdherent = dateAdherent;
+    }
+    
     @Embedded
     private Address address;
 
@@ -64,37 +76,11 @@ public class Adherent implements Serializable {
         this.dateofBirth = DateofBirth;
     }
     
-    public Integer getId() {
-        return id;
+    public Integer getAdherentId() {
+        return adherentId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAdherentId(Integer adherentId) {
+        this.adherentId = adherentId;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Adherent)) {
-            return false;
-        }
-        Adherent other = (Adherent) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.Adherent[ id=" + id + " ]";
-    }
-    
 }
