@@ -15,7 +15,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import static javax.persistence.TemporalType.TIMESTAMP;
 
@@ -24,11 +26,22 @@ import static javax.persistence.TemporalType.TIMESTAMP;
  * @author EmmanuelleDALLEAU
  */
 @Entity
+@Table(name = "PERSISTENCE_ORDER_ORDER")
+@NamedQuery(name = "findAllOrders", query = "SELECT o FROM Order o "
++ "ORDER BY o.orderId")
 public class Order implements Serializable {
     
     private static final long serialVersionUID = 1L;
     private Date orderDate;
     private Supplier nameSupplier;
+
+    public Supplier getNameSupplier() {
+        return nameSupplier;
+    }
+
+    public void setNameSupplier(Supplier nameSupplier) {
+        this.nameSupplier = nameSupplier;
+    }
     private Collection<OrderContain> orderContainer;
     
      public Order() {

@@ -7,53 +7,68 @@
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  *
  * @author EmmanuelleDALLEAU
  */
-@Entity
 public class OrderContainKey implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer orderNumber;
+    private int id;
+    
+    public OrderContainKey(){
+        
+    }
+    @Override
+    public String toString() {
+        return "" + getOrderNumber() + "-" + getOrderContainId();
+    }
 
-    public Long getId() {
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer order) {
+        this.orderNumber = order;
+    }
+
+    public int getOrderContainId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderContainId(int newId) {
+        this.id = newId;
     }
 
-    @Override
+   @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return (((this.getOrderNumber() == null) ? 0 : this.getOrderNumber()
+                                                     .hashCode())
+        ^ ((int) this.getOrderContainId()));
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderContainKey)) {
-            return false;
+    public boolean equals(Object otherOb) {
+        if (this == otherOb) {
+            return true;
         }
-        OrderContainKey other = (OrderContainKey) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
 
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.OrderContainKey[ id=" + id + " ]";
+        if (!(otherOb instanceof OrderContainKey)) {
+            return false;
+        }
+
+        OrderContainKey other = (OrderContainKey) otherOb;
+
+        return (((this.getOrderNumber() == null) ? (other.getOrderNumber() == null)
+                                           : this.getOrderNumber()
+                                                 .equals(other.getOrderNumber()))
+        && (this.getOrderContainId() == other.getOrderContainId()));
     }
+    
+//    @Override
+//    public String toString() {
+//        return "" + getOrderNumber() + "-" + getItemId();
+//    }
     
 }
