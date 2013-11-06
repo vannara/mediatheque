@@ -51,6 +51,6 @@
     </table>
     <input type="submit" id="CreateRecord" value="CreateRecord" />
     </form>
-<a href="ListCategory"><strong>Go to List of Category</strong></a>
+<a href="ListCategory"><strong>Go to List of Categories</strong></a>
 </body>
 </html>
