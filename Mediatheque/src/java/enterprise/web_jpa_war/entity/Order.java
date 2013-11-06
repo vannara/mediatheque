@@ -7,6 +7,7 @@
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,16 +18,23 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 
 /**
  *
- * @author user
+ * @author EmmanuelleDALLEAU
  */
 @Entity
 public class Order implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     private Date orderDate;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Supplier nameSupplier;
+    
+     public Order() {
+        this.orderDate = new Date();
+    }
+    
     private Integer orderId;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return orderId;
     }
@@ -69,5 +77,4 @@ public class Order implements Serializable {
     public String toString() {
         return "enterprise.web_jpa_war.entity.Order[ id=" + orderId + " ]";
     }
-    
 }
