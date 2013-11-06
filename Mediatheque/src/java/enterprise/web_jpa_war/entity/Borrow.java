@@ -21,22 +21,32 @@ public class Borrow implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long borrowId;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date borrowDate;
+    private Adherent adherent;
+
+    public Adherent getAdherent() {
+        return adherent;
+    }
+
+    public void setAdherent(Adherent adherent) {
+        this.adherent = adherent;
+    }
     
     @ManyToMany
     @JoinTable(
       name="Bororw_Item",
-      joinColumns={@JoinColumn(name="itemId", referencedColumnName="itemId")},
+      joinColumns={@JoinColumn(name="itemCopyId", referencedColumnName="itemCopyId")},
       inverseJoinColumns={@JoinColumn(name="borrowId", referencedColumnName="borrowId")})
-    private Collection<Item> items;
+    private Collection<ItemCopy> itemCopies;
 
-    public Collection<Item> getItems() {
-        return items;
+    public Collection<ItemCopy> getItemCopies() {
+        return itemCopies;
     }
 
-    public void setItems(Collection<Item> items) {
-        this.items = items;
+    public void setItemCopies(Collection<ItemCopy> itemCopies) {
+        this.itemCopies = itemCopies;
     }
 
     public Date getBorrowDate() {
@@ -47,9 +57,6 @@ public class Borrow implements Serializable {
         this.borrowDate = borrowDate;
     }
     
-    public Borrow(){
-        
-    }
     public Long getBorrowId() {
         return borrowId;
     }
@@ -57,30 +64,8 @@ public class Borrow implements Serializable {
     public void setBorrowId(Long borrowId) {
         this.borrowId = borrowId;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (borrowId != null ? borrowId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the borrowId fields are not set
-        if (!(object instanceof Borrow)) {
-            return false;
-        }
-        Borrow other = (Borrow) object;
-        if ((this.borrowId == null && other.borrowId != null) || (this.borrowId != null && !this.borrowId.equals(other.borrowId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.Borrow[ id=" + borrowId + " ]";
-    }
     
+    public Borrow(){
+        
+    }
 }

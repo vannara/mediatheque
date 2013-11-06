@@ -31,7 +31,7 @@ public class Item implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private Collection<ItemCopy> exemplaires;
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "itemCopies")
     private Collection<Borrow> borrows;
 
     public Collection<Borrow> getBorrows() {

@@ -18,46 +18,45 @@ public class ItemCopy implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long sampleId;
+    private Long itemCopyId;
 
-    @Column (name="itemLineCode")
-    private String itemLineCode;
+    private String itemCopyCode;
 
     public ItemCopy(){
         
     }
     
     public String getItemLineCode() {
-        return itemLineCode;
+        return itemCopyCode;
     }
 
     public void setItemLineCode(String itemLineCode) {
-        this.itemLineCode = itemLineCode;
+        this.itemCopyCode = itemLineCode;
     }
     
-    public Long getSampleId() {
-        return sampleId;
+    public Long getItemCopyId() {
+        return itemCopyId;
     }
 
-    public void setSampleId(Long sampleId) {
-        this.sampleId = sampleId;
+    public void setItemCopyId(Long itemCopyId) {
+        this.itemCopyId = itemCopyId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (sampleId != null ? sampleId.hashCode() : 0);
+        hash += (itemCopyId != null ? itemCopyId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the sampleId fields are not set
+        // TODO: Warning - this method won't work in the case the itemCopyId fields are not set
         if (!(object instanceof ItemCopy)) {
             return false;
         }
         ItemCopy other = (ItemCopy) object;
-        if ((this.sampleId == null && other.sampleId != null) || (this.sampleId != null && !this.sampleId.equals(other.sampleId))) {
+        if ((this.itemCopyId == null && other.itemCopyId != null) || (this.itemCopyId != null && !this.itemCopyId.equals(other.itemCopyId))) {
             return false;
         }
         return true;
@@ -65,7 +64,7 @@ public class ItemCopy implements Serializable {
 
     @Override
     public String toString() {
-        return "enterprise.web_jpa_war.entity.ItemLine[ id=" + sampleId + " ]";
+        return "enterprise.web_jpa_war.entity.ItemLine[ id=" + itemCopyId + " ]";
     }
     
 }
