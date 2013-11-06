@@ -8,12 +8,12 @@ package enterprise.web_jpa_war.entity;
 
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 
 /**
@@ -23,11 +23,15 @@ import javax.persistence.OneToMany;
 @IdClass(DeliveryContainsKey.class)
 @Entity
 class DeliveryContains implements Serializable {
-@OneToMany
-    @JoinColumns ({
-        @JoinColumn(name="deliveryNumber", referencedColumnName = "deliveryNumber"),
-        @JoinColumn(name="oeuvreId", referencedColumnName = "oeuvreId")
-    })
+    @OneToMany
+    @JoinColumn(name="deliveryNumber", referencedColumnName = "deliveryNumber")
+    private Collection<Delivery> deliveries;
+    
+
+    @OneToMany
+    @JoinColumn(name="oeuvreId", referencedColumnName = "oeuvreId")
+    private Collection<Oeuvre> oeuvres;
+
     @Id
     private Long deliveryNumber;
 
