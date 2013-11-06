@@ -26,7 +26,7 @@ public class VirtualBasket implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long basketId;
     
     @Column(name = "dateLastAdded")
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -38,13 +38,44 @@ public class VirtualBasket implements Serializable {
     @OneToMany
     private Collection<ItemCopy> exemplaires;
 
-    public Long getId() {
-        return id;
+    public VirtualBasket() {
+    }
+    
+    
+
+    public Long getBasketId() {
+        return basketId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBasketId(Long basketId) {
+        this.basketId = basketId;
     }
+
+    public Date getDateLastAdded() {
+        return dateLastAdded;
+    }
+
+    public void setDateLastAdded(Date dateLastAdded) {
+        this.dateLastAdded = dateLastAdded;
+    }
+
+    public boolean isIsReserved() {
+        return isReserved;
+    }
+
+    public void setIsReserved(boolean isReserved) {
+        this.isReserved = isReserved;
+    }
+
+    public Collection<ItemCopy> getExemplaires() {
+        return exemplaires;
+    }
+
+    public void setExemplaires(Collection<ItemCopy> exemplaires) {
+        this.exemplaires = exemplaires;
+    }
+
+
 
     
 }

@@ -21,6 +21,10 @@ public class ItemCopy implements Serializable {
     private Long itemCopyId;
 
     private String itemCopyCode;
+    
+    @ManyToOne
+    @JoinColumn(name="basketId", referencedColumnName = "basketId")
+    private VirtualBasket virtualBasket;
 
     public ItemCopy(){
         
