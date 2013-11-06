@@ -6,6 +6,7 @@
 
 package enterprise.web_jpa_war.entity;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -17,6 +18,9 @@ import javax.persistence.Id;
 public class Order implements java.io.Serializable{
     
    private Integer orderId;
+   private Date  orderDate;
+   private String supplier;
+   
    @Id
     public Integer getOrderId() {
         return orderId;

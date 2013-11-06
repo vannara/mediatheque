@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
  * @author vannaraloch
  */
 @Entity
-public class Catalogue implements Serializable {
+public class Oeuvre implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -82,7 +82,7 @@ public class Catalogue implements Serializable {
     private String keyword;
     private int numberofSearch;
     
-    public Catalogue(){
+    public Oeuvre(){
         
     }
 
@@ -104,10 +104,10 @@ public class Catalogue implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the catalogueId fields are not set
-        if (!(object instanceof Catalogue)) {
+        if (!(object instanceof Oeuvre)) {
             return false;
         }
-        Catalogue other = (Catalogue) object;
+        Oeuvre other = (Oeuvre) object;
         if ((this.catalogueId == null && other.catalogueId != null) || (this.catalogueId != null && !this.catalogueId.equals(other.catalogueId))) {
             return false;
         }
