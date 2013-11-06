@@ -84,31 +84,4 @@ public class Category implements Serializable {
     public void setId(Integer id) {
         this.categoryId = id;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (categoryId != null ? categoryId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Category)) {
-            return false;
-        }
-        Category other = (Category) object;
-        if ((this.categoryId == null && other.categoryId != null)
-                || (this.categoryId != null && !this.categoryId.equals(other.categoryId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.Category[ id=" + categoryId + " ]";
-    }
-
 }
