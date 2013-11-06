@@ -31,6 +31,17 @@ public class Item implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private Collection<ItemCopy> exemplaires;
 
+    @ManyToMany(mappedBy = "items")
+    private Collection<Borrow> borrows;
+
+    public Collection<Borrow> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(Collection<Borrow> borrows) {
+        this.borrows = borrows;
+    }
+    
     public Collection<ItemCopy> getExemplaires() {
         return exemplaires;
     }
