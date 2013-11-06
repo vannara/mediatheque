@@ -7,10 +7,13 @@
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import static javax.persistence.TemporalType.TIMESTAMP;
 
 /**
  *
@@ -19,22 +22,33 @@ import javax.persistence.Id;
 @Entity
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
+    private Date orderDate;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer orderId;
 
-    public Long getId() {
-        return id;
+    public Integer getId() {
+        return orderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.orderId = id;
     }
 
+    @Temporal(TIMESTAMP)
+    public Date getLastUpdate() {
+        return orderDate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.orderDate = lastUpdate;
+    }
+    
+    //Code généré
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (orderId != null ? orderId.hashCode() : 0);
         return hash;
     }
 
@@ -45,7 +59,7 @@ public class Order implements Serializable {
             return false;
         }
         Order other = (Order) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.orderId == null && other.orderId != null) || (this.orderId != null && !this.orderId.equals(other.orderId))) {
             return false;
         }
         return true;
@@ -53,7 +67,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "enterprise.web_jpa_war.entity.Order[ id=" + id + " ]";
+        return "enterprise.web_jpa_war.entity.Order[ id=" + orderId + " ]";
     }
     
 }
