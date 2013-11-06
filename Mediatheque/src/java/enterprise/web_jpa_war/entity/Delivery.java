@@ -7,11 +7,17 @@
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -25,6 +31,19 @@ public class Delivery implements Serializable {
     @Column(name = "deliveryNumber")
     private Integer deliveryNumber;
 
+    @Column(name = "deliveryDate")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date deliveryDate;
+    
+    
+    @ManyToOne()
+    private DeliveryContains deliveryContains;
+    
+    
+
+    public Delivery(){
+    }
+    
     public Integer getDeliveryNumber() {
         return deliveryNumber;
     }
