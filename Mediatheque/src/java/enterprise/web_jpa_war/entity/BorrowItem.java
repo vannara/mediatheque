@@ -8,24 +8,21 @@ package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  *
  * @author vannaraloch
  */
 @Entity
+@IdClass(BorrowItemKey.class)
 public class BorrowItem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long borrowId;
+
+    @Id
+    private long itemId;
    
     @Temporal(TemporalType.DATE)
     private Date expectedReturnDate;
@@ -36,6 +33,22 @@ public class BorrowItem implements Serializable {
     @ManyToOne
     private Item item;
 
+    public long getBorrowId() {
+        return borrowId;
+    }
+
+    public void setBorrowId(long borrowId) {
+        this.borrowId = borrowId;
+    }
+
+    public long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(long itemId) {
+        this.itemId = itemId;
+    }
+   
     public Item getItem() {
         return item;
     }
@@ -60,13 +73,7 @@ public class BorrowItem implements Serializable {
         return expectedReturnDate;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+  
     
     public BorrowItem(){
          
