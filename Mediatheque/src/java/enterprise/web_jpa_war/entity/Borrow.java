@@ -24,18 +24,7 @@ public class Borrow implements Serializable {
     
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date borrowDate;
-    
-    @Temporal(TemporalType.DATE)
-    private Date expectedReturnDate;
-
-    public Date getExpectedReturnDate() {
-        return expectedReturnDate;
-    }
-
-    public void setExpectedReturnDate(Date expectedReturnDate) {
-        this.expectedReturnDate = expectedReturnDate;
-    }
-  
+   
     @ManyToOne
     @JoinColumn(name = "borrows")
     private Adherent adherent;
@@ -44,14 +33,9 @@ public class Borrow implements Serializable {
     @JoinColumn(name = "borrows")
     private Return returns;
 
-    @ManyToMany
-    @JoinTable(
-      name="Bororw_Item",
-      joinColumns={@JoinColumn(name="itemCopyId", referencedColumnName="itemCopyId")},
-      inverseJoinColumns={@JoinColumn(name="borrowId", referencedColumnName="borrowId")})
-    private Collection<ItemCopy> itemCopies;
-    
-    
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "borrow")
+    private Collection<BorrowItem> borrowItems;
+       
     public Return getReturns() {
         return returns;
     }
@@ -68,13 +52,12 @@ public class Borrow implements Serializable {
         this.adherent = adherent;
     }
    
-
-    public Collection<ItemCopy> getItemCopies() {
-        return itemCopies;
+    public Collection<BorrowItem> getborrowItems() {
+        return borrowItems;
     }
 
-    public void setItemCopies(Collection<ItemCopy> itemCopies) {
-        this.itemCopies = itemCopies;
+    public void setItemCopies(Collection<BorrowItem> borrowItems) {
+        this.borrowItems = borrowItems;
     }
 
     public Date getBorrowDate() {

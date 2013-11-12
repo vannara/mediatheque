@@ -31,20 +31,19 @@ public class Item implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private Collection<ItemCopy> exemplaires;
 
-    @ManyToMany(mappedBy = "itemCopies")
-    private Collection<Borrow> borrows;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
+    private Collection<BorrowItem> borrowItems;
       
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;
 
-
-    public Collection<Borrow> getBorrows() {
-        return borrows;
+    public Collection<BorrowItem> getBorrowItems() {
+        return borrowItems;
     }
 
-    public void setBorrows(Collection<Borrow> borrows) {
-        this.borrows = borrows;
+    public void setBorrowItems(Collection<BorrowItem> borrowItems) {
+        this.borrowItems = borrowItems;
     }
     
     public Collection<ItemCopy> getExemplaires() {
