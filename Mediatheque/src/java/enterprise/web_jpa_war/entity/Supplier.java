@@ -7,6 +7,7 @@
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,15 @@ public class Supplier implements Serializable {
     private Long id;
 
     @OneToMany(mappedBy = "supplier")
-    private Order order;
+    private Collection<Order>order;
+
+    public Collection<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Collection<Order> order) {
+        this.order = order;
+    }
 
     public String getName() {
         return name;
@@ -49,14 +58,7 @@ public class Supplier implements Serializable {
         this.adress = adress;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-    
+  
     public Long getId() {
         return id;
     }
