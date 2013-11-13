@@ -59,6 +59,7 @@ public class Order implements Serializable {
         this.orderDate = new Date();
         this.orderContainer = new ArrayList<OrderContain>();
     }
+    
     public long getId() {
         return orderId;
     }

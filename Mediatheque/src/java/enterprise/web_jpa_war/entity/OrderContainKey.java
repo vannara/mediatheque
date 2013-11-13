@@ -14,8 +14,8 @@ import java.io.Serializable;
  */
 public class OrderContainKey implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Integer orderNumber;
-    private int id;
+    private long orderId;
+    private long oeuvreId;
     
     public OrderContainKey(){
         
@@ -25,50 +25,19 @@ public class OrderContainKey implements Serializable {
         return "" + getOrderNumber() + "-" + getOrderContainId();
     }
 
-    public Integer getOrderNumber() {
-        return orderNumber;
+    public long getOrderNumber() {
+        return orderId;
     }
 
-    public void setOrderNumber(Integer order) {
-        this.orderNumber = order;
+    public void setOrderNumber(long order) {
+        this.orderId = order;
     }
 
-    public int getOrderContainId() {
-        return id;
+    public long getOrderContainId() {
+        return oeuvreId;
     }
 
     public void setOrderContainId(int newId) {
-        this.id = newId;
-    }
-
-   @Override
-    public int hashCode() {
-        return (((this.getOrderNumber() == null) ? 0 : this.getOrderNumber()
-                                                     .hashCode())
-        ^ ((int) this.getOrderContainId()));
-    }
-
-    @Override
-    public boolean equals(Object otherOb) {
-        if (this == otherOb) {
-            return true;
-        }
-
-        if (!(otherOb instanceof OrderContainKey)) {
-            return false;
-        }
-
-        OrderContainKey other = (OrderContainKey) otherOb;
-
-        return (((this.getOrderNumber() == null) ? (other.getOrderNumber() == null)
-                                           : this.getOrderNumber()
-                                                 .equals(other.getOrderNumber()))
-        && (this.getOrderContainId() == other.getOrderContainId()));
-    }
-    
-//    @Override
-//    public String toString() {
-//        return "" + getOrderNumber() + "-" + getItemId();
-//    }
-    
+        this.oeuvreId = newId;
+    } 
 }
