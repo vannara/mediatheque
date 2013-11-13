@@ -23,12 +23,10 @@ import javax.persistence.ManyToOne;
 @Entity
 class DeliveryContains implements Serializable {
     @ManyToOne
-    @JoinColumn(name="deliveryNumber", referencedColumnName = "deliveryNumber")
     private Delivery delivery;
     
 
     @ManyToOne
-    @JoinColumn(name="oeuvreId", referencedColumnName = "oeuvreId")
     private Oeuvre oeuvre;
 
     @Id
