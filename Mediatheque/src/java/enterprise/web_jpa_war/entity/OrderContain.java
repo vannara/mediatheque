@@ -9,7 +9,7 @@ package enterprise.web_jpa_war.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,46 +19,59 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PERSISTENCE_ORDER_LINEITEM")
+@IdClass (OrderContainKey.class)
 public class OrderContain implements Serializable {
     
     private static final long serialVersionUID = 1L;
+    @Id
+    private long orderId;
+
+    @Id
+    private long oeuvreId;
     
-    private Order orderNumber;
-    private Oeuvre currentOeuvre;
+    @ManyToOne
+    private Order order;
+    @ManyToOne
+    private Oeuvre oeuvre;
+    
     private int quantity;
-    private Integer id;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Oeuvre getOeuvre() {
+        return oeuvre;
+    }
+
+    public void setOeuvre(Oeuvre oeuvre) {
+        this.oeuvre = oeuvre;
+    }
+
     private float unitePrice;
     
+    public long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    public long getOeuvreId() {
+        return oeuvreId;
+    }
+
+    public void setOeuvreId(long oeuvreId) {
+        this.oeuvreId = oeuvreId;
+    }
+
     public OrderContain(){
         
-    }
-    @Id
-    public int getOrderContainId() {
-        return id;
-    }
-
-    public void setOrderContainId(int newId) {
-        this.id = newId;
-    }
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "ORDERID")
-    public Order getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(Order newOrder) {
-        this.orderNumber = newOrder;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "OEUVREID")
-    public Oeuvre getOeuvre() {
-        return currentOeuvre;
-    }
-
-    public void setOeuvre(Oeuvre currentOeuvre) {
-        this.currentOeuvre = currentOeuvre;
     }
 
     public int getQuantity() {
@@ -67,14 +80,6 @@ public class OrderContain implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public float getUnitePrice() {
@@ -95,30 +100,4 @@ public class OrderContain implements Serializable {
 //    public void setId(Long id) {
 //        this.id = id;
 //    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderContain)) {
-            return false;
-        }
-        OrderContain other = (OrderContain) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.OrderContain[ id=" + id + " ]";
-    }
-    
 }

@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,36 +33,40 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 public class Order implements Serializable {
     
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+   
+    private long orderId;
+
+    @Temporal(TIMESTAMP)
     private Date orderDate;
-    private Supplier nameSupplier;
+    
+    @ManyToOne
+    private Supplier supplier;
 
-    public Supplier getNameSupplier() {
-        return nameSupplier;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setNameSupplier(Supplier nameSupplier) {
-        this.nameSupplier = nameSupplier;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
+    
+    @OneToMany(cascade = ALL, mappedBy = "order")
     private Collection<OrderContain> orderContainer;
     
-     public Order() {
+    public Order() {
         this.orderDate = new Date();
         this.orderContainer = new ArrayList<OrderContain>();
     }
-    
-    private Integer orderId;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer getId() {
+    public long getId() {
         return orderId;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.orderId = id;
     }
 
-    @Temporal(TIMESTAMP)
     public Date getLastUpdate() {
         return orderDate;
     }
@@ -70,7 +75,6 @@ public class Order implements Serializable {
         this.orderDate = lastUpdate;
     }
     
-    @OneToMany(cascade = ALL, mappedBy = "order")
     public Collection<OrderContain> getOrderContain() {
         return orderContainer;
     }
@@ -101,28 +105,5 @@ public class Order implements Serializable {
 //        return this.lineItems.size() + 1;
 //    }
     //Code généré
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (orderId != null ? orderId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
-            return false;
-        }
-        Order other = (Order) object;
-        if ((this.orderId == null && other.orderId != null) || (this.orderId != null && !this.orderId.equals(other.orderId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.Order[ id=" + orderId + " ]";
-    }
+  
 }

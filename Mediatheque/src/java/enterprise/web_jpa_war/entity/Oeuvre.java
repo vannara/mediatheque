@@ -38,6 +38,33 @@ public class Oeuvre implements Serializable {
     @OneToMany()
     private Collection<DeliveryContains> deliveryContains;
 
+    public Long getOeuvreId() {
+        return oeuvreId;
+    }
+
+    public void setOeuvreId(Long oeuvreId) {
+        this.oeuvreId = oeuvreId;
+    }
+
+    public Collection<DeliveryContains> getDeliveryContains() {
+        return deliveryContains;
+    }
+
+    public void setDeliveryContains(Collection<DeliveryContains> deliveryContains) {
+        this.deliveryContains = deliveryContains;
+    }
+
+    public Collection<OrderContain> getOrderContains() {
+        return orderContains;
+    }
+
+    public void setOrderContains(Collection<OrderContain> orderContains) {
+        this.orderContains = orderContains;
+    }
+
+    @OneToMany(mappedBy = "oeuvre")
+    private Collection<OrderContain> orderContains;
+    
     public String getAuthor() {
         return author;
     }

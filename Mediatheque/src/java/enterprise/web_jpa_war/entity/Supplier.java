@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -29,6 +30,33 @@ public class Supplier implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToMany(mappedBy = "supplier")
+    private Order order;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Address adress) {
+        this.adress = adress;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -36,30 +64,8 @@ public class Supplier implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Supplier)) {
-            return false;
-        }
-        Supplier other = (Supplier) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.Supplier[ id=" + id + " ]";
+    public Supplier(){
+    
     }
     
 }
