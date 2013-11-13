@@ -26,11 +26,9 @@ public class Borrow implements Serializable {
     private Date borrowDate;
    
     @ManyToOne
-    @JoinColumn(name = "borrows")
     private Adherent adherent;
     
     @ManyToOne
-    @JoinColumn(name = "borrows")
     private Return returns;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "borrow")
