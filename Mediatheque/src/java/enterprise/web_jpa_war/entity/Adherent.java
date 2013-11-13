@@ -39,6 +39,10 @@ public class Adherent implements Serializable {
     @OneToMany(mappedBy = "adherent")
     private Collection<Borrow> borrows;
 
+       
+    @Embedded
+    private Address address;
+
     public Collection<Borrow> getBorrows() {
         return borrows;
     }
@@ -54,10 +58,7 @@ public class Adherent implements Serializable {
     public void setDateAdherent(Date dateAdherent) {
         this.dateAdherent = dateAdherent;
     }
-    
-    @Embedded
-    private Address address;
-
+ 
     public Address getAddress() {
         return address;
     }

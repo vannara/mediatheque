@@ -47,7 +47,7 @@ public class OrderContain implements Serializable {
         return orderNumber;
     }
 
-    public void setOrder(Order newOrder) {
+    public void setOrderNumber(Order newOrder) {
         this.orderNumber = newOrder;
     }
 
