@@ -15,29 +15,28 @@ import java.io.Serializable;
 public class OrderContainKey implements Serializable {
     private static final long serialVersionUID = 1L;
     private long orderId;
+
+    public long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    public long getOeuvreId() {
+        return oeuvreId;
+    }
+
+    public void setOeuvreId(long oeuvreId) {
+        this.oeuvreId = oeuvreId;
+    }
     private long oeuvreId;
     
     public OrderContainKey(){
         
     }
-    @Override
-    public String toString() {
-        return "" + getOrderNumber() + "-" + getOrderContainId();
-    }
+  
+ 
 
-    public long getOrderNumber() {
-        return orderId;
-    }
-
-    public void setOrderNumber(long order) {
-        this.orderId = order;
-    }
-
-    public long getOrderContainId() {
-        return oeuvreId;
-    }
-
-    public void setOrderContainId(int newId) {
-        this.oeuvreId = newId;
-    } 
 }
