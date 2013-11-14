@@ -34,34 +34,99 @@
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List Of Category</title>
+        <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap/css/logo-nav.css" rel="stylesheet">
     </head>
+    <script>
+        function deleteCategory(id) {
+            alert(id);
+        }
+
+        function editCategory(id) {
+            alert(id);
+        }
+
+        function addCategory() {
+            window.location = "CreateCategory.jsp";
+        }
+    </script>
+
     <body>
+    <nav class="navbar navbar-fixed-top" role="navigation">
 
-    <h1>List of Categories currently in Mediatheque</h1>
-    
-<table id="cateListTable" border="3">
-<tr >
-    <th bgcolor=>ID</th>
-    <th bgcolor=>Name</th>
-    <th bgcolor=>Max Borrow Duration</th>
-     <th bgcolor=>Max Borrow Qty</th>
-</tr>
-<c:forEach var="cate" begin="0" items="${requestScope.categoryList}">
-<tr>
-    <td>${cate.categoryId}&nbsp;&nbsp;</td> 
-    <td>${cate.categoryName}&nbsp;&nbsp;</td> 
-    <td>${cate.maxBorrowDuration}&nbsp;&nbsp;</td> 
-    <td>${cate.maxBorrowQty}&nbsp;&nbsp;</td> 
-</tr> 
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
+                <a class="navbar-brand logo-nav"><img src="img/logo1.jpg" width="70%" height="50%"></a>
+            </div>
 
-</c:forEach>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="AdminLogin.jsp"><b>Logout</b></a></li>
+                    <li><a href="#Borrow"><b>Borrow</b></a></li>
+                    <li><a href="#Return"><b>Return</b></a></li>
+                    <li><a href="#Order"><b>Order</b></a></li>
+                    <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
+                    <li><a href="#Reservation"><b>Reservation</b></a></li>           
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <b> Configuration</b>                     
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Oeuvre</a></li>
+                            <li><a href="#">Category</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="divider"/>
+                            <li><a href="#">Adherent</a></li>
+                            <li><a href="#">User</a></li>                    
+                        </ul>
+                    </li>                
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav>
+    <br> <br> 
+    <h1 class="text-center">List of Categories</h1>
+    <br>
+    <br> <br>
+    <table id="cateListTable" class="table table-hover">
+        <tr >
+            <th class="span3"></th>
+            <th class="span2" bgcolor=>ID</th>
+            <th class="span2" bgcolor=>Name</th>
+            <th class="span2" bgcolor=>Max Borrow Duration</th>
+            <th class="span2" bgcolor=>Max Borrow Qty</th>
+        </tr>
+        <c:forEach var="cate" begin="0" items="${requestScope.categoryList}">
+            <tr>
+                <td class="span3"><button class="span1 btn-primary" onclick="editCategory('${cate.categoryId}')">Edit</button>
+                    <button class="span1 btn-danger" onclick="deleteCategory('${cate.categoryId}')">Delete</button>
+                </td>
+                <td class="span2">${cate.categoryId}&nbsp;&nbsp;</td> 
+                <td class="span2">${cate.categoryName}&nbsp;&nbsp;</td> 
+                <td class="span2">${cate.maxBorrowDuration}&nbsp;&nbsp;</td> 
+                <td class="span2">${cate.maxBorrowQty}&nbsp;&nbsp;</td> 
+            </tr> 
 
-</table>
-<a href="CreateCategory.jsp"><strong>Create a Category</strong></a>
+        </c:forEach>
+
+    </table>
+    <div><br><br></div>
+    <button class="span2 btn-primary" onclick="addCategory()">Add Category</button>
+    <script src="bootstrap/js/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
