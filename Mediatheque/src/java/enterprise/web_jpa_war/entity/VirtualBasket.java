@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -28,6 +29,9 @@ public class VirtualBasket implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long basketId;
     
+    @OneToOne(mappedBy = "basket")
+    private Adherent adherent;
+    
     @Column(name = "dateLastAdded")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateLastAdded;
@@ -40,8 +44,14 @@ public class VirtualBasket implements Serializable {
 
     public VirtualBasket() {
     }
-    
-    
+
+    public Adherent getAdherent() {
+        return adherent;
+    }
+
+    public void setAdherent(Adherent adherent) {
+        this.adherent = adherent;
+    }
 
     public Long getBasketId() {
         return basketId;

@@ -51,9 +51,6 @@ public class Borrow implements Serializable {
         this.returns = returns;
     }
 
-
-    
- 
     public Adherent getAdherent() {
         return adherent;
     }

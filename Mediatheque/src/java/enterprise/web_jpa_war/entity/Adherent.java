@@ -39,12 +39,24 @@ public class Adherent implements Serializable {
     @OneToMany(mappedBy = "adherent")
     private Collection<Borrow> borrows;
     
+    @OneToOne
+    private VirtualBasket basket;
+    
 //    @OneToMany(mappedBy = "adherent")
 //    private Collection<Reservation> reservations;
        
     @Embedded
     private Address address;
 
+    public VirtualBasket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(VirtualBasket basket) {
+        this.basket = basket;
+    }
+   
+    
     public Collection<Borrow> getBorrows() {
         return borrows;
     }

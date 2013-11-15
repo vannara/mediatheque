@@ -36,10 +36,10 @@ public class Oeuvre implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
     
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
     private Collection<DeliveryContains> deliveryContains;
     
-    @OneToMany(mappedBy = "oeuvre")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
     private Collection<Item> items;
 
     public Long getOeuvreId() {
@@ -66,7 +66,7 @@ public class Oeuvre implements Serializable {
         this.orderContains = orderContains;
     }
 
-    @OneToMany(mappedBy = "oeuvre")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
     private Collection<OrderContain> orderContains;
     
     public String getAuthor() {
