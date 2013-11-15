@@ -47,6 +47,19 @@ public class Adherent implements Serializable {
        
     @Embedded
     private Address address;
+    
+    @OneToOne(mappedBy = "adherent")
+    private Card card;
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+    
+    
 
     public VirtualBasket getBasket() {
         return basket;
@@ -55,8 +68,7 @@ public class Adherent implements Serializable {
     public void setBasket(VirtualBasket basket) {
         this.basket = basket;
     }
-   
-    
+
     public Collection<Borrow> getBorrows() {
         return borrows;
     }

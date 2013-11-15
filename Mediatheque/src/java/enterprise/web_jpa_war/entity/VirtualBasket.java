@@ -40,7 +40,7 @@ public class VirtualBasket implements Serializable {
     private boolean isReserved;
     
     @OneToMany
-    private Collection<ItemCopy> exemplaires;
+    private Collection<ItemCopy> itemCopies;
 
     public VirtualBasket() {
     }
@@ -77,12 +77,12 @@ public class VirtualBasket implements Serializable {
         this.isReserved = isReserved;
     }
 
-    public Collection<ItemCopy> getExemplaires() {
-        return exemplaires;
+    public Collection<ItemCopy> getItemCopies() {
+        return itemCopies;
     }
 
-    public void setExemplaires(Collection<ItemCopy> exemplaires) {
-        this.exemplaires = exemplaires;
+    public void setExemplaires(Collection<ItemCopy> itemCopies) {
+        this.itemCopies = itemCopies;
     }
 
 

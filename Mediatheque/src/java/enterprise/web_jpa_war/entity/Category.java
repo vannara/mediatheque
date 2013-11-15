@@ -32,9 +32,21 @@ public class Category implements Serializable {
 
     @Column(name = "maxBorrowDuration")
     private double maxBorrowDuration;
+    
+    @Column (name="isRenewable")
+    private boolean isRenewable;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private Collection<Item> items;
+
+    
+    public boolean isIsRenewable() {
+        return isRenewable;
+    }
+
+    public void setIsRenewable(boolean isRenewable) {
+        this.isRenewable = isRenewable;
+    }
 
     public Collection<Item> getItems() {
         return items;

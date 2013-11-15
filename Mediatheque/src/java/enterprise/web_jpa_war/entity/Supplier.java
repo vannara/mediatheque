@@ -22,17 +22,20 @@ import javax.persistence.OneToMany;
 @Entity
 public class Supplier implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String name;
-    //A revoir le join.
-    @Embedded
-    private Address adress;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @Embedded
+    private Address adress;
+    
+    private String name;
 
     @OneToMany(mappedBy = "supplier")
-    private Collection<Order>order;
+    private Collection<Order> order;
+    
+    
 
     public Collection<Order> getOrder() {
         return order;

@@ -7,6 +7,7 @@
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.*;
 
 /**
@@ -23,19 +24,33 @@ public class ItemCopy implements Serializable {
     private String itemCopyCode;
     
     @ManyToOne
-    @JoinColumn(name="basketId", referencedColumnName = "basketId")
+    //@JoinColumn(name="basketId", referencedColumnName = "basketId")
     private VirtualBasket virtualBasket;
     
     @ManyToOne
     private Item item;
     
     @ManyToOne
-    private Borrow borrow;    
+    private Borrow borrow;   
+    
+    @ManyToMany
+    @JoinTable(
+      name="Return_Item",
+      inverseJoinColumns={@JoinColumn(name="itemCopyId", referencedColumnName="itemCopyId")},
+      joinColumns={@JoinColumn(name="returnId", referencedColumnName="returnId")})
+    private Collection<Return> returns;
 
     public ItemCopy(){
         
     }
 
+    public Collection<Return> getReturns() {
+        return returns;
+    }
+
+    public void setReturns(Collection<Return> returns) {
+        this.returns = returns;
+    }
 
     public String getItemCopyCode() {
         return itemCopyCode;

@@ -34,7 +34,7 @@ public class OrderContain implements Serializable {
     @ManyToOne
     private Oeuvre oeuvre;
     
-    private int quantity;
+    private int quantityOeuvresOrder;
 
     public Order getOrder() {
         return order;
@@ -74,12 +74,12 @@ public class OrderContain implements Serializable {
         
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getQuantityOeuvresOrder() {
+        return quantityOeuvresOrder;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantityOeuvresOrder(int quantityOeuvresOrder) {
+        this.quantityOeuvresOrder = quantityOeuvresOrder;
     }
 
     public float getUnitePrice() {

@@ -9,6 +9,7 @@ package enterprise.web_jpa_war.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -22,7 +23,19 @@ public class Card implements Serializable {
     private String login;
     private boolean isLost;
     private double guaranteeAmt;
-    private double annualFee;
+    private double annualFee; //enum?
+    
+    @OneToOne
+    private Adherent adherent;
+
+    
+    public Adherent getAdherent() {
+        return adherent;
+    }
+
+    public void setAdherent(Adherent adherent) {
+        this.adherent = adherent;
+    }
 
     public String getLogin() {
         return login;

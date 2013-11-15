@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import static javax.persistence.CascadeType.ALL;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +39,8 @@ public class Order implements Serializable {
    
     private long orderId;
 
-    @Temporal(TIMESTAMP)
+    @Column(name = "orderDate")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date orderDate;
     
     @ManyToOne
@@ -54,6 +56,32 @@ public class Order implements Serializable {
     
     @OneToMany(cascade = ALL, mappedBy = "order")
     private Collection<OrderContain> orderContainer;
+
+    public long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Collection<OrderContain> getOrderContainer() {
+        return orderContainer;
+    }
+
+    public void setOrderContainer(Collection<OrderContain> orderContainer) {
+        this.orderContainer = orderContainer;
+    }
+    
+    
     
     public Order() {
         this.orderDate = new Date();

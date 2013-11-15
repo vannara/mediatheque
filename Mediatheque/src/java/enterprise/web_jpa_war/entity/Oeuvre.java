@@ -40,6 +40,9 @@ public class Oeuvre implements Serializable {
     private Collection<DeliveryContains> deliveryContains;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
+    private Collection<OrderContain> orderContains;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
     private Collection<Item> items;
 
     public Long getOeuvreId() {
@@ -66,8 +69,6 @@ public class Oeuvre implements Serializable {
         this.orderContains = orderContains;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
-    private Collection<OrderContain> orderContains;
     
     public String getAuthor() {
         return author;

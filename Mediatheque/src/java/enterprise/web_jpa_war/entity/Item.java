@@ -29,15 +29,17 @@ public class Item implements Serializable {
     private String itemNumber ;
 
     @ManyToOne
-    private Oeuvre oeuvre ;
+    private Oeuvre oeuvre ;      
+    
+    @ManyToOne
+    //Optionnel, juste pour le nommage :
+    //@JoinColumn(name = "categoryId")
+    private Category category;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
     private Collection<ItemCopy> exemplaires;
 
-      
-    @ManyToOne
-    @JoinColumn(name = "categoryId")
-    private Category category;
+
 
     
     

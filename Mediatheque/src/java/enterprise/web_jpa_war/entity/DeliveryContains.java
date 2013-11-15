@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -22,34 +21,57 @@ import javax.persistence.ManyToOne;
 @IdClass(DeliveryContainsKey.class)
 @Entity
 class DeliveryContains implements Serializable {
-    @ManyToOne
-    private Delivery delivery;
-    
-
-    @ManyToOne
-    private Oeuvre oeuvre;
-
     @Id
-    private Long deliveryNumber;
-
+    private Integer deliveryId;
     @Id
     private Long oeuvreId;
     
-    @Column(name = "quantityExemplaires")
-    private int quantityExemplaires;
+    @ManyToOne
+    private Delivery delivery;
+    
+    @ManyToOne
+    private Oeuvre oeuvre;
+ 
+    @Column(name = "quantityItemCopies")
+    private int quantityItemCopies;
 
+    
     public DeliveryContains() {
     }
 
-        public Long getDeliveryNumber() {
-        return deliveryNumber;
+    public Integer getDeliveryId() {
+        return deliveryId;
     }
 
-    public void setDeliveryNumber(Long deliveryNumber) {
-        this.deliveryNumber = deliveryNumber;
+    public void setDeliveryId(Integer deliveryId) {
+        this.deliveryId = deliveryId;
     }
 
-        public Long getOeuvreId() {
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+    public Oeuvre getOeuvre() {
+        return oeuvre;
+    }
+
+    public void setOeuvre(Oeuvre oeuvre) {
+        this.oeuvre = oeuvre;
+    }
+
+    public int getQuantityItemCopies() {
+        return quantityItemCopies;
+    }
+
+    public void setQuantityItemCopies(int quantityItemCopies) {
+        this.quantityItemCopies = quantityItemCopies;
+    }
+
+    public Long getOeuvreId() {
         return oeuvreId;
     }
 
@@ -57,13 +79,6 @@ class DeliveryContains implements Serializable {
         this.oeuvreId = oeuvreId;
     }
 
-    public int getQuantityExemplaires() {
-        return quantityExemplaires;
-    }
-
-    public void setQuantityExemplaires(int quantityExemplaires) {
-        this.quantityExemplaires = quantityExemplaires;
-    }
     
     
 }

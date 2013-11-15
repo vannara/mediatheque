@@ -35,6 +35,7 @@ public class Return implements Serializable {
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date returnDate;
+
     
     @ManyToMany
     @JoinTable(

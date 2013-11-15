@@ -13,18 +13,18 @@ import java.io.Serializable;
  * @author user
  */
 public class DeliveryContainsKey implements Serializable {
-    private Long deliveryNumber;
+    private Integer deliveryId;
     private Long oeuvreId;
 
     public DeliveryContainsKey() {
     }
 
-    public Long getDeliveryNumber() {
-        return deliveryNumber;
+    public Integer getDeliveryId() {
+        return deliveryId;
     }
 
-    public void setDeliveryNumber(Long deliveryNumber) {
-        this.deliveryNumber = deliveryNumber;
+    public void setDeliveryId(Integer deliveryId) {
+        this.deliveryId = deliveryId;
     }
 
     public Long getCatalogueId() {
