@@ -9,6 +9,7 @@ package enterprise.web_jpa_war.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,6 +38,9 @@ public class Oeuvre implements Serializable {
     
     @OneToMany()
     private Collection<DeliveryContains> deliveryContains;
+    
+    @OneToMany(mappedBy = "oeuvre")
+    private Collection<Item> items;
 
     public Long getOeuvreId() {
         return oeuvreId;

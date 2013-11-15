@@ -27,6 +27,9 @@ public class Item implements Serializable {
 
     @Column (name="itemNumber")
     private String itemNumber ;
+
+    @ManyToOne
+    private Oeuvre oeuvre ;
     
     @OneToMany(cascade = CascadeType.ALL)
     private Collection<ItemCopy> exemplaires;
