@@ -25,9 +25,48 @@ public class ItemCopy implements Serializable {
     @ManyToOne
     @JoinColumn(name="basketId", referencedColumnName = "basketId")
     private VirtualBasket virtualBasket;
+    
+    @ManyToOne
+    private Item item;
+    
+    @ManyToOne
+    private Borrow borrow;    
 
     public ItemCopy(){
         
+    }
+
+
+    public String getItemCopyCode() {
+        return itemCopyCode;
+    }
+
+    public void setItemCopyCode(String itemCopyCode) {
+        this.itemCopyCode = itemCopyCode;
+    }
+
+    public VirtualBasket getVirtualBasket() {
+        return virtualBasket;
+    }
+
+    public void setVirtualBasket(VirtualBasket virtualBasket) {
+        this.virtualBasket = virtualBasket;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Borrow getBorrow() {
+        return borrow;
+    }
+
+    public void setBorrow(Borrow borrow) {
+        this.borrow = borrow;
     }
     
     public String getItemLineCode() {

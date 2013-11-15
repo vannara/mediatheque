@@ -34,11 +34,13 @@ public class Adherent implements Serializable {
     private Date dateofBirth;
   
     @Temporal(TemporalType.DATE)
-    private Date dateAdherent;
+    private Date dateAdhesion;
     
     @OneToMany(mappedBy = "adherent")
     private Collection<Borrow> borrows;
-
+    
+//    @OneToMany(mappedBy = "adherent")
+//    private Collection<Reservation> reservations;
        
     @Embedded
     private Address address;
@@ -51,12 +53,12 @@ public class Adherent implements Serializable {
         this.borrows = borrows;
     }
 
-    public Date getDateAdherent() {
-        return dateAdherent;
+    public Date getDateAdhesion() {
+        return dateAdhesion;
     }
 
-    public void setDateAdherent(Date dateAdherent) {
-        this.dateAdherent = dateAdherent;
+    public void setDateAdhesion(Date dateAdherent) {
+        this.dateAdhesion = dateAdherent;
     }
  
     public Address getAddress() {

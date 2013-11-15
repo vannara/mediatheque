@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -42,15 +43,16 @@ public class Return implements Serializable {
       inverseJoinColumns={@JoinColumn(name="returnId", referencedColumnName="returnId")})
     private Collection<ItemCopy> itemCopies;
 
-    @OneToMany(mappedBy = "returns")
-    private Collection<Borrow> borrows;
+    @ManyToOne
+    private Borrow borrow;
 
-    public Collection<Borrow> getBorrows() {
-        return borrows;
+    public Borrow getBorrow() {
+        return borrow;
     }
+    
 
-    public void setBorrows(Collection<Borrow> borrows) {
-        this.borrows = borrows;
+    public void setBorrows(Borrow borrows) {
+        this.borrow = borrows;
     }
     
     public Collection<ItemCopy> getItemCopies() {
