@@ -23,16 +23,17 @@ public class Adherent implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer adherentId;
     
-    @Column(nullable = false)
+    @Column(name="firstName")
     private String firstname;
     
-    @Column(nullable = false)
+    @Column(name="lastName")
     private String lastname;
    
-    @Column(nullable = false)
+    @Column(name="dateofBirth")
     @Temporal(TemporalType.DATE)
     private Date dateofBirth;
   
+     @Column(name="dateAdhesion")
     @Temporal(TemporalType.DATE)
     private Date dateAdhesion;
     
@@ -51,6 +52,13 @@ public class Adherent implements Serializable {
     @OneToOne(mappedBy = "adherent")
     private Card card;
 
+    public Adherent(String lastName, String firstName, Date dateofBirth, Date registeredDate,Address address){
+        this.lastname=lastName;
+        this.firstname=firstName;
+        this.dateofBirth=dateofBirth;
+        this.dateAdhesion=registeredDate;
+        this.address=address;
+    }
     public Card getCard() {
         return card;
     }

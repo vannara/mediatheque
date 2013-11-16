@@ -28,6 +28,13 @@ public class Card implements Serializable {
     @OneToOne
     private Adherent adherent;
 
+    public Card(Double guaranteeAmt, Double annualFee, Adherent adherent){
+        this.guaranteeAmt=guaranteeAmt;
+        this.annualFee=annualFee;
+        this.adherent=adherent;
+        this.isLost=false;
+        this.login=adherent.getFirstname();
+    }
     
     public Adherent getAdherent() {
         return adherent;

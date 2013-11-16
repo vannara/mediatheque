@@ -40,7 +40,13 @@
               <li><a href="#Return"><b>Return</b></a></li>
               <li><a href="#Order"><b>Order</b></a></li>
               <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
-              <li><a href="#Reservation"><b>Reservation</b></a></li>           
+              <li><a href="#Reservation"><b>Reservation</b></a></li>
+               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Manage Adherent</b></a>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="CreateAdherent.jsp">Create a new adherent</a></li>
+                                    <li><a href="ListAdherents.jsp">List adherent</a></li> 
+                                 </ul>       
+                    </li>
             <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <b> Configuration</b>                     
