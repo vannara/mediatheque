@@ -45,6 +45,14 @@ public class Oeuvre implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
     private Collection<Item> items;
 
+    public Collection<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Collection<Item> items) {
+        this.items = items;
+    }
+
     public Long getOeuvreId() {
         return oeuvreId;
     }

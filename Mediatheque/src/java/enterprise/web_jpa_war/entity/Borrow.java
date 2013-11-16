@@ -28,35 +28,34 @@ public class Borrow implements Serializable {
     @ManyToOne
     private Adherent adherent;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "borrow")
-    private Collection<Return> returns;
+    @ManyToOne
+    private Return returns;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "borrow")
-    private Collection<ItemCopy> borrowItems;
-
-    
-    public Collection<ItemCopy> getBorrowItems() {
-        return borrowItems;
-    }
-
-    public void setBorrowItems(Collection<ItemCopy> borrowItems) {
-        this.borrowItems = borrowItems;
-    }
-
-    public Collection<Return> getReturns() {
+    private Collection<BorrowItem> borrowItems;
+       
+    public Return getReturns() {
         return returns;
     }
 
-    public void setReturns(Collection<Return> returns) {
+    public void setReturns(Return returns) {
         this.returns = returns;
     }
-
+ 
     public Adherent getAdherent() {
         return adherent;
     }
 
     public void setAdherent(Adherent adherent) {
         this.adherent = adherent;
+    }
+   
+    public Collection<BorrowItem> getborrowItems() {
+        return borrowItems;
+    }
+
+    public void setItemCopies(Collection<BorrowItem> borrowItems) {
+        this.borrowItems = borrowItems;
     }
 
     public Date getBorrowDate() {

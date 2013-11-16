@@ -18,13 +18,13 @@ import javax.persistence.ManyToOne;
  *
  * @author user
  */
-@IdClass(DeliveryContainsKey.class)
 @Entity
+@IdClass(DeliveryContainsKey.class)
 class DeliveryContains implements Serializable {
     @Id
-    private Integer deliveryId;
+    private long deliveryId;
     @Id
-    private Long oeuvreId;
+    private long oeuvreId;
     
     @ManyToOne
     private Delivery delivery;
@@ -39,11 +39,11 @@ class DeliveryContains implements Serializable {
     public DeliveryContains() {
     }
 
-    public Integer getDeliveryId() {
+    public long getDeliveryId() {
         return deliveryId;
     }
 
-    public void setDeliveryId(Integer deliveryId) {
+    public void setDeliveryId(long deliveryId) {
         this.deliveryId = deliveryId;
     }
 
@@ -71,11 +71,11 @@ class DeliveryContains implements Serializable {
         this.quantityItemCopies = quantityItemCopies;
     }
 
-    public Long getOeuvreId() {
+    public long getOeuvreId() {
         return oeuvreId;
     }
 
-    public void setOeuvreId(Long oeuvreId) {
+    public void setOeuvreId(long oeuvreId) {
         this.oeuvreId = oeuvreId;
     }
 

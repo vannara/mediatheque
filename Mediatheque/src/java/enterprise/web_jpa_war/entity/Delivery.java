@@ -9,6 +9,7 @@ package enterprise.web_jpa_war.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Delivery implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date deliveryDate;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "delivery")
     private Collection<DeliveryContains> deliveryContains;
     
     

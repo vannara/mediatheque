@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package enterprise.web_jpa_war.entity;
 
 import java.io.Serializable;
@@ -13,37 +12,36 @@ import java.io.Serializable;
  * @author user
  */
 public class DeliveryContainsKey implements Serializable {
-    private Integer deliveryId;
-    private Long oeuvreId;
 
-    public DeliveryContainsKey() {
-    }
+    private long deliveryId;
+    private long oeuvreId;
 
-    public Integer getDeliveryId() {
-        return deliveryId;
-    }
-
-    public void setDeliveryId(Integer deliveryId) {
-        this.deliveryId = deliveryId;
-    }
-
-    public Long getCatalogueId() {
+    public long getOeuvreId() {
         return oeuvreId;
     }
 
-    public void setCatalogueId(Long oeuvreId) {
+    public void setOeuvreId(long oeuvreId) {
         this.oeuvreId = oeuvreId;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    public long getDeliveryId() {
+        return deliveryId;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    public void setDeliveryId(long deliveryId) {
+        this.deliveryId = deliveryId;
     }
-    
-    
+
+  
+    public int hashCode() {
+        return (int) (deliveryId + oeuvreId);
+    }
+
+    public boolean equals(Object object) {
+        if (object instanceof DeliveryContainsKey) {
+            DeliveryContainsKey otherId = (DeliveryContainsKey) object;
+            return (otherId.deliveryId == this.deliveryId) && (otherId.oeuvreId == this.oeuvreId);
+        }
+        return false;
+    }
 }
