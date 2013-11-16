@@ -142,10 +142,11 @@
                         <hr>
                         <h2> Adherent Address</h2>
                         <table>
-                            <tr><td>City</td><td><input type="text" id = "city" required name="city" /></td></tr>
-                            <tr><td>Postal Code</td><td><input type="number" id = "postalcode" required name="postalcode" /></td></tr>
-                            <tr><td>Street</td><td><input type="text" id = "street" required name="street" /></td></tr>
+                            <tr><td>City</td><td><input type="text" id="city" required name="city" /></td></tr>
+                            <tr><td>Postal Code</td><td><input type="number" id="postalcode" required name="postalcode" /></td></tr>
+                            <tr><td>Street</td><td><input type="text" id="street" required name="street" /></td></tr>
                         </table>
+                        <hr>
                         <h2> Card information</h2>
                         <table>
                             <tr><td>Guarantee Amount</td><td><input type="text" required onblur="verificationInteger(this) " id="guaranteeAmt" name="guaranteeAmt" /></td></tr>

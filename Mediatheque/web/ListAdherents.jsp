@@ -131,7 +131,6 @@
                 <td class="span2">${adherent.firstName}&nbsp;&nbsp;</td> 
                 <td class="span2">${adherent.dateofBirth}&nbsp;&nbsp;</td> 
                 <td class="span2">${adherent.dateAdhesion}&nbsp;&nbsp;</td>
-<!--                <td class="span2">${adherent.numberBorrow}&nbsp;&nbsp;</td> -->
             </tr> 
 
         </c:forEach>
