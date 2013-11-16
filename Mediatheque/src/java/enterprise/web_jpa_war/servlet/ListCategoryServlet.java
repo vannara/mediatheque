@@ -27,10 +27,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package enterprise.web_jpa_war.servlet;
 
+import enterprise.web_jpa_war.entity.Category;
 import java.io.*;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -39,22 +40,28 @@ import javax.servlet.http.*;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  * The servlet class to list Persons from database
  */
-@WebServlet(name="ListCategoryServlet", urlPatterns={"/ListCategory"})
+@WebServlet(name = "ListCategoryServlet", urlPatterns = {"/ListCategory"})
 public class ListCategoryServlet extends HttpServlet {
-    
+
     @PersistenceUnit
     private EntityManagerFactory emf;
-    
-    /** Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
@@ -62,41 +69,61 @@ public class ListCategoryServlet extends HttpServlet {
 
             //query for all the categories in database
             List categories = em.createQuery("select c from Category c").getResultList();
-            request.setAttribute("categoryList",categories);
-            
+            request.setAttribute("categoryList", categories);
+
             //Forward to the jsp page for rendering
             request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
             //close the em to release any resources held up by the persistebce provider
-            if(em != null) {
+            if (em != null) {
                 em.close();
             }
         }
-      
+
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** Handles the HTTP <code>GET</code> method.
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
-    
-    /** Handles the HTTP <code>POST</code> method.
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
-    
-    /** Returns a short description of the servlet.
+
+    private List<Category> getAllCategories() {
+        emf = Persistence.createEntityManagerFactory("jpaFactory");
+        EntityManager em = emf.createEntityManager();
+        try {
+            List categories = em.createQuery("select c from Category c").getResultList();
+
+            return categories;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            em.close();
+        }
+        return null;
+    }
+
+    /**
+     * Returns a short description of the servlet.
      */
     public String getServletInfo() {
         return "ListPerson servlet";

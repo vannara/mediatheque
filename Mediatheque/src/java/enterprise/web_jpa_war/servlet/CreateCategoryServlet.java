@@ -68,13 +68,22 @@ public class CreateCategoryServlet extends HttpServlet {
         try {
             
             //Get the data from user's form
-            //String id         = (String) request.getParameter("id");
             String cateName  = (String) request.getParameter("categoryName");
             String maxDuration   = (String) request.getParameter("maxBorrowDuration");
             String maxQty =(String) request.getParameter("maxBorrowQty");
+            String[] checkboxNamesList= request.getParameterValues("chkIsRenewable");
+            boolean isRenewable=false;
+            String myCheckBoxValue = checkboxNamesList[0];
+
+            if(myCheckBoxValue!=null){
+                isRenewable = true;
+            }
+            else {
+                isRenewable=false;
+            }
             
-            //Create a person instance out of it
-            Category category = new Category(cateName,Double.parseDouble(maxDuration),Double.parseDouble(maxQty));
+            //Create a category instance out of it
+            Category category = new Category(cateName,Double.parseDouble(maxDuration),Double.parseDouble(maxQty),isRenewable);
             
             //begin a transaction
             utx.begin();
@@ -90,7 +99,7 @@ public class CreateCategoryServlet extends HttpServlet {
             
             //Forward to ListPerson servlet to list persons along with the newly
             //created person above
-            request.getRequestDispatcher("ListCategory").forward(request, response);
+            //request.getRequestDispatcher("ListCategory").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
