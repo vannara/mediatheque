@@ -70,7 +70,7 @@ public class ListCategoryServlet extends HttpServlet {
             request.setAttribute("categoryList", categories);
           
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
+           // request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
             
           // em.createQuery("select p from Person p").getResultList();
           
@@ -106,7 +106,7 @@ public class ListCategoryServlet extends HttpServlet {
             }
            
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
+           // request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
             
           // em.createQuery("select p from Person p").getResultList();
           

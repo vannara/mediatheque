@@ -92,10 +92,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Oeuvre</a></li>
-                            <li><a href="#">Category</a></li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="ListCategory.jsp">Category</a></li>
+                            <li><a href="ListItems.jsp">Item</a></li>
                             <li class="divider"/>
-                            <li><a href="#">Adherent</a></li>
+                            <li><a href="ListAdherents.jsp">Adherent</a></li>
                             <li><a href="#">User</a></li>                    
                         </ul>
                     </li>                
@@ -117,7 +117,7 @@
             <th class="span2">Renewable?</th>
         </tr>
         
-        <c:forEach var="cate" begin="0" items="${requestScope.categoryList}">
+        <c:forEach var="cate" begin="0" items="${request.categoryList}">
             <tr>
                 <td class="span2 no-margin-left"><button class="span1 no-margin-left btn-primary" onclick="editCategory('${cate.categoryId}')">Edit</button>
                     <button class="span1 no-margin-left btn-danger" onclick="deleteCategory('${cate.categoryId}')">Delete</button>
