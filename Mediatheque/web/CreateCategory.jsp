@@ -41,15 +41,34 @@
         <title>Create a category Record</title>
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="bootstrap/css/logo-nav.css" rel="stylesheet">
     </head>
     <script type="text/javascript">
         function goback() {
             window.location = "ListCategory.jsp";
+            window.close();
+        }
+        
+        function createCategory() {
+            document.forms['createCategoryForm'].submit();
+
         }
 
-        function createCategory() {
+        function SaveNew() {
+            createCategory();
+            ClearForm();
+        }
 
+        function SaveClose() {
+            createCategory();
+            goback();
+        }
+
+        function ClearForm() {
+            $("#categoryName").val("");
+            $("#maxBorrowQty").val("");
+            $("#maxBorrowDuration").val("");
         }
 
     </script>
@@ -59,13 +78,6 @@
 
                 <div class="container">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
                         <a class="navbar-brand logo-nav"><img src="img/logo1.jpg" width="70%" height="50%"></a>
                     </div>
 
@@ -110,23 +122,28 @@
             <div class="span12">
                 <div class="span3"><label></label></div>
                 <div class="span5">
-                    <form id="createCategoryForm" action="CreateCategory" method="post" class="span6">
+                    <form id="createCategoryForm" action="CreateCategory" target="categoryWindow" method="post" class="span6">
                         <table>
-                            <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName" /></td></tr>
-                            <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration" /></td></tr>
+                            <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName" class="required"/></td></tr>
+                            <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration"  class="number"/></td></tr>
                             <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty" name="maxBorrowQty" /></td></tr>
-                            <tr><td>is Renewable </td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable"/></td></tr>
+                            <tr><td>is Renewable</td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable" checked="true"/></td></tr>
                         </table>
                         <br>
-                        <button class="btn-primary" onclick="createCategory()">Create Category</button>
+                        <button class="btn-primary" onclick="SaveNew()" id="btnSaveNew">Save & New</button>
+                        <button class="btn-primary" id="SaveClose" onclick="SaveClose();">Save & Close </button>
                         <button class="btn-primary" onclick="goback()">Return</button>
 
-                        <input type="submit" id="CreateRecord" value="CreateRecord" class="button" />
                     </form>
                     <br><br>
 
                 </div>
-                <script src="bootstrap/js/jquery.js"></script>
-                <script src="bootstrap/js/bootstrap.js"></script>
-                </body>
-                </html>
+            </div>
+            <script src="bootstrap/js/jquery.js"></script>
+            <script src="bootstrap/js/bootstrap.js"></script>
+            <script src="text/javascript">
+
+
+            </script>
+    </body>
+</html>

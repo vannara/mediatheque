@@ -75,10 +75,11 @@ public class Category implements Serializable {
     public Category() {
     }
 
-    public Category(String cateName, double maxBorDur, double maxBorQty){
+    public Category(String cateName, double maxBorDur, double maxBorQty, boolean renewable){
         this.categoryName=cateName;
         this.maxBorrowDuration= maxBorDur;
         this.maxBorrowQty= maxBorQty;
+        this.isRenewable = renewable;
     }
     
     public void setCategoryName(String categoryName) {
