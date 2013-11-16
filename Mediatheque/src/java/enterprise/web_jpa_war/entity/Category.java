@@ -15,6 +15,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "Category", uniqueConstraints=@UniqueConstraint(columnNames={"categoryName"}))
+@NamedQueries({
+@NamedQuery(name="getAllCategories",query="SELECT c FROM Category c")})
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;

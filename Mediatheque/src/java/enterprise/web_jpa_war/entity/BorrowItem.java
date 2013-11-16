@@ -22,7 +22,7 @@ public class BorrowItem implements Serializable {
     private long borrowId;
 
     @Id
-    private long itemId;
+    private long itemCopyId;
    
     @Temporal(TemporalType.DATE)
     private Date expectedReturnDate;
@@ -31,7 +31,7 @@ public class BorrowItem implements Serializable {
     private Borrow borrow;
     
     @ManyToOne
-    private Item item;
+    private ItemCopy itemCopy;
 
     public long getBorrowId() {
         return borrowId;
@@ -41,20 +41,20 @@ public class BorrowItem implements Serializable {
         this.borrowId = borrowId;
     }
 
-    public long getItemId() {
-        return itemId;
+    public long getItemCopyId() {
+        return itemCopyId;
     }
 
-    public void setItemId(long itemId) {
-        this.itemId = itemId;
+    public void setItemCopyId(long itemCopyId) {
+        this.itemCopyId = itemCopyId;
     }
    
-    public Item getItem() {
-        return item;
+    public ItemCopy getItemCopy() {
+        return itemCopy;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemCopy(ItemCopy itemCopy) {
+        this.itemCopy = itemCopy;
     }
 
     public Borrow getBorrow() {
