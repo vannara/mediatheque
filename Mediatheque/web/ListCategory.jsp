@@ -110,9 +110,7 @@
             <th class="span2">Max Borrow Qty</th>
             <th class="span2">Renewable?</th>
         </tr>
-        <%
-            
-            %>
+        
         <c:forEach var="cate" begin="0" items="${requestScope.categoryList}">
             <tr>
                 <td class="span2 no-margin-left"><button class="span1 no-margin-left btn-primary" onclick="editCategory('${cate.categoryId}')">Edit</button>
@@ -122,6 +120,7 @@
                 <td class="span2">${cate.categoryName}&nbsp;&nbsp;</td> 
                 <td class="span2">${cate.maxBorrowDuration}&nbsp;&nbsp;</td> 
                 <td class="span2">${cate.maxBorrowQty}&nbsp;&nbsp;</td> 
+                <td class="span2">${cate.isRenewable}&nbsp;&nbsp;</td> 
             </tr> 
 
         </c:forEach>
