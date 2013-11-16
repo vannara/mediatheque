@@ -75,7 +75,7 @@ public class CreateAdherentServlet extends HttpServlet {
             String adherentName  = (String) request.getParameter("lastName");
             String adherentFirstName   = (String) request.getParameter("firstName");
             String adherentDateofBirth =(String) request.getParameter("dateofBirth");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date dateofBirth= sdf.parse(adherentDateofBirth);
             String adherentDateAdhesion = (String) request.getParameter("registeredDate");
             Date dateAdhesion=sdf.parse(adherentDateAdhesion);

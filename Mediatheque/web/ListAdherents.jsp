@@ -84,11 +84,11 @@
                     <li><a href="#Order"><b>Order</b></a></li>
                     <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
                     <li><a href="#Reservation"><b>Reservation</b></a></li> 
-                    <li><a href="#ManageAdherent"><b>Manage Adherent</b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Create a new adherent</a></li>
-                            <li><a href="#">List adherent</a></li>  
-                        </ul>       
+                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Manage Adherent</b></a>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="CreateAdherent.jsp">Create a new adherent</a></li>
+                                    <li><a href="ListAdherents.jsp">List adherent</a></li> 
+                                 </ul>       
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -119,7 +119,7 @@
             <th class="span2">First Name</th>
             <th class="span2">Birthday</th>
             <th class="span2">Registered Date</th>
-            <th class="span2">Number of borrow</th>
+            <!--<th class="span2">Number of borrow</th>-->
         </tr>
         <c:forEach var="adherent" begin="0" items="${requestScope.adherentList}">
             <tr>
@@ -131,7 +131,7 @@
                 <td class="span2">${adherent.firstName}&nbsp;&nbsp;</td> 
                 <td class="span2">${adherent.dateofBirth}&nbsp;&nbsp;</td> 
                 <td class="span2">${adherent.dateAdhesion}&nbsp;&nbsp;</td>
-                <td class="span2">${adherent.numberBorrow}&nbsp;&nbsp;</td> 
+<!--                <td class="span2">${adherent.numberBorrow}&nbsp;&nbsp;</td> -->
             </tr> 
 
         </c:forEach>
