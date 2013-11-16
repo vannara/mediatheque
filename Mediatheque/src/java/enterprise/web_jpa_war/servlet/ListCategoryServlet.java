@@ -31,8 +31,8 @@ package enterprise.web_jpa_war.servlet;
 
 import enterprise.web_jpa_war.entity.Category;
 import java.io.*;
-import java.util.Iterator;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -40,7 +40,6 @@ import javax.servlet.http.*;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -65,21 +64,20 @@ public class ListCategoryServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
-
             //query for all the categories in database
-            List categories = em.createQuery("select c from Category c").getResultList();
+            em = emf.createEntityManager();
+            List categories = em.createQuery("select c from Category c").getResultList();//em.createNamedQuery("getAllCategories").getResultList();
             request.setAttribute("categoryList", categories);
-
+          
             //Forward to the jsp page for rendering
             request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
+            
+          // em.createQuery("select p from Person p").getResultList();
+          
+            
+          
         } catch (Exception ex) {
             throw new ServletException(ex);
-        } finally {
-            //close the em to release any resources held up by the persistebce provider
-            if (em != null) {
-                em.close();
-            }
         }
 
     }
@@ -94,6 +92,29 @@ public class ListCategoryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         assert emf != null;  //Make sure injection went through correctly.
+        EntityManager em = null;
+        try {
+            //query for all the categories in database
+            em = emf.createEntityManager();
+            List<Category> categories = em.createQuery("select c from Category c").getResultList();//em.createNamedQuery("getAllCategories").getResultList();
+            request.setAttribute("categoryList", categories);
+          
+            PrintWriter out = response.getWriter();
+            for(Category c: categories){
+                 out.println("Hi, " + c.getCategoryName() + " Ajax Call is made successfully.");
+            }
+           
+            //Forward to the jsp page for rendering
+            request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
+            
+          // em.createQuery("select p from Person p").getResultList();
+          
+            
+          
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        }
     }
 
     /**
@@ -107,21 +128,21 @@ public class ListCategoryServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    private List<Category> getAllCategories() {
-        emf = Persistence.createEntityManagerFactory("jpaFactory");
-        EntityManager em = emf.createEntityManager();
-        try {
-            List categories = em.createQuery("select c from Category c").getResultList();
-
-            return categories;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            em.close();
-        }
-        return null;
-    }
-
+//    private List<Category> getAllCategories() {
+//        emf = Persistence.createEntityManagerFactory("jpaFactory");
+//        EntityManager em = emf.createEntityManager();
+//        try {
+//           
+//            Query query = em.createNamedQuery("readAllCategories");
+//            List<Category> categories = query.getResultList();
+//            return categories;
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        } finally {
+//            em.close();
+//        }
+//        return null;
+//    }
     /**
      * Returns a short description of the servlet.
      */

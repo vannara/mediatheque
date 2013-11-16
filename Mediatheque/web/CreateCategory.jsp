@@ -47,29 +47,14 @@
     <script type="text/javascript">
         function goback() {
             window.location = "ListCategory.jsp";
-            window.close();
+
         }
-        
+
         function createCategory() {
             document.forms['createCategoryForm'].submit();
-
         }
+      
 
-        function SaveNew() {
-            createCategory();
-            ClearForm();
-        }
-
-        function SaveClose() {
-            createCategory();
-            goback();
-        }
-
-        function ClearForm() {
-            $("#categoryName").val("");
-            $("#maxBorrowQty").val("");
-            $("#maxBorrowDuration").val("");
-        }
 
     </script>
     <body>
@@ -124,16 +109,17 @@
                 <div class="span5">
                     <form id="createCategoryForm" action="CreateCategory" target="categoryWindow" method="post" class="span6">
                         <table>
+                            <tr class="hidden"><td><input type="text" id="categoryId" name="categoryId" /></td></tr>
                             <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName" class="required"/></td></tr>
                             <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration"  class="number"/></td></tr>
-                            <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty" name="maxBorrowQty" /></td></tr>
-                            <tr><td>is Renewable</td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable" checked="true"/></td></tr>
+                            <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty"  name="maxBorrowQty" /></td></tr>
+                            <tr><td>is Renewable</td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable"/></td></tr>
                         </table>
                         <br>
-                        <button class="btn-primary" onclick="SaveNew()" id="btnSaveNew">Save & New</button>
-                        <button class="btn-primary" id="SaveClose" onclick="SaveClose();">Save & Close </button>
-                        <button class="btn-primary" onclick="goback()">Return</button>
-
+                        <input type="submit" class="btn-primary" name ="action" value="Save & New"/>
+                        <input type="submit" class="btn-primary" name ="action" value="Save & Close" />
+                        <input type="button" class="btn-primary" onclick="goback()" value="Return"/>
+              
                     </form>
                     <br><br>
 
@@ -142,9 +128,6 @@
         </div>
             <script src="bootstrap/js/jquery.js"></script>
             <script src="bootstrap/js/bootstrap.js"></script>
-            <script src="text/javascript">
-
-
-            </script>
+           
     </body>
 </html>
