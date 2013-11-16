@@ -34,23 +34,93 @@
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create a category Record</title>
+        <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap/css/logo-nav.css" rel="stylesheet">
     </head>
-    <body>
+    <script type="text/javascript">
+        function goback() {
+            window.location = "ListCategory.jsp";
+        }
 
-    <h1>Create a category record</h1>
-    <form id="createCategoryForm" action="CreateCategory" method="post">
-    <table>
-        <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName" /></td></tr>
-        <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration" /></td></tr>
-        <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty" name="maxBorrowQty" /></td></tr>
-    </table>
-    <input type="submit" id="CreateRecord" value="CreateRecord" />
-    </form>
-<a href="ListCategory"><strong>Go to List of Categories</strong></a>
-</body>
-</html>
+        function createCategory() {
+
+        }
+
+    </script>
+    <body>
+        <div>
+            <nav class="navbar navbar-fixed-top" role="navigation">
+
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
+                        <a class="navbar-brand logo-nav"><img src="img/logo1.jpg" width="70%" height="50%"></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="AdminLogin.jsp"><b>Logout</b></a></li>
+                            <li><a href="#Borrow"><b>Borrow</b></a></li>
+                            <li><a href="#Return"><b>Return</b></a></li>
+                            <li><a href="#Order"><b>Order</b></a></li>
+                            <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
+                            <li><a href="#Reservation"><b>Reservation</b></a></li>           
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <b> Configuration</b>                     
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Oeuvre</a></li>
+                                    <li><a href="#">Category</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li class="divider"/>
+                                    <li><a href="#">Adherent</a></li>
+                                    <li><a href="#">User</a></li>                    
+                                </ul>
+                            </li>                
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container -->
+            </nav>
+        </div>
+        <br> 
+        <div class="container" >
+            <div class="span12"> <h1 class="text-center">Category Record</h1>
+            </div>
+            <div class="span1"><br><br></div>
+            <div class="span12">
+                <div class="span3"><label></label></div>
+                <div class="span5">
+                    <form id="createCategoryForm" action="CreateCategory" method="post" class="span6">
+                        <table>
+                            <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName" /></td></tr>
+                            <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration" /></td></tr>
+                            <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty" name="maxBorrowQty" /></td></tr>
+                            <tr><td>is Renewable </td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable"/></td></tr>
+                        </table>
+                        <br>
+                        <button class="btn-primary" onclick="createCategory()">Create Category</button>
+                        <button class="btn-primary" onclick="goback()">Return</button>
+
+                        <input type="submit" id="CreateRecord" value="CreateRecord" class="button" />
+                    </form>
+                    <br><br>
+
+                </div>
+                <script src="bootstrap/js/jquery.js"></script>
+                <script src="bootstrap/js/bootstrap.js"></script>
+                </body>
+                </html>

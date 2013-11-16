@@ -68,7 +68,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
                 <a class="navbar-brand logo-nav"><img src="img/logo1.jpg" width="70%" height="50%"></a>
             </div>
 
@@ -104,16 +103,17 @@
     <br> <br>
     <table id="cateListTable" class="table table-hover">
         <tr >
-            <th class="span3"></th>
-            <th class="span2" bgcolor=>ID</th>
-            <th class="span2" bgcolor=>Name</th>
-            <th class="span2" bgcolor=>Max Borrow Duration</th>
-            <th class="span2" bgcolor=>Max Borrow Qty</th>
+            <th class="span2"></th>
+            <th class="span2">ID</th>
+            <th class="span2">Name</th>
+            <th class="span2">Max Borrow Duration</th>
+            <th class="span2">Max Borrow Qty</th>
+            <th class="span2">Renewable?</th>
         </tr>
         <c:forEach var="cate" begin="0" items="${requestScope.categoryList}">
             <tr>
-                <td class="span3"><button class="span1 btn-primary" onclick="editCategory('${cate.categoryId}')">Edit</button>
-                    <button class="span1 btn-danger" onclick="deleteCategory('${cate.categoryId}')">Delete</button>
+                <td class="span2 no-margin-left"><button class="span1 no-margin-left btn-primary" onclick="editCategory('${cate.categoryId}')">Edit</button>
+                    <button class="span1 no-margin-left btn-danger" onclick="deleteCategory('${cate.categoryId}')">Delete</button>
                 </td>
                 <td class="span2">${cate.categoryId}&nbsp;&nbsp;</td> 
                 <td class="span2">${cate.categoryName}&nbsp;&nbsp;</td> 
