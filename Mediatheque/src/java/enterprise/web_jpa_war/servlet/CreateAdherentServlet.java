@@ -30,6 +30,7 @@
 
 package enterprise.web_jpa_war.servlet;
 
+
 import enterprise.web_jpa_war.entity.Address;
 import enterprise.web_jpa_war.entity.Adherent;
 import enterprise.web_jpa_war.entity.Card;
