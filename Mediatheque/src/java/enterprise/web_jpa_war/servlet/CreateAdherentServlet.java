@@ -75,7 +75,7 @@ public class CreateAdherentServlet extends HttpServlet {
             String adherentName  = (String) request.getParameter("lastName");
             String adherentFirstName   = (String) request.getParameter("firstName");
             String adherentDateofBirth =(String) request.getParameter("dateofBirth");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date dateofBirth= sdf.parse(adherentDateofBirth);
             String adherentDateAdhesion = (String) request.getParameter("registeredDate");
             Date dateAdhesion=sdf.parse(adherentDateAdhesion);
@@ -84,8 +84,7 @@ public class CreateAdherentServlet extends HttpServlet {
             String annualFee= (String)request.getParameter("annualFee");
             //Create an adherent instance out of it
             //Category category = new Category(adherentName,Double.parseDouble(maxDuration),Double.parseDouble(maxQty));
-            Address address=new Address();
-            Adherent adherent =new Adherent (adherentName, adherentFirstName, dateofBirth, dateAdhesion,address);
+            Adherent adherent =new Adherent (adherentName, adherentFirstName, dateofBirth, dateAdhesion);
             Card card = new Card(Double.parseDouble(guaranteeAmt),Double.parseDouble(annualFee),adherent);
             adherent.setCard(card);
             //begin a transaction
@@ -94,8 +93,7 @@ public class CreateAdherentServlet extends HttpServlet {
             //Since the em is created inside a transaction, it is associsated with 
             //the transaction
             em = emf.createEntityManager();
-            //persist the adherent/card/Address entity
-            em.persist(address);
+            //persist the adherent/card entity
             em.persist(card);
             em.persist(adherent);
             //commit transaction which will trigger the em to 

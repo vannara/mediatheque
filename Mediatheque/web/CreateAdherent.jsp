@@ -49,26 +49,19 @@
             window.close();
         }
         
-        function createCategory() {
-            boolean isOk=false;
-            var lastN=$("#lastName").val()
-           
-            if(isOk){
-                document.forms['createAdherentForm'].submit();
-            }
+        function createAdherent() {
+           document.forms['createAdherentForm'].submit();
         }
 
         function SaveNew() {
-            verifForm();
             createAdherent();
-            ClearForm();
+            ClearForm();       
         }
 
         function SaveClose() {
-            createAdherent();
-            goback();
+                createAdherent();
+                goback();    
         }
-
         function ClearForm() {
             $("#lastName").val("");
             $("#firstName").val("");
@@ -79,92 +72,7 @@
             $("#street").val("");
             $("#guaranteeAmt").val("");
             $("#annualFee").val("");
-        }
-        function verifForm(f){
-             var lastNameOk=verification(f.lastName);
-             var firstNameOk=verification(f.firstName);
-             var birthOk=CheckDate(f.dateofBirth);
-             var adhesionOk=CheckDate(f.registeredDate);
-             var cityOk = verification(f.city);
-             var codeOk=verificationInteger(f.postalcode);
-             var streetOk=verification(f.street);
-             var montantOk=verificationInteger(f.guaranteeAmt);
-             var annualfeeOk=verificationInteger(f.annualFee);
-             if(lastNameOk && firstNameOk && birthOk && adhesionOk && cityOk && codeOk && streetOk && montantOk && annualfeeOk)
-8                return true;
-9            else
-10              {
-11              alert("Please enter all parameters!");
-12              return false;
-13              }
-        }
-        function verificationInteger(){
-                var recup=parseDouble(champ.value);
-                if(isNaN(recup)){
-                    surligne(champ, true);
-6                   return false;
-                }
-                else
-9               {
-10                  surligne(champ, false);
-11                  return true;
-12              }
-            }
-        }
-        function verification(champ,type)
-2       {   var regex =champ.value;
-3           if(regex.test(""))
-4           {
-5               surligne(champ, true);
-6               return false;
-7           }
-8            else
-9           {
-10              surligne(champ, false);
-11              return true;
-12          }
-13      }
-        function surligne(champ, erreur)
-2       {   if(erreur)
-4               champ.style.backgroundColor = "#fba";
-5           else
-6               champ.style.backgroundColor = "";
-7       }
-      function CheckDate(d) {
-      // Cette fonction vérifie le format JJ/MM/AAAA saisi et la validité de la date.
-      // Le séparateur est défini dans la variable separateur
-      var amin=1910; // année mini
-      var amax=2013; // année maxi
-      var separateur="/"; // separateur entre jour/mois/annee
-      var j=(d.substring(0,2));
-      var m=(d.substring(3,5));
-      var a=(d.substring(6));
-      var ok=1;
-      if ( ((isNaN(j))||(j<1)||(j>31)) && (ok==1) ) {
-         alert("day is not correct."); ok=0;
-      }
-      if ( ((isNaN(m))||(m<1)||(m>12)) && (ok==1) ) {
-         alert("month is not correct."); ok=0;
-      }
-      if ( ((isNaN(a))||(a<amin)||(a>amax)) && (ok==1) ) {
-         alert("year is not correct."); ok=0;
-      }
-      if ( ((d.substring(2,3)!=separateur)||(d.substring(5,6)!=separateur)) && (ok==1) ) {
-         alert("you should write the date dd/mm/YYYY with : "+separateur); ok=0;
-      }
-      if (ok==1) {
-         var d2=new Date(a,m-1,j);
-         j2=d2.getDate();
-         m2=d2.getMonth()+1;
-         a2=d2.getFullYear();
-         if (a2<=100) {a2=1900+a2}
-         if ( (j!=j2)||(m!=m2)||(a!=a2) ) {
-            alert("the date "+d+" doesn't exist !");
-            ok=0;
-         }
-      }
-      return ok;
-   }
+        }     
     </script>
     <body>
         <div>
@@ -223,29 +131,29 @@
             <div class="span12">
                 <div class="span3"><label></label></div>
                 <div class="span5">
-                    <form id="createAdherentForm" onsubmit="return verifForm(this)" action="CreateAdherent" method="post" class="span6">
+                    <form id="createAdherentForm"  action="CreateAdherent" method="post" class="span6">
                         <h2> Adherent Information</h2>
                         <table>
-                            <tr><td>Last Name</td><td><input type="text" id = "lastName" onblur="verification(this)" name="lastName" /></td></tr>
-                            <tr><td>Fist Name</td><td><input type="text" id = "firstName" onblur="verification(this)" name="firstName" /></td></tr>
-                            <tr><td>Birthday</td><td><input type="date" id = "dateofBirth" onblur="CheckDate(this)" name="dateofBirth" /></td></tr>
-                            <tr><td>Registration Date</td><td><input type="date" id = "registeredDate" onblur="CheckDate(this)" name="registeredDate" /></td></tr>
+                            <tr><td>Last Name</td><td><input type="text" id = "lastName" required name="lastName" /></td></tr>
+                            <tr><td>Fist Name</td><td><input type="text" id = "firstName" required name="firstName" /></td></tr>
+                            <tr><td>Birthday</td><td><input type="date" id = "dateofBirth" required min="1910-01-01"  name="dateofBirth" /></td></tr>
+                            <tr><td>Registration Date</td><td><input type="date" id = "registeredDate" required min="2000-01-01"  name="registeredDate" /></td></tr>
                         </table>
                         <hr>
                         <h2> Adherent Address</h2>
                         <table>
-                            <tr><td>City</td><td><input type="text" id = "city" onblur="verification(this)" name="city" /></td></tr>
-                            <tr><td>Postal Code</td><td><input type="text" id = "postalcode" onblur="verificationInteger(this)" name="postalcode" /></td></tr>
-                            <tr><td>Street</td><td><input type="text" id = "street" onblur="verification(this)" name="street" /></td></tr>
+                            <tr><td>City</td><td><input type="text" id = "city" required name="city" /></td></tr>
+                            <tr><td>Postal Code</td><td><input type="number" id = "postalcode" required name="postalcode" /></td></tr>
+                            <tr><td>Street</td><td><input type="text" id = "street" required name="street" /></td></tr>
                         </table>
                         <h2> Card information</h2>
                         <table>
-                            <tr><td>Guarantee Amount</td><td><input type="text" onblur="verificationInteger(this) "id = "guaranteeAmt" name="guaranteeAmt" /></td></tr>
-                            <tr><td>Annual Fee</td><td><input type="text" id = "annualFee" onblur="verificationInteger(this)" name="annualFee" /></td></tr>
+                            <tr><td>Guarantee Amount</td><td><input type="text" required onblur="verificationInteger(this) " id="guaranteeAmt" name="guaranteeAmt" /></td></tr>
+                            <tr><td>Annual Fee</td><td><input type="text" id="annualFee" required onblur="verificationInteger(this)" name="annualFee" /></td></tr>
                         </table>
                         <br>
                         <button class="btn-primary" onclick="SaveNew()" id="btnSaveNew">Save & New</button>
-                        <button class="btn-primary" id="SaveClose" onclick="SaveClose();">Save & Close </button>
+                        <button class="btn-primary" id="SaveClose" onclick="SaveClose()">Save & Close </button>
                         <button class="btn-primary" onclick="goback()">See All Adherent</button>
                     </form>
              <br><br>

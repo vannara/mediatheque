@@ -51,12 +51,14 @@ public class Adherent implements Serializable {
     @OneToOne(mappedBy = "adherent")
     private Card card;
 
-    public Adherent(String lastName, String firstName, Date dateofBirth, Date registeredDate, Address adherentAdress){
+    public Adherent(String lastName, String firstName, Date dateofBirth, Date registeredDate){
         this.lastname=lastName;
         this.firstname=firstName;
         this.dateofBirth=dateofBirth;
         this.dateAdhesion=registeredDate;
-        this.address=adherentAdress;
+        this.address.setCity("non renseigné");
+        this.address.setPostalCode("non renseigné");
+        this.address.setStreet("non renseigné");
     }
     public Card getCard() {
         return card;
