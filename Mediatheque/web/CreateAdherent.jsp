@@ -55,7 +55,7 @@
 
         function SaveNew() {
             createAdherent();
-            ClearForm();       
+            //ClearForm();       
         }
 
         function SaveClose() {
@@ -134,10 +134,10 @@
                     <form id="createAdherentForm"  action="CreateAdherent" method="post" class="span6">
                         <h2> Adherent Information</h2>
                         <table>
-                            <tr><td>Last Name</td><td><input type="text" id = "lastName" required name="lastName" /></td></tr>
-                            <tr><td>Fist Name</td><td><input type="text" id = "firstName" required name="firstName" /></td></tr>
-                            <tr><td>Birthday</td><td><input type="date" id = "dateofBirth" required min="1910-01-01"  name="dateofBirth" /></td></tr>
-                            <tr><td>Registration Date</td><td><input type="date" id = "registeredDate" required min="2000-01-01"  name="registeredDate" /></td></tr>
+                            <tr><td>Last Name</td><td><input type="text" id="lastName" required name="lastName" /></td></tr>
+                            <tr><td>Fist Name</td><td><input type="text" id="firstName" required name="firstName" /></td></tr>
+                            <tr><td>Birthday</td><td><input type="date" id="dateofBirth" required min="1910-01-01"  name="dateofBirth" /></td></tr>
+                            <tr><td>Registration Date</td><td><input type="date" id="registeredDate" required min="2000-01-01"  name="registeredDate" /></td></tr>
                         </table>
                         <hr>
                         <h2> Adherent Address</h2>

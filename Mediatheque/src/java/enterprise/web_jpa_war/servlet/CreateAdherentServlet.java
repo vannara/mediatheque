@@ -75,6 +75,7 @@ public class CreateAdherentServlet extends HttpServlet {
             String adherentName  = (String) request.getParameter("lastName");
             String adherentFirstName   = (String) request.getParameter("firstName");
             String adherentDateofBirth =(String) request.getParameter("dateofBirth");
+            System.out.println("date recup"+adherentDateofBirth);
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date dateofBirth= sdf.parse(adherentDateofBirth);
             String adherentDateAdhesion = (String) request.getParameter("registeredDate");
@@ -82,9 +83,14 @@ public class CreateAdherentServlet extends HttpServlet {
             
             String guaranteeAmt= (String)request.getParameter("guaranteeAmt");
             String annualFee= (String)request.getParameter("annualFee");
+            
+            String city  = (String) request.getParameter("city");
+            String street  = (String) request.getParameter("street");
+            String postalCode  = (String) request.getParameter("postalCode");
             //Create an adherent instance out of it
             //Category category = new Category(adherentName,Double.parseDouble(maxDuration),Double.parseDouble(maxQty));
-            Adherent adherent =new Adherent (adherentName, adherentFirstName, dateofBirth, dateAdhesion);
+            Address address=new Address(city,street,postalCode);
+            Adherent adherent =new Adherent (adherentName, adherentFirstName, dateofBirth, dateAdhesion,address);
             Card card = new Card(Double.parseDouble(guaranteeAmt),Double.parseDouble(annualFee),adherent);
             adherent.setCard(card);
             //begin a transaction

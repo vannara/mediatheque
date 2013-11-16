@@ -21,6 +21,14 @@ public class Address implements Serializable {
     private String postalCode;
     private String street;
 
+    public Address() {
+    }
+
+    public Address(String city, String postalCode, String street){
+        this.city=city;
+        this.postalCode=postalCode;
+        this.street=street;
+    }
     public String getStreet() {
         return street;
     }
