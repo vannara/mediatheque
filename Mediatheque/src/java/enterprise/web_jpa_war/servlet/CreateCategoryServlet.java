@@ -67,9 +67,6 @@ public class CreateCategoryServlet extends HttpServlet {
         EntityManager em = null;
         try {
             //Get the data from user's form
-//            PrintWriter out = response.getWriter();
-//            String name = request.getParameter("action");
-//            out.println("Hi, " + name + " Ajax Call is made successfully.");
 
             String action = request.getParameter("action");
             String cateId = (String) request.getParameter("categoryId");

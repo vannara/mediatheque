@@ -59,7 +59,16 @@ public class ListCategoryServlet extends HttpServlet {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
-
+            
+            String action = request.getParameter("action");
+            if("Edit".equalsIgnoreCase(action)){
+               request.getRequestDispatcher("CreateCategory.jsp").forward(request, response);
+               
+            }
+            else if ("Delete".equalsIgnoreCase(action)){
+                
+            }
+        
             //query for all the categories in database
             List adherents = em.createQuery("select c from Category c").getResultList();
             request.setAttribute("categoryList",adherents);
