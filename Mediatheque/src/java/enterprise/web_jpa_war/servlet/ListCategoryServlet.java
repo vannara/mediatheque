@@ -32,7 +32,6 @@ package enterprise.web_jpa_war.servlet;
 import enterprise.web_jpa_war.entity.Category;
 import java.io.*;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -40,8 +39,6 @@ import javax.servlet.http.*;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 /**
  * The servlet class to list Persons from database
@@ -58,9 +55,14 @@ public class ListCategoryServlet extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+                    System.out.println("-----------------NEVER GOES INSIDE----------------------");
+                    
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
