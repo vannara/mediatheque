@@ -30,8 +30,10 @@
 
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
-
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -58,83 +60,91 @@
     </script>
 
     <body>
-    <nav class="navbar navbar-fixed-top" role="navigation">
 
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand logo-nav"><img src="img/logo1.jpg" width="70%" height="50%"></a>
-            </div>
+        <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
+                           url="jdbc:postgresql://localhost:5433/Mediatheque"
+                           user = "postgres"  password = "admin" /> 
+        <sql:query dataSource = "${snapshot}" var = "result"> 
+            SELECT * from category;
+        </sql:query >
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="AdminLogin.jsp"><b>Logout</b></a></li>
-                    <li><a href="#Borrow"><b>Borrow</b></a></li>
-                    <li><a href="#Return"><b>Return</b></a></li>
-                    <li><a href="#Order"><b>Order</b></a></li>
-                    <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
-                    <li><a href="#Reservation"><b>Reservation</b></a></li> 
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Manage Adherent</b></a>
-                                 <ul class="dropdown-menu">
+            <nav class="navbar navbar-fixed-top" role="navigation">
+
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand logo-nav"><img src="img/logo1.jpg" width="70%" height="50%"></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="AdminLogin.jsp"><b>Logout</b></a></li>
+                            <li><a href="#Borrow"><b>Borrow</b></a></li>
+                            <li><a href="#Return"><b>Return</b></a></li>
+                            <li><a href="#Order"><b>Order</b></a></li>
+                            <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
+                            <li><a href="#Reservation"><b>Reservation</b></a></li> 
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Manage Adherent</b></a>
+                                <ul class="dropdown-menu">
                                     <li><a href="CreateAdherent.jsp">Create a new adherent</a></li>
                                     <li><a href="ListAdherents.jsp">List adherent</a></li> 
-                                 </ul>       
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <b> Configuration</b>                     
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Oeuvre</a></li>
-                            <li><a href="ListCategory.jsp">Category</a></li>
-                            <li><a href="ListItems.jsp">Item</a></li>
-                            <li class="divider"/>
-                            <li><a href="ListAdherents.jsp">Adherent</a></li>
-                            <li><a href="#">User</a></li>                    
+                                </ul>       
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <b> Configuration</b>                     
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Oeuvre</a></li>
+                                    <li><a href="ListCategory.jsp">Category</a></li>
+                                    <li><a href="ListItems.jsp">Item</a></li>
+                                    <li class="divider"/>
+                                    <li><a href="ListAdherents.jsp">Adherent</a></li>
+                                    <li><a href="#">User</a></li>                    
+                                </ul>
+                            </li>                
                         </ul>
-                    </li>                
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container -->
-    </nav>
-    <br> <br> 
-    <h1 class="text-center">List of Categories</h1>
-    <br>
-    <br> <br>
-    <table id="cateListTable" class="table table-hover">
-        <tr >
-            <th class="span2"></th>
-            <th class="span2">ID</th>
-            <th class="span2">Name</th>
-            <th class="span2">Max Borrow Duration</th>
-            <th class="span2">Max Borrow Qty</th>
-            <th class="span2">Renewable?</th>
-        </tr>
-        
-        <c:forEach var="cate" begin="0" items="${request.categoryList}">
-            <tr>
-                <td class="span2 no-margin-left"><button class="span1 no-margin-left btn-primary" onclick="editCategory('${cate.categoryId}')">Edit</button>
-                    <button class="span1 no-margin-left btn-danger" onclick="deleteCategory('${cate.categoryId}')">Delete</button>
-                </td>
-                <td class="span2">${cate.categoryId}&nbsp;&nbsp;</td> 
-                <td class="span2">${cate.categoryName}&nbsp;&nbsp;</td> 
-                <td class="span2">${cate.maxBorrowDuration}&nbsp;&nbsp;</td> 
-                <td class="span2">${cate.maxBorrowQty}&nbsp;&nbsp;</td> 
-                <td class="span2">${cate.isRenewable}&nbsp;&nbsp;</td> 
-            </tr> 
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container -->
+            </nav>
+            <br> <br> 
+            <h1 class="text-center">List of Categories</h1>
+            <br>
+            <br> <br>
+            <table id="cateListTable" class="table table-hover">
+                <tr >
+                    <th class="span2"></th>
+                    <th class="span2">ID</th>
+                    <th class="span2">Name</th>
+                    <th class="span2">Max Borrow Duration</th>
+                    <th class="span2">Max Borrow Qty</th>
+                    <th class="span2">Renewable?</th>
+                </tr>
 
-        </c:forEach>
+                <c:forEach var="cate" begin="0" items="${result.rows}">
+                    <tr>
+                        <td class="span2 no-margin-left"><button class="span1 no-margin-left btn-primary" onclick="editCategory('${cate.categoryId}')">Edit</button>
+                            <button class="span1 no-margin-left btn-danger" onclick="deleteCategory('${cate.categoryId}')">Delete</button>
+                        </td>
+                        <td class="span2">${cate.categoryId}&nbsp;&nbsp;</td> 
+                        <td class="span2">${cate.categoryName}&nbsp;&nbsp;</td> 
+                        <td class="span2">${cate.maxBorrowDuration}&nbsp;&nbsp;</td> 
+                        <td class="span2">${cate.maxBorrowQty}&nbsp;&nbsp;</td> 
+                        <td class="span2">${cate.isRenewable}&nbsp;&nbsp;</td> 
+                    </tr> 
 
-    </table>
-    <div><br><br></div>
-    <button class="span2 btn-primary" onclick="addCategory()">Add Category</button>
-    <script src="bootstrap/js/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap.js"></script>
-</body>
+                </c:forEach>
+
+            </table>
+            <div><br><br></div>
+            <button class="span2 btn-primary" onclick="addCategory()">Add Category</button>
+            <script src="bootstrap/js/jquery.js"></script>
+            <script src="bootstrap/js/bootstrap.js"></script>
+        </body>
 </html>
