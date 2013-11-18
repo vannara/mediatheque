@@ -27,11 +27,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package enterprise.web_jpa_war.servlet;
 
+import enterprise.web_jpa_war.entity.Category;
 import java.io.*;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -39,73 +40,102 @@ import javax.servlet.http.*;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.transaction.UserTransaction;
 
 /**
  * The servlet class to list Persons from database
  */
-@WebServlet(name="ListCategoryServlet", urlPatterns={"/ListCategories"})
+@WebServlet(name = "ListCategoryServlet", urlPatterns = {"/ListCategories"})
 public class ListCategoryServlet extends HttpServlet {
-    
+
     @PersistenceUnit
     private EntityManagerFactory emf;
-    
-    /** Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    @Resource
+    private UserTransaction utx;
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
-        try {
+        try {           
+            utx.begin();
             em = emf.createEntityManager();
-            
+
             String action = request.getParameter("action");
-            if("Edit".equalsIgnoreCase(action)){
-               request.getRequestDispatcher("CreateCategory.jsp").forward(request, response);
-               
+            String cateId = request.getParameter("cateId");
+            int categoryId = 0;
+            if (cateId != null) {
+                categoryId = Integer.parseInt(cateId);
             }
-            else if ("Delete".equalsIgnoreCase(action)){
-                
+            if ("Edit".equalsIgnoreCase(action)) {
+                request.getRequestDispatcher("CreateCategory.jsp").forward(request, response);
+
+            } else if ("Delete".equalsIgnoreCase(action)) {
+                //test if it get the id correctly from jsp
+//                FileWriter writer = new FileWriter("TEST.txt");
+//                if (cateId != null) {
+//                    writer.write(cateId);
+//                } else {
+//                    writer.write("Blank");
+//                }
+//                writer.close();
+                Category cate = em.find(Category.class, categoryId);
+                em.remove(cate);
+                utx.commit();
+
             }
-        
+
             //query for all the categories in database
-            List adherents = em.createQuery("select c from Category c").getResultList();
-            request.setAttribute("categoryList",adherents);
-            
+            List categories = em.createQuery("select c from Category c").getResultList();
+            request.setAttribute("categoryList", categories);
+
             //Forward to the jsp page for rendering
             request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
         } catch (Exception ex) {
+            // em.getTransaction().rollback();
             throw new ServletException(ex);
         } finally {
             //close the em to release any resources held up by the persistebce provider
-            if(em != null) {
+            if (em != null) {
                 em.close();
             }
         }
-      
+
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** Handles the HTTP <code>GET</code> method.
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
-    
-    /** Handles the HTTP <code>POST</code> method.
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
-    
-    /** Returns a short description of the servlet.
+
+    /**
+     * Returns a short description of the servlet.
      */
     public String getServletInfo() {
         return "ListCategory servlet";

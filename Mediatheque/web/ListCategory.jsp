@@ -48,11 +48,15 @@
     <script>
         function deleteCategory(id) {
             alert(id);
+            $("#cateId").val(id);
             $.ajax({
-                url: "<%=request.getContextPath()%>/issues?action=uploaddeletelink&wherestatement=" + id,
-                type: "POST",
-                success: function(data) {
+               url: "/ListCategories?action=delete&cateId="+ id,
+               type: "POST",
+               success: function(data) {
                     //If you want to return anything in jsp.
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("fail");
                 }
             });
         }
@@ -150,6 +154,8 @@
             </c:forEach>
 
         </table>
+             <input type="hidden" id="cateId" name="cateId"/>
+               
     </form>
     <div><br><br></div>
     <button class="span2 btn-primary" onclick="addCategory()">Add Category</button>
