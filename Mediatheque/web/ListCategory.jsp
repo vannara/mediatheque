@@ -83,13 +83,6 @@
 
     <body>
 
-        <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
-                           url="jdbc:postgresql://localhost:5433/Mediatheque"
-                           user = "postgres"  password = "admin" /> 
-        <sql:query dataSource = "${snapshot}" var = "result"> 
-            SELECT * from category;
-        </sql:query >
-
     <nav class="navbar navbar-fixed-top" role="navigation">
 
         <div class="container">
@@ -124,7 +117,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Oeuvre</a></li>
-                            <li><a href="ListCategory.jsp">Category</a></li>
+                            <li><a href="ListCategories">Category</a></li>
                             <li><a href="ListItems.jsp">Item</a></li>
                             <li class="divider"/>
                             <li><a href="ListAdherents">Adherent</a></li>
@@ -150,7 +143,7 @@
                 <th class="span2">Renewable?</th>
             </tr>
 
-            <c:forEach var="cate" begin="0" items="${result.rows}">
+            <c:forEach var="cate" begin="0" items="${requestScope.categoryList}">
                 <tr>
                     <td class="span2 no-margin-left"><input type="submit" class="span1 no-margin-left btn-primary"  onclick="editCategory('${cate.categoryId}')" name="action" value="Edit"/>
                         <input type="submit" class="span1 no-margin-left btn-danger" onclick="deleteCategory('${cate.categoryId}')" name="action" value="Delete">
