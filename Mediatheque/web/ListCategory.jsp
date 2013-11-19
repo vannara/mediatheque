@@ -56,7 +56,7 @@
                     //If you want to return anything in jsp.
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    alert("fail");
+                   // alert("fail");
                 }
             });
         }

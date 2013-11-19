@@ -99,7 +99,7 @@ public class ListCategoryServlet extends HttpServlet {
                 em.remove(cate);
                 utx.commit();
 
-            } 
+            }
             //query for all the categories in database
             List categories = em.createQuery("select c from Category c").getResultList();
 
