@@ -49,7 +49,7 @@ import javax.transaction.UserTransaction;
 
 
 /**
- * The sevelet class to insert Person into database
+ * The sevelet class to insert andherent into database
  */
 @WebServlet(name="CreateAdherentServlet", urlPatterns={"/CreateAdherent"})
 public class CreateAdherentServlet extends HttpServlet {
@@ -76,7 +76,6 @@ public class CreateAdherentServlet extends HttpServlet {
             String adherentName  = (String) request.getParameter("lastName");
             String adherentFirstName   = (String) request.getParameter("firstName");
             String adherentDateofBirth =(String) request.getParameter("dateofBirth");
-            System.out.println("date recup"+adherentDateofBirth);
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date dateofBirth= sdf.parse(adherentDateofBirth);
             String adherentDateAdhesion = (String) request.getParameter("registeredDate");

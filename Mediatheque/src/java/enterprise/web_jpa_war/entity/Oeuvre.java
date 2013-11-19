@@ -16,26 +16,42 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author vannaraloch
  */
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames = {"title", "author","genre", "releaseDate"}))
 public class Oeuvre implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long oeuvreId;
     
+    @Column(name="author")
     private String author;
+    
+    @Column(name="title")
     private String title;
     
-    @Column(name = "creationDate")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date date;
+    @Column(name="genre")
+    private String genre;
     
+    @Column(name="keyword")
+    private String keyword;
+    
+    @Column(name="numberofSearch")
+    private int numberofSearch;
+    
+    @Column(name = "releaseDate")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date releaseDate;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
     private Collection<DeliveryContains> deliveryContains;
     
@@ -45,14 +61,19 @@ public class Oeuvre implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
     private Collection<Item> items;
 
-    public Collection<Item> getItems() {
-        return items;
+    public Oeuvre(){
+        
     }
-
-    public void setItems(Collection<Item> items) {
-        this.items = items;
+    public Oeuvre(String title,String author,String genre, String keyWords,Date releaseDate){
+        this.title=title;
+        this.author=author;
+        this.genre=genre;
+        this.keyword=keyWords;
+        this.releaseDate=releaseDate;
+        this.items=null;
+        this.deliveryContains=null;
+        this.orderContains=null;
     }
-
     public Long getOeuvreId() {
         return oeuvreId;
     }
@@ -61,23 +82,6 @@ public class Oeuvre implements Serializable {
         this.oeuvreId = oeuvreId;
     }
 
-    public Collection<DeliveryContains> getDeliveryContains() {
-        return deliveryContains;
-    }
-
-    public void setDeliveryContains(Collection<DeliveryContains> deliveryContains) {
-        this.deliveryContains = deliveryContains;
-    }
-
-    public Collection<OrderContain> getOrderContains() {
-        return orderContains;
-    }
-
-    public void setOrderContains(Collection<OrderContain> orderContains) {
-        this.orderContains = orderContains;
-    }
-
-    
     public String getAuthor() {
         return author;
     }
@@ -92,14 +96,6 @@ public class Oeuvre implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getGenre() {
@@ -125,45 +121,38 @@ public class Oeuvre implements Serializable {
     public void setNumberofSearch(int numberofSearch) {
         this.numberofSearch = numberofSearch;
     }
-    private String genre;
-    private String keyword;
-    private int numberofSearch;
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Collection<DeliveryContains> getDeliveryContains() {
+        return deliveryContains;
+    }
+
+    public void setDeliveryContains(Collection<DeliveryContains> deliveryContains) {
+        this.deliveryContains = deliveryContains;
+    }
+
+    public Collection<OrderContain> getOrderContains() {
+        return orderContains;
+    }
+
+    public void setOrderContains(Collection<OrderContain> orderContains) {
+        this.orderContains = orderContains;
+    }
+
+    public Collection<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Collection<Item> items) {
+        this.items = items;
+    }
     
-    public Oeuvre(){
-        
-    }
-
-    public Long getCatalogueId() {
-        return oeuvreId;
-    }
-
-    public void setCatalogueId(Long oeuvreId) {
-        this.oeuvreId = oeuvreId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (oeuvreId != null ? oeuvreId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the oeuvreId fields are not set
-        if (!(object instanceof Oeuvre)) {
-            return false;
-        }
-        Oeuvre other = (Oeuvre) object;
-        if ((this.oeuvreId == null && other.oeuvreId != null) || (this.oeuvreId != null && !this.oeuvreId.equals(other.oeuvreId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "enterprise.web_jpa_war.entity.Catalogue[ id=" + oeuvreId + " ]";
-    }
     
 }

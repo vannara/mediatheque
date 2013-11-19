@@ -41,7 +41,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 
 /**
- * The servlet class to list Persons from database
+ * The servlet class to list adherent from database
  */
 @WebServlet(name="ListAdherentServlet", urlPatterns={"/ListAdherents"})
 public class ListAdherentServlet extends HttpServlet {
@@ -76,8 +76,7 @@ public class ListAdherentServlet extends HttpServlet {
         }
       
     }
-    
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+       // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** Handles the HTTP <code>GET</code> method.
      * @param request servlet request
      * @param response servlet response
