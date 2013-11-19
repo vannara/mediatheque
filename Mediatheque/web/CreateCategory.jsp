@@ -1,9 +1,9 @@
 <%-- 
     Document   : CreateCategory
-    Created on : Nov 13, 2013
+    Created on : Nov 03, 2013
     Author     : vannaraloch
 --%>
- 
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
@@ -45,12 +45,12 @@
                             <li><a href="#Order"><b>Order</b></a></li>
                             <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
                             <li><a href="#Reservation"><b>Reservation</b></a></li>
-                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Manage Adherent</b></a>
-                                 <ul class="dropdown-menu">
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Manage Adherent</b></a>
+                                <ul class="dropdown-menu">
                                     <li><a href="CreateAdherent.jsp">Create a new adherent</a></li>
                                     <li><a href="ListAdherents">List adherent</a></li> 
-                                 </ul>       
-                                </li>
+                                </ul>       
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <b> Configuration</b>                     
@@ -83,21 +83,30 @@
                             <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName"  value="<%=request.getAttribute("categoryName")%>" required/></td></tr>
                             <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration"  value="<%=request.getAttribute("maxBorrowDuration")%>" required number/></td></tr>
                             <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty"  name="maxBorrowQty"  value="<%=request.getAttribute("maxBorrowQty")%>" required /></td></tr>
-                            <tr><td>is Renewable</td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable" checked="<%=request.getAttribute("isRenewable")%>"/></td></tr>
+                            <tr><td>is Renewable</td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable" value="<%=request.getAttribute("isRenewable")%>"/></td></tr>
                         </table>
                         <br>
                         <input type="submit" class="btn-primary" name ="action" value="Save & New"/>
                         <input type="submit" class="btn-primary" name ="action" value="Save & Close" />
                         <input type="button" class="btn-primary" onclick="goback()" value="Return"/>
-              
+
                     </form>
                     <br><br>
 
                 </div>
             </div>
         </div>
-            <script src="bootstrap/js/jquery.js"></script>
-            <script src="bootstrap/js/bootstrap.js"></script>
-           
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+
     </body>
+    <script type="text/javascript">
+                            $(document).ready(function() {
+                               var isRenewable= $("#chkIsRenewable").val();
+                               if(isRenewable=="checked"){
+                                   $("#chkIsRenewable").attr('checked','checked');
+                               }
+                               
+                            });
+    </script>
 </html>
