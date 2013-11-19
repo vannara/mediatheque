@@ -65,19 +65,27 @@ public class ListCategoryServlet extends HttpServlet {
             throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
-        try {           
+        try {
             utx.begin();
             em = emf.createEntityManager();
 
             String action = request.getParameter("action");
             String cateId = request.getParameter("cateId");
-            
+
             int categoryId = 0;
-            if (cateId != null | cateId!="") {
+            if (cateId != null | cateId != "") {
                 categoryId = Integer.parseInt(cateId);
             }
             if ("Edit".equalsIgnoreCase(action)) {
-                request.getRequestDispatcher("CreateCategory.jsp?cateId="+ cateId).forward(request, response);
+                Category cate = em.find(Category.class, categoryId);
+                if (cate != null) {
+                    request.setAttribute("categoryId", cate.getCategoryId());
+                    request.setAttribute("categoryName", cate.getCategoryName());
+                    request.setAttribute("maxBorrowDuration", cate.getMaxBorrowDuration());
+                    request.setAttribute("maxBorrowQty", cate.getMaxBorrowQty());
+                    request.setAttribute("isRenewable", cate.isIsRenewable());
+                }
+                request.getRequestDispatcher("CreateCategory.jsp").forward(request, response);
 
             } else if ("Delete".equalsIgnoreCase(action)) {
                 //test if it get the id correctly from jsp
