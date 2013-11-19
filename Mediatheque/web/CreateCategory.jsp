@@ -50,12 +50,6 @@
 
         }
 
-        function createCategory() {
-            document.forms['createCategoryForm'].submit();
-        }
-      
-
-
     </script>
     <body>
         <div>
@@ -109,11 +103,11 @@
                 <div class="span5">
                     <form id="createCategoryForm" action="CreateCategory" target="categoryWindow" method="post" class="span6">
                         <table>
-                            <tr class="hidden"><td><input type="text" id="categoryId" name="categoryId" /></td></tr>
-                            <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName" class="required"/></td></tr>
-                            <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration"  class="number"/></td></tr>
-                            <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty"  name="maxBorrowQty" /></td></tr>
-                            <tr><td>is Renewable</td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable"/></td></tr>
+                            <input type="text" class="hidden" id="categoryId" name="categoryId"  value="<%=request.getAttribute("categoryId")%>" />
+                            <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName"  value="<%=request.getAttribute("categoryName")%>" class="required"/></td></tr>
+                            <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration"  value="<%=request.getAttribute("maxBorrowDuration")%>" class="number"/></td></tr>
+                            <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty"  name="maxBorrowQty"  value="<%=request.getAttribute("maxBorrowQty")%>" /></td></tr>
+                            <tr><td>is Renewable</td><td><input type="checkbox" id="chkIsRenewable" name ="chkIsRenewable" checked="<%=request.getAttribute("isRenewable")%>"/></td></tr>
                         </table>
                         <br>
                         <input type="submit" class="btn-primary" name ="action" value="Save & New"/>

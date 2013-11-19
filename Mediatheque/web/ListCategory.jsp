@@ -62,7 +62,18 @@
         }
 
         function editCategory(id) {
+            $("#cateId").val(id);
             alert(id);
+            $.ajax({
+               url: "/ListCategories?action=edit&cateId="+ id,
+               type: "POST",
+               success: function(data) {
+                    //If you want to return anything in jsp.
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("fail" + errorThrown);
+                }
+            });
         }
 
         function addCategory() {
@@ -141,7 +152,7 @@
 
             <c:forEach var="cate" begin="0" items="${result.rows}">
                 <tr>
-                    <td class="span2 no-margin-left"><input type="submit" class="span1 no-margin-left btn-primary" name="action" value="Edit"/>
+                    <td class="span2 no-margin-left"><input type="submit" class="span1 no-margin-left btn-primary"  onclick="editCategory('${cate.categoryId}')" name="action" value="Edit"/>
                         <input type="submit" class="span1 no-margin-left btn-danger" onclick="deleteCategory('${cate.categoryId}')" name="action" value="Delete">
                     </td>
                     <td class="span1">${cate.categoryId}&nbsp;&nbsp;</td> 
