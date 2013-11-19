@@ -50,12 +50,6 @@
 
         }
 
-        function createCategory() {
-            document.forms['createCategoryForm'].submit();
-        }
-      
-
-
     </script>
     <body>
         <div>
@@ -109,7 +103,7 @@
                 <div class="span5">
                     <form id="createCategoryForm" action="CreateCategory" target="categoryWindow" method="post" class="span6">
                         <table>
-                            <tr class="hidden"><td><input type="text" id="categoryId" name="categoryId" /></td></tr>
+                            <tr class="hidden"><td><input type="text" id="categoryId" name="categoryId"  value="<%=request.getAttribute("cateId")%>" /></td></tr>
                             <tr><td>category name</td><td><input type="text" id = "categoryName" name="categoryName" class="required"/></td></tr>
                             <tr><td>max Borrow duration</td><td><input type="text" id = "maxBorrowDuration" name="maxBorrowDuration"  class="number"/></td></tr>
                             <tr><td>max Borrow Qty</td><td><input type="text" id = "maxBorrowQty"  name="maxBorrowQty" /></td></tr>

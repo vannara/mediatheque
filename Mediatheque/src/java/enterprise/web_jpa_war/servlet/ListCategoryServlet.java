@@ -71,12 +71,13 @@ public class ListCategoryServlet extends HttpServlet {
 
             String action = request.getParameter("action");
             String cateId = request.getParameter("cateId");
+            
             int categoryId = 0;
-            if (cateId != null) {
+            if (cateId != null | cateId!="") {
                 categoryId = Integer.parseInt(cateId);
             }
             if ("Edit".equalsIgnoreCase(action)) {
-                request.getRequestDispatcher("CreateCategory.jsp").forward(request, response);
+                request.getRequestDispatcher("CreateCategory.jsp?cateId="+ cateId).forward(request, response);
 
             } else if ("Delete".equalsIgnoreCase(action)) {
                 //test if it get the id correctly from jsp
