@@ -107,8 +107,8 @@ public class CreateCategoryServlet extends HttpServlet {
             if ("Save & Close".equals(action)) {
                 //Forward to ListCategory servlet to list persons along with the newly
                 //created category above
-               response.sendRedirect("ListCategory.jsp");
-               // request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
+               //response.sendRedirect("ListCategory.jsp");
+               request.getRequestDispatcher("ListCategories").forward(request, response);
             }
             else if ("Save & New".equals(action)){
                 response.sendRedirect("CreateCategory.jsp"); 

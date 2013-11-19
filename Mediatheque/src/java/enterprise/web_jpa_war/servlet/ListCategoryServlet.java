@@ -71,9 +71,8 @@ public class ListCategoryServlet extends HttpServlet {
 
             String action = request.getParameter("action");
             String cateId = request.getParameter("cateId");
-
             int categoryId = 0;
-            if (cateId != null | cateId != "") {
+            if (cateId != null) {
                 categoryId = Integer.parseInt(cateId);
             }
             if ("Edit".equalsIgnoreCase(action)) {
@@ -100,10 +99,10 @@ public class ListCategoryServlet extends HttpServlet {
                 em.remove(cate);
                 utx.commit();
 
-            }
-
+            } 
             //query for all the categories in database
             List categories = em.createQuery("select c from Category c").getResultList();
+
             request.setAttribute("categoryList", categories);
 
             //Forward to the jsp page for rendering
