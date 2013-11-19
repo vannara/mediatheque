@@ -27,6 +27,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+/**
+ *
+ * @author vannaraloch
+ */
+
 package enterprise.web_jpa_war.servlet;
 
 import enterprise.web_jpa_war.entity.Category;
@@ -82,7 +88,9 @@ public class ListCategoryServlet extends HttpServlet {
                     request.setAttribute("categoryName", cate.getCategoryName());
                     request.setAttribute("maxBorrowDuration", cate.getMaxBorrowDuration());
                     request.setAttribute("maxBorrowQty", cate.getMaxBorrowQty());
-                    request.setAttribute("isRenewable", cate.isIsRenewable());
+                    if (cate.isIsRenewable()) {
+                        request.setAttribute("isRenewable", "checked");
+                    }
                 }
                 request.getRequestDispatcher("CreateCategory.jsp").forward(request, response);
 
