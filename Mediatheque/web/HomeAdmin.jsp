@@ -42,7 +42,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav navbar-right">
               <li><a href="AdminLogin.jsp"><b>Logout</b></a></li>
-              <li><a href="#Borrow"><b>Borrow</b></a></li>
+              <li><a href="Borrow"><b>Borrow</b></a></li>
               <li><a href="#Return"><b>Return</b></a></li>
               <li><a href="#Order"><b>Order</b></a></li>
               <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
@@ -60,9 +60,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">Oeuvre</a></li>
                         <li><a href="ListCategories">Category</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li class="divider"/>
-                        <li><a href="#">Adherent</a></li>
+                        <li><a href="ListItems">Item</a></li>
+                        <li class="divider"/>                      
                         <li><a href="#">User</a></li>                    
                     </ul>
             </li>                
@@ -75,8 +74,7 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <h1>A custom navigation with a logo and faux centered menu items.</h1>
-          <p>The image size is 150x75 pixels. If you change the logo size, or if you change the font of the menu items, you will need to re-center the menu items in <code>logo-nav.css</code>.</p>
+            <h1>Go to choose your working task in the menu</h1>
         </div>
       </div>
 
