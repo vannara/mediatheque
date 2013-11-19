@@ -127,7 +127,7 @@
                             <li><a href="ListCategory.jsp">Category</a></li>
                             <li><a href="ListItems.jsp">Item</a></li>
                             <li class="divider"/>
-                            <li><a href="ListAdherents.jsp">Adherent</a></li>
+                            <li><a href="ListAdherents">Adherent</a></li>
                             <li><a href="#">User</a></li>                    
                         </ul>
                     </li>                
