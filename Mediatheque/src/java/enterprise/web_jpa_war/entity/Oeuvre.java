@@ -52,16 +52,7 @@ public class Oeuvre implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date releaseDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
-    private Collection<DeliveryContains> deliveryContains;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
-    private Collection<OrderContain> orderContains;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
-    private Collection<Item> items;
-
-    public Oeuvre(){
+     public Oeuvre(){
         
     }
     public Oeuvre(String title,String author,String genre, String keyWords,Date releaseDate){
@@ -74,6 +65,17 @@ public class Oeuvre implements Serializable {
         this.deliveryContains=null;
         this.orderContains=null;
     }
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
+    private Collection<DeliveryContains> deliveryContains;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
+    private Collection<OrderContain> orderContains;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
+    private Collection<Item> items;
+
+   
     public Long getOeuvreId() {
         return oeuvreId;
     }

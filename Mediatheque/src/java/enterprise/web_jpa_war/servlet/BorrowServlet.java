@@ -10,7 +10,10 @@ import enterprise.web_jpa_war.entity.ItemCopy;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,19 +45,29 @@ public class BorrowServlet extends HttpServlet {
             List<ItemCopy> borrowList = null;
 
             if ("add".equalsIgnoreCase(action)) {
+
                 borrowList = new ArrayList<ItemCopy>();
                 ItemCopy itemcopy = new ItemCopy();
                 itemcopy.setItemCopyCode("222");
                 borrowList.add(itemcopy);
                 borrowList.add(itemcopy);
                 borrowList.add(itemcopy);
-                borrowList.add(itemcopy);
+                borrowList.add(itemcopy);             
                 request.setAttribute("borrowList", borrowList);
-                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+                String text="";
+                text = "<tr>";
+                for(ItemCopy i:borrowList){
+                    text +=" <td class=\"span1\">"+ i.getItemCopyCode() + "</td> ";
+                }
+                text += "</tr>";
+                out.write(text);
+                               
+//request.getRequestDispatcher("Borrow").forward(request, response);
             } else if ("save".equalsIgnoreCase(action)) {
 
+            } else {
+                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
-            request.getRequestDispatcher("Borrow.jsp").forward(request, response);
         } finally {
             out.close();
         }
