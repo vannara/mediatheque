@@ -90,24 +90,26 @@ public class CreateItemServlet extends HttpServlet {
             utx.begin();
             
             //Get oeuvre and category object
-            Oeuvre oeuvre = em.find(Oeuvre.class, oeuvreId);
+            Oeuvre oeuvre = em.find(Oeuvre.class, Long.valueOf(oeuvreId));
 //            String dateOeuvre = "12-12-2012";
 //            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 //            Date releaseDate= sdf.parse(dateOeuvre);
 //            Oeuvre oeuvre = new Oeuvre("livre du suspens","auteur","policier","suspens",releaseDate);
-            Category category = em.find(Category.class, categoryId);
+            Category category = em.find(Category.class, Integer.valueOf(categoryId));
             
             if(oeuvre == null || category == null){
                 utx.rollback();   
             }
-            else{
+            else
+            {
                 //Create an Item instance out of it
                 Item newItem  = new Item (itemNumber,oeuvre,category);
+                System.out.println("IN TRANSACTION CREATE ITEM " + newItem.getOeuvre().getTitle() + "/" + newItem.getCategory().getCategoryName());
                 
                 //create an em. 
                 //Since the em is created inside a transaction, it is associsated with 
                 //the transaction
-                //persist the adherent/card entity
+                //persist the newItem entity
                 em.persist(newItem);
                 //commit transaction which will trigger the em to 
                 //commit newly created entity into database
