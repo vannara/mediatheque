@@ -33,10 +33,9 @@ package enterprise.web_jpa_war.servlet;
 
 import enterprise.web_jpa_war.entity.Category;
 import enterprise.web_jpa_war.entity.Item;
+import enterprise.web_jpa_war.entity.ItemCopy;
 import enterprise.web_jpa_war.entity.Oeuvre;
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -52,8 +51,8 @@ import javax.transaction.UserTransaction;
 /**
  * The sevelet class to insert andherent into database
  */
-@WebServlet(name="CreateItemServlet", urlPatterns={"/CreateItem"})
-public class CreateItemServlet extends HttpServlet {
+@WebServlet(name="CreateItemCopyServlet", urlPatterns={"/CreateItemCopy"})
+public class CreateItemCopyServlet extends HttpServlet {
     
     @PersistenceUnit
     //The emf corresponding to 
@@ -82,35 +81,37 @@ public class CreateItemServlet extends HttpServlet {
             request.setAttribute("oeuvreList",oeuvres);
             
             //Get the data from user's form
-            String itemNumber  = (String) request.getParameter("itemnb");
-            String oeuvreId   = (String) request.getParameter("oeuvreid");
-            String categoryId =(String) request.getParameter("categoryid");
+            int itemNumberOfCopies  = Integer.valueOf(request.getParameter("itemcopynb"));
+            String itemId   = (String) request.getParameter("itemid");
 
             //begin a transaction
             utx.begin();
             
             //Get oeuvre and category object
-            Oeuvre oeuvre = em.find(Oeuvre.class, oeuvreId);
-//            String dateOeuvre = "12-12-2012";
-//            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-//            Date releaseDate= sdf.parse(dateOeuvre);
-//            Oeuvre oeuvre = new Oeuvre("livre du suspens","auteur","policier","suspens",releaseDate);
-            Category category = em.find(Category.class, categoryId);
+            Item item = em.find(Item.class, itemId);
             
-            if(oeuvre == null || category == null){
+            if(item == null || itemNumberOfCopies < 1){
                 utx.rollback();   
             }
             else{
-                //Create an Item instance out of it
-                Item newItem  = new Item (itemNumber,oeuvre,category);
-                
-                //create an em. 
-                //Since the em is created inside a transaction, it is associsated with 
-                //the transaction
-                //persist the adherent/card entity
-                em.persist(newItem);
-                //commit transaction which will trigger the em to 
-                //commit newly created entity into database
+                for(int itemnb = 1 ; itemnb <= itemNumberOfCopies ; itemnb++)
+                {
+                    ItemCopy itemCopyExists = em.find(ItemCopy.class, itemnb);
+                    if(itemCopyExists != null){
+                        itemnb += 100;
+                        itemNumberOfCopies += 100;
+                    }
+                    //Create an ItemCopy instance out of it
+                    ItemCopy newItemCopy  = new ItemCopy (String.valueOf(itemnb),item);
+                    
+                    //create an em. 
+                    //Since the em is created inside a transaction, it is associsated with 
+                    //the transaction
+                    //persist the adherent/card entity
+                    em.persist(newItemCopy);
+                    //commit transaction which will trigger the em to 
+                    //commit newly created entity into database
+                }
                 utx.commit();
             }
             
