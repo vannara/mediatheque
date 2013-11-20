@@ -39,9 +39,12 @@ public class Item implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
     private Collection<ItemCopy> exemplaires;
 
-
-
-    
+    public Item(String itemNumber, Oeuvre oeuvre, Category category) {
+        this.itemNumber = itemNumber;
+        this.oeuvre = oeuvre;
+        this.category = category;
+        this.isAvailable = false;
+    }   
     
     public Oeuvre getOeuvre() {
         return oeuvre;
