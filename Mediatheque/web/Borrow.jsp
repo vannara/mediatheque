@@ -22,15 +22,16 @@
             window.location = "HomeAdmin.jsp";
         }
 
-        function addToList() {
-            
-            var itemCopyId = $("#itemCopyId").val();
-            alert("called " + itemCopyId);
-            $.ajax({
-                url: "/Borrow?action=add&itemCopyId=" + itemCopyId,
-                type: "GET"
-            });
-        }
+//        function addToList() {
+//            var itemCopyId = $("#itemCopyId").val();
+//            alert("called " + itemCopyId);
+//            
+//            $.ajax({
+//                url: "/Borrow?action=add&itemCopyId=" + itemCopyId,
+//                type: "GET"
+//                
+//            });
+//        }
 
     </script>
     <body>
@@ -83,16 +84,16 @@
             <div class="span12"> <h1 class="text-center">Borrow Item Transaction</h1>
             </div>
             <div class="span12"><br><br></div>
+            <form id="listBorrowForm" action="Borrow" method="post" class="span12 no-margin-left">
 
-            <div class="span10">
-                <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyId" required />
-                <button class="btn-primary btn-lg" onclick="addToList()">Add to list</button>
+                <div class="span10">
+                    <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyId" required />
+                    <button class="btn-primary btn-lg" id="btnAdd" name="btnAdd">Add to list</button>
 
-            </div>
+                </div>
 
-            <div class="span12"><br><br></div>
-            <div class="span12">
-                <form id="borrowForm" action="Borrow" method="post" class="span12">
+                <div class="span12"><br><br></div>
+                <div class="span12">
                     <table class="table-hover table">
                         <tr>
                             <th class="span2">Copy Code</th>
@@ -100,7 +101,7 @@
                             <th class="span2">Item title</th>
                             <th class="span2">Borrow Qty</th>                              
                         </tr>
-                        <c:forEach var="item" begin="0" items="${requestScope.borrowList}">
+                        <c:forEach var="item" begin="0" items="${requestScope.borrowList}" >
                             <tr>
                                 <td class="span1">${item.itemCopyCode}</td> 
                                 <td class="span2">${item.itemCopyCode}</td> 
@@ -109,19 +110,31 @@
                             </tr> 
 
                         </c:forEach>
-
+                            <tbody id="borrowData">
+                                
+                            </tbody>
 
                     </table>
                     <br>
                     <input type="submit" class="btn-primary" name ="action" value="Save"/>
                     <input type="submit" class="btn-primary" name ="action" onclick="gohome()" value="Close" />
 
-                </form>
-                <br><br>
+                    <br><br>
 
-            </div>
+                </div>
+            </form>
+
         </div>
         <script src="bootstrap/js/jquery.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
+        <script>
+            $(document).ready(function() {                        // When the HTML DOM is ready loading, then execute the following function...
+                $('#btnAdd').click(function() {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+                    $.get('Borrow', function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                        $('#borrowData').html(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
