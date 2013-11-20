@@ -121,7 +121,7 @@
                 <td class="span2">${oeuvre.title}&nbsp;&nbsp;</td> 
                 <td class="span2">${oeuvre.author}&nbsp;&nbsp;</td> 
                 <td class="span2">${oeuvre.genre}&nbsp;&nbsp;</td> 
-                <td class="span2">${oeuvre.date}&nbsp;&nbsp;</td> 
+                <td class="span2">${oeuvre.releaseDate}&nbsp;&nbsp;</td> 
                 <td class="span2">${oeuvre.keyword}&nbsp;&nbsp;</td>
             </tr> 
 
