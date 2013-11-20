@@ -76,6 +76,8 @@ public class CreateItemServlet extends HttpServlet {
         EntityManager em = null;
         try {
             //query for all the categories in database
+            em = emf.createEntityManager();
+              
             List categories = em.createQuery("select c from Category c").getResultList();
             request.setAttribute("categoryList", categories);
             
@@ -104,7 +106,6 @@ public class CreateItemServlet extends HttpServlet {
                 //create an em. 
                 //Since the em is created inside a transaction, it is associsated with 
                 //the transaction
-                em = emf.createEntityManager();
                 //persist the adherent/card entity
                 em.persist(newItem);
                 //commit transaction which will trigger the em to 
@@ -113,7 +114,7 @@ public class CreateItemServlet extends HttpServlet {
             }
             
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("CreateItem").forward(request, response);
+            request.getRequestDispatcher("CreateItem.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {

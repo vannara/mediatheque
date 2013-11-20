@@ -16,6 +16,7 @@ import javax.servlet.http.*;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 /**
@@ -79,7 +80,9 @@ public class ListCategoryServlet extends HttpServlet {
 
             }
             //query for all the categories in database
-            List categories = em.createQuery("select c from Category c").getResultList();
+            //name query defined in Categry Entity
+            Query q= em.createNamedQuery("getAllCategories");            
+            List categories = q.getResultList() ;
 
             request.setAttribute("categoryList", categories);
 
