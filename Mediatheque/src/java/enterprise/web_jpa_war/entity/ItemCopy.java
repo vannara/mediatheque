@@ -40,6 +40,13 @@ public class ItemCopy implements Serializable {
       joinColumns={@JoinColumn(name="returnId", referencedColumnName="returnId")})
     private Collection<Return> returns;
 
+    public ItemCopy(String itemCopyCode, Item item) {
+        this.itemCopyCode = itemCopyCode;
+        this.item = item;
+    }
+    
+    
+
     public ItemCopy(){
         
     }
