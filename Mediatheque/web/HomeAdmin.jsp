@@ -1,5 +1,5 @@
 <%-- 
-    Document   : AdminLogin
+    Document   : HomeAdmin
     Created on : Nov 13, 2013, 10:03:52 PM
     Author     : vannaraloch
 --%>
@@ -58,7 +58,7 @@
                         <b> Configuration</b>                     
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Oeuvre</a></li>
+                        <li><a href="ListOeuvres">Oeuvre</a></li>
                         <li><a href="ListCategories">Category</a></li>
                         <li><a href="ListItems">Item</a></li>
                         <li class="divider"/>                      

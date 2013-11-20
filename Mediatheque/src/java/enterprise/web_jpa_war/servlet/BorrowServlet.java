@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vannaraloch
  */
-//@WebServlet(name = "BorrowServlet", urlPatterns = {"/Borrow"})
+@WebServlet(name = "BorrowServlet", urlPatterns = {"/Borrow"})
 public class BorrowServlet extends HttpServlet {
 
     /**
