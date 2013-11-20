@@ -69,7 +69,7 @@
                                 <b> Configuration</b>                     
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Oeuvre</a></li>
+                                <li><a href="ListOeuvres.jsp">Oeuvre</a></li>
                                 <li><a href="ListCategories">Category</a></li>
                                 <li><a href="ListItems">Item</a></li>
                                 <li class="divider"/>                      
@@ -85,8 +85,8 @@
             </div>
             <div class="span12"><br><br></div>
             <form id="listBorrowForm" action="Borrow" method="post" class="span12 no-margin-left">
-
-                <div class="span10">
+                <div class="span2 no-margin-left"><label class="span2 no-margin-left">Item Copy Code:</label> </div>    
+                <div class="span9 no-margin-left">
                     <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyId" required />
                     <button class="btn-primary btn-lg" id="btnAdd" name="btnAdd">Add to list</button>
 
@@ -130,7 +130,7 @@
         <script>
             $(document).ready(function() {                        // When the HTML DOM is ready loading, then execute the following function...
                 $('#btnAdd').click(function() {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-                    $.get('Borrow', function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                    $.get('Borrow',$("#itemCopyId")), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
                         $('#borrowData').html(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
                     });
                 });
