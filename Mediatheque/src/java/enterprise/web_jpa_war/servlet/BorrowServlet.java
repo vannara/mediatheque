@@ -5,15 +5,12 @@
  */
 package enterprise.web_jpa_war.servlet;
 
-import enterprise.web_jpa_war.entity.Item;
+
 import enterprise.web_jpa_war.entity.ItemCopy;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import static java.util.Collections.list;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
