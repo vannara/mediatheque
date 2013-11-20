@@ -90,7 +90,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="ListOeuvres">Oeuvre</a></li>
                             <li><a href="ListCategories">Category</a></li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="CreateItem.jsp">Item</a></li>
                             <li class="divider"/>
                             <li><a href="#">Adherent</a></li>
                             <li><a href="#">User</a></li>                    
@@ -106,7 +106,6 @@
     <br> <br>
     <table id="cateListTable" class="table table-hover">
         <tr >
-            <th class="span2"></th>
             <th class="span2">ID</th>
             <th class="span2">Title</th>
             <th class="span2">Author</th>

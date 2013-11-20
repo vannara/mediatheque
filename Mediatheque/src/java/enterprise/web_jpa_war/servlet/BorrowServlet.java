@@ -62,9 +62,9 @@ public class BorrowServlet extends HttpServlet {
 //request.getRequestDispatcher("Borrow").forward(request, response);
             } else if ("save".equalsIgnoreCase(action)) {
 
-            } else {
-                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
-            }
+            } 
+            request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+            
         } finally {
             out.close();
         }
