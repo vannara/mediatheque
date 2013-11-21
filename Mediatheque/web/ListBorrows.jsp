@@ -24,8 +24,8 @@
     <script>
        
 
-        function addCategory() {
-            window.location = "Borrow";
+        function addBorrow() {
+            window.location = "Borrow.jsp";
         }
     </script>
 
@@ -94,7 +94,7 @@
                 <tr>
                     <td class="span1">${borrow.borrowId}&nbsp;&nbsp;</td> 
                     <td class="span2">${borrow.borrowDate}&nbsp;&nbsp;</td> 
-                    <td class="span2">${borrow.adherent.lastname} + " - "+ ${borrow.adherent.firstname}+&nbsp;&nbsp;</td> 
+                    <td class="span2">${borrow.getAdherent().getLastName()} - ${borrow.getAdherent().getFirstName()} +&nbsp;&nbsp;</td> 
                     
                 </tr> 
 
@@ -105,7 +105,7 @@
                
     </form>
     <div><br><br></div>
-    <button class="span2 btn-primary" onclick="addCategory()">Add Borrow</button>
+    <button class="span2 btn-primary" onclick="addBorrow()">Add Borrow</button>
     <script src="bootstrap/js/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
 </body>

@@ -5,11 +5,16 @@
  */
 package enterprise.web_jpa_war.servlet;
 
+import enterprise.web_jpa_war.entity.Adherent;
+import enterprise.web_jpa_war.entity.Borrow;
+import enterprise.web_jpa_war.entity.BorrowItem;
+import enterprise.web_jpa_war.entity.Card;
 import enterprise.web_jpa_war.entity.Item;
 import enterprise.web_jpa_war.entity.ItemCopy;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,6 +42,7 @@ public class BorrowServlet extends HttpServlet {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
+    
     @Resource
     private UserTransaction utx;
 
@@ -55,14 +61,16 @@ public class BorrowServlet extends HttpServlet {
             throws ServletException, IOException, NotSupportedException, SystemException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
-
+        FileWriter writer=null;
         try {
             String action = request.getParameter("action");
             String itemCopyCode = request.getParameter("itemCopyCode");
             String adherentNumber = request.getParameter("adherentNumber");
 
             utx.begin();
+            
             em = emf.createEntityManager();
+            
             if ("Add to List".equalsIgnoreCase(action)) {
                 //query the item_copy infor based on scanning barcode
                 Query itemCp = em.createQuery("select c from ItemCopy c WHERE c.itemCopyCode=:itemCode");
@@ -81,15 +89,41 @@ public class BorrowServlet extends HttpServlet {
 
                 //request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
-            if ("Save".equalsIgnoreCase(action)) {
-
-                //request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+            if ("Save".equalsIgnoreCase(action)) {    
+                
+               ///// create borrow information
+                Borrow borrow = new Borrow();
+                Query cardQuery = em.createQuery("select c from Card c WHERE c.login=:adherentNumber");
+                cardQuery.setParameter("adherentNumber", adherentNumber);              
+                Card card =(Card) cardQuery.getSingleResult();
+                
+                Query adherentQuery = em.createQuery("select ad from Adherent ad WHERE ad.card=:card");
+                adherentQuery.setParameter("card", card);                 
+                Adherent adherent= (Adherent)adherentQuery.getSingleResult();               
+                borrow.setAdherent(adherent);
+                borrow.setBorrowDate(new java.util.Date());
+                //persist in persistence context
+                em.persist(borrow);
+                
+                for(ItemCopy ic: itemCopies){
+                    BorrowItem borrowItem=new BorrowItem();
+                    borrowItem.setBorrow(borrow);
+                    borrowItem.setItemCopy(ic);
+                    em.persist(borrowItem);
+                }
+                utx.commit();
+               
+                request.getRequestDispatcher("ListBorrows").forward(request, response);
             }
-            request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+            else {
+            
+                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+            }
         } catch (Exception e) {
             utx.rollback();
         } finally {
-            em.close();
+           em.close();
+           //em.clear();
         }
     }
 

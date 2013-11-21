@@ -31,7 +31,7 @@ public class Borrow implements Serializable {
     @ManyToOne
     private Return returns;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "borrow")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "borrow")
     private Collection<BorrowItem> borrowItems;
        
     public Return getReturns() {
@@ -75,6 +75,6 @@ public class Borrow implements Serializable {
     }
     
     public Borrow(){
-        
+        //this.borrowDate= new Date();
     }
 }

@@ -122,7 +122,8 @@
                             <th class="span2">Copy Code</th>
                             <th class="span2">Category</th>
                             <th class="span2">Item title</th>
-                            <th class="span2">Borrow Qty</th>                              
+                            <th class="span2">Borrow Qty</th>  
+<!--                            <th class="span2">Expected Return Date</th>  -->
                         </tr>
                         <%
                             List<ItemCopy> list = new ArrayList();
@@ -137,7 +138,7 @@
                             <td class="span1"><%=list.get(i).getItemCopyId()%></td>   
                             <td class="span2"><%=list.get(i).getItemCopyCode()%></td>   
                             <td class="span2"><%=list.get(i).getItem().getCategory().getCategoryName()%></td>   
-                            <td class="span2"><%=list.get(i).getItem().getOeuvre().getTitle()%></td>   
+                            <td class="span2"><%=list.get(i).getItem().getOeuvre().getTitle()%></td> 
                             <td class="span2">1</td>   
                         </tr> 
 

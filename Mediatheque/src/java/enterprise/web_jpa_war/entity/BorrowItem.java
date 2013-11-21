@@ -27,7 +27,7 @@ public class BorrowItem implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date expectedReturnDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Borrow borrow;
     
     @ManyToOne
