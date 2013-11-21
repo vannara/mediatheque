@@ -1,3 +1,9 @@
+<%-- 
+    Document   : ListBorrow
+    Created on : Nov 21, 2013
+    Author     : vannaraloch
+--%>
+ 
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -10,14 +16,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>List Of Item</title>
+        <title>List Of Borrows</title>
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/logo-nav.css" rel="stylesheet">
     </head>
     <script>
-        function addItem() {
-            window.location = "CreateItem";
+       
+
+        function addCategory() {
+            window.location = "Borrow";
         }
     </script>
 
@@ -70,32 +78,34 @@
         </div><!-- /.container -->
     </nav>
     <br> <br> 
-    <h1 class="text-center">List of items</h1>
+    <h1 class="text-center">List of Borrows</h1>
     <br>
     <br> <br>
-    <form id="listCategoryForm" action="ListItems" target="categoryWindow" method="post" class="span12 no-margin-left">
+    <form id="listCategoryForm" action="ListCategories" target="categoryWindow" method="post" class="span12 no-margin-left">
         <table id="cateListTable" class="table table-hover">
             <tr >
                 <th class="span1">ID</th>
-                <th class="span2">Code barre</th>
-                <th class="span2">Oeuvre</th>
-                <th class="span2">Category</th>
+                <th class="span2">Date</th>
+                <th class="span2">Adherent Number</th>
+               
             </tr>
 
-            <c:forEach var="item" begin="0" items="${requestScope.itemList}">
+            <c:forEach var="borrow" begin="0" items="${requestScope.borrowList}">
                 <tr>
-                    <td class="span1">${item.itemId}&nbsp;&nbsp;</td> 
-                    <td class="span2">${item.itemNumber}&nbsp;&nbsp;</td> 
-                    <td class="span2">${item.oeuvre.title}&nbsp;&nbsp;</td> 
-                    <td class="span2">${item.category.categoryName}&nbsp;&nbsp;</td>
+                    <td class="span1">${borrow.borrowId}&nbsp;&nbsp;</td> 
+                    <td class="span2">${borrow.borrowDate}&nbsp;&nbsp;</td> 
+                    <td class="span2">${borrow.adherent.lastname} + " - "+ ${borrow.adherent.firstname}+&nbsp;&nbsp;</td> 
+                    
                 </tr> 
 
             </c:forEach>
 
-        </table>            
+        </table>
+             <input type="hidden" id="cateId" name="cateId"/>
+               
     </form>
     <div><br><br></div>
-    <button class="span2 btn-primary" onclick="addItem()">Add Item</button>
+    <button class="span2 btn-primary" onclick="addCategory()">Add Borrow</button>
     <script src="bootstrap/js/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
 </body>
