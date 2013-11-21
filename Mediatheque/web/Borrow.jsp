@@ -24,6 +24,7 @@
     <script type="text/javascript">
         function gohome() {
             window.location = "ListBorrows";
+         
         }
 
         function addToList() {
@@ -101,7 +102,7 @@
 
         </div>-->
         <div class="span12 no-margin-left">
-        <form id="listBorrowForm" action="Borrow" method="post" class="span12 no-margin-left">
+            <form id="listBorrowForm" action="Borrow" method="post" class="span12 no-margin-left">
             <div class="container">
                 <div class="span2 no-margin-left"><label class="span2 no-margin-left">Adherent number:</label> </div>    
                 <div class="span9 no-margin-left">
