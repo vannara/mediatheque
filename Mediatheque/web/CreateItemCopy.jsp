@@ -1,33 +1,3 @@
-<!--
-  Copyright (c) 2010, Oracle. All rights reserved.
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions are met:
-
-  * Redistributions of source code must retain the above copyright notice,
-    this list of conditions and the following disclaimer.
-
-  * Redistributions in binary form must reproduce the above copyright notice,
-    this list of conditions and the following disclaimer in the documentation
-    and/or other materials provided with the distribution.
-
-  * Neither the name of Oracle nor the names of its contributors
-    may be used to endorse or promote products derived from this software without
-    specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-  THE POSSIBILITY OF SUCH DAMAGE.
--->
-
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
@@ -50,7 +20,7 @@
         }
         
         function createItem() {
-           document.forms['createItemForm'].submit();
+           document.forms['createItemCopyForm'].submit();
         }
 
         function SaveNew() {
@@ -102,8 +72,9 @@
                                     <li><a href="ListOeuvres">Oeuvre</a></li>
                                     <li><a href="ListCategories">Category</a></li>
                                     <li><a href="ListItems">Item</a></li>
+                                    <li><a href="ListItemCopies">Item</a></li>
                                     <li class="divider"/>
-                                    <li><a href="#">Adherent</a></li>
+                                    <li><a href="ListAdherents">Adherent</a></li>
                                     <li><a href="#">User</a></li>                    
                                 </ul>
                             </li>                
@@ -120,20 +91,38 @@
             <div class="span12">
                 <div class="span3"><label></label></div>
                 <div class="span5">
-                    <form id="createItemForm"  action="CreateItem" method="post" class="span6">
+                    <form id="createItemCopyForm"  action="CreateItemCopy" method="post" class="span6">
                         <table>
-                            <tr><td>Nombre d'exemplaires :</td><td><input type="text" id="itemcopynb" required name="itemcopynb" /></td></tr>
-                            <tr><td>IdItem</td><td><input type="text" id="itemid" required name="itemid" /></td></tr>
+                            <tr><td>Item Copy Number (barcode) :</td><td><input type="text" id="itemcopynb" required name="itemcopynb" /></td></tr>
+                            <tr><td>Item Id</td><td><input type="text" id="itemid" required name="itemid" /></td></tr>
                         </table>
                         <hr>
                         <button class="btn-primary" onclick="SaveNew()" id="btnSaveNew">Save & New</button>
                         <button class="btn-primary" id="SaveClose" onclick="SaveClose()">Save & Close </button>
-                        <button class="btn-primary" onclick="goback()">Create another ItemCopy</button>
+                        <button class="btn-primary" onclick="goback()">Return</button>
                     </form>
                 <br><br>
                 </div>
-                <div class="span5">
+                <div class="span12">
                 <h2> Items </h2>
+                <table class="table table-hover">
+                    <tr >
+                        <th class="span1">ID</th>
+                        <th class="span2">Item Number</th>
+                        <th class="span2">Category</th>
+                        <th class="span2">Title</th>                        
+                    </tr>
+                    <c:forEach var="item" begin="0" items="${requestScope.itemsList}">
+                        <tr>
+                            <td class="span1">${item.itemId}&nbsp;&nbsp;</td> 
+                            <td class="span2">${item.itemNumber}&nbsp;&nbsp;</td> 
+                            <td class="span2">${item.category.categoryName}&nbsp;&nbsp;</td> 
+                            <td class="span2">${item.oeuvre.title}&nbsp;&nbsp;</td> 
+                        </tr> 
+
+                    </c:forEach>
+
+                </table>
                 </div>
       </div>
 </div>

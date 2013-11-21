@@ -16,8 +16,8 @@
         <link href="bootstrap/css/logo-nav.css" rel="stylesheet">
     </head>
     <script>
-        function addItem() {
-            window.location = "CreateItem";
+        function addItemCopy() {
+            window.location = "CreateItemCopy";
         }
     </script>
 
@@ -70,24 +70,23 @@
         </div><!-- /.container -->
     </nav>
     <br> <br> 
-    <h1 class="text-center">List of items</h1>
+    <h1 class="text-center">List of Item Copies</h1>
     <br>
     <br> <br>
-    <form id="listCategoryForm" action="ListItems" target="categoryWindow" method="post" class="span12 no-margin-left">
-        <table id="cateListTable" class="table table-hover">
+    <form id="listCategoryForm" action="ListItemCopies" target="categoryWindow" method="post" class="span12 no-margin-left">
+        <table id="itemCopiestable" class="table table-hover">
             <tr >
                 <th class="span1">ID</th>
-                <th class="span2">Code barre</th>
-                <th class="span2">Oeuvre</th>
-                <th class="span2">Category</th>
+                <th class="span2">Item ID</th>
+                <th class="span2">Item Copy Code</th>
+                
             </tr>
 
-            <c:forEach var="item" begin="0" items="${requestScope.itemList}">
+            <c:forEach var="item" begin="0" items="${requestScope.itemCopiesList}">
                 <tr>
-                    <td class="span1">${item.itemId}&nbsp;&nbsp;</td> 
-                    <td class="span2">${item.itemNumber}&nbsp;&nbsp;</td> 
-                    <td class="span2">${item.oeuvre.title}&nbsp;&nbsp;</td> 
-                    <td class="span2">${item.category.categoryName}&nbsp;&nbsp;</td>
+                    <td class="span1">${item.itemCopyId}&nbsp;&nbsp;</td> 
+                    <td class="span2">${item.item.itemId}&nbsp;&nbsp;</td>                   
+                    <td class="span2">${item.itemCopyCode}&nbsp;&nbsp;</td>
                 </tr> 
 
             </c:forEach>
@@ -95,7 +94,7 @@
         </table>            
     </form>
     <div><br><br></div>
-    <button class="span2 btn-primary" onclick="addItem()">Add Item</button>
+    <button class="span2 btn-primary" onclick="addItemCopy()">Add Item Copy</button>
     <script src="bootstrap/js/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
 </body>

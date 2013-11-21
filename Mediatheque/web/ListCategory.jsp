@@ -95,6 +95,7 @@
                             <li><a href="ListOeuvres">Oeuvre</a></li>
                             <li><a href="ListCategories">Category</a></li>
                             <li><a href="ListItems">Item</a></li>
+                            <li><a href="ListItemCopies">Item Copy</a></li>
                             <li class="divider"/>
                             <li><a href="ListAdherents">Adherent</a></li>
                             <li><a href="#">User</a></li>                    

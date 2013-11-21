@@ -1,35 +1,4 @@
-/*
- * Copyright (c) 2010, Oracle. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * * Neither the name of Oracle nor the names of its contributors
- *   may be used to endorse or promote products derived from this software without
- *   specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
- * THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 package enterprise.web_jpa_war.servlet;
-
 
 import enterprise.web_jpa_war.entity.Category;
 import enterprise.web_jpa_war.entity.Item;
@@ -45,92 +14,70 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.annotation.Resource;
+import javax.persistence.Query;
 import javax.transaction.UserTransaction;
-
 
 /**
  * The sevelet class to insert andherent into database
  */
-@WebServlet(name="CreateItemCopyServlet", urlPatterns={"/CreateItemCopy"})
+@WebServlet(name = "CreateItemCopyServlet", urlPatterns = {"/CreateItemCopy"})
 public class CreateItemCopyServlet extends HttpServlet {
-    
+
     @PersistenceUnit
     //The emf corresponding to 
-    private EntityManagerFactory emf;  
-    
+    private EntityManagerFactory emf;
+
     @Resource
     private UserTransaction utx;
 
-    
-    /** Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException {
+            throws ServletException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
             //query for all the categories in database
-            em = emf.createEntityManager();
-              
-            List categories = em.createQuery("select c from Category c").getResultList();
-            request.setAttribute("categoryList", categories);
-            
-            List oeuvres = em.createQuery("select c from Oeuvre c").getResultList();
-            request.setAttribute("oeuvreList",oeuvres);
-            
-            //Get the data from user's form
-            int itemNumberOfCopies  = Integer.valueOf(request.getParameter("itemcopynb"));
-            String itemId   = (String) request.getParameter("itemid");
-
-            //begin a transaction
             utx.begin();
-            
-            //Get oeuvre and category object
-            Item item = em.find(Item.class, itemId);
-            
-            if(item == null || itemNumberOfCopies < 1){
-                utx.rollback();   
-            }
-            else{
-                for(int itemnb = 1 ; itemnb <= itemNumberOfCopies ; itemnb++)
-                {
-                    ItemCopy itemCopyExists = em.find(ItemCopy.class, itemnb);
-                    if(itemCopyExists != null){
-                        itemnb += 100;
-                        itemNumberOfCopies += 100;
-                    }
-                    //Create an ItemCopy instance out of it
-                    ItemCopy newItemCopy  = new ItemCopy (String.valueOf(itemnb),item);
-                    
-                    //create an em. 
-                    //Since the em is created inside a transaction, it is associsated with 
-                    //the transaction
-                    //persist the adherent/card entity
-                    em.persist(newItemCopy);
-                    //commit transaction which will trigger the em to 
-                    //commit newly created entity into database
-                }
+            em = emf.createEntityManager();
+
+            //Get the data from user's form
+            String itemCopyCode = request.getParameter("itemcopynb");
+            String itemId = (String) request.getParameter("itemid");
+
+            if (itemId == null || itemCopyCode == null) {
+                utx.rollback();
+            } else {
+                Item item = em.find(Item.class, Long.parseLong(itemId));
+                //Create an ItemCopy instance out of it
+                ItemCopy newItemCopy = new ItemCopy(itemCopyCode, item);
+
+                em.persist(newItemCopy);
+
                 //Since ItemCopies were created, some item at least are available
                 item.setIsAvailable(true);
                 em.merge(item);
                 utx.commit();
             }
-            
+
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("ListItems").forward(request, response);
+            request.getRequestDispatcher("ListItemCopies").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
             //close the em to release any resources held up by the persistebce provider
-            if(em != null) {
+            if (em != null) {
                 em.close();
             }
         }
     }
-    
-        /**
+
+    /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -138,7 +85,16 @@ public class CreateItemCopyServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        assert emf != null;  //Make sure injection went through correctly.
+        EntityManager em = null;
+        em = emf.createEntityManager();
+
+        List itemCopies = em.createQuery("select i from Item i").getResultList();
+        request.setAttribute("itemsList", itemCopies);
+
+        request.getRequestDispatcher("CreateItemCopy.jsp").forward(request, response);
+        em.close();
     }
 
     /**
@@ -151,8 +107,8 @@ public class CreateItemCopyServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
-        /**
+
+    /**
      * Returns a short description of the servlet.
      */
     public String getServletInfo() {

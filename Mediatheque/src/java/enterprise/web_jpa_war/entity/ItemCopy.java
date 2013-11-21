@@ -15,6 +15,8 @@ import javax.persistence.*;
  * @author vannaraloch
  */
 @Entity
+@NamedQueries({
+@NamedQuery(name="getAllCopies",query="SELECT c FROM ItemCopy c")})
 public class ItemCopy implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
