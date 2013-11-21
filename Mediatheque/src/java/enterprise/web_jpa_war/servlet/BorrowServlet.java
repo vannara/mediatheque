@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
+import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 
 /**
@@ -108,8 +109,8 @@ public class BorrowServlet extends HttpServlet {
                 
                 for(ItemCopy ic: itemCopies){
                     BorrowItem borrowItem=new BorrowItem();
-                    borrowItem.setBorrow(borrow);
-                    borrowItem.setItemCopy(ic);
+                    borrowItem.setBorrowId(borrow.getBorrowId());
+                    borrowItem.setItemCopyId(ic.getItemCopyId());
                     int maxDuration= (int) ic.getItem().getCategory().getMaxBorrowDuration();
                     Calendar cal = Calendar.getInstance();    
                     cal.add(Calendar.DAY_OF_MONTH, maxDuration);
@@ -117,6 +118,7 @@ public class BorrowServlet extends HttpServlet {
 
                     borrowItem.setExpectedReturnDate(expectedReturnDate);
                     em.persist(borrowItem);
+                   
                 }
                 utx.commit();
                
