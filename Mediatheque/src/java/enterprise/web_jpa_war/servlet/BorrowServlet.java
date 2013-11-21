@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -109,6 +110,12 @@ public class BorrowServlet extends HttpServlet {
                     BorrowItem borrowItem=new BorrowItem();
                     borrowItem.setBorrow(borrow);
                     borrowItem.setItemCopy(ic);
+                    int maxDuration= (int) ic.getItem().getCategory().getMaxBorrowDuration();
+                    Calendar cal = Calendar.getInstance();    
+                    cal.add(Calendar.DAY_OF_MONTH, maxDuration);
+                    java.util.Date expectedReturnDate =new java.util.Date(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
+
+                    borrowItem.setExpectedReturnDate(expectedReturnDate);
                     em.persist(borrowItem);
                 }
                 utx.commit();
@@ -120,6 +127,10 @@ public class BorrowServlet extends HttpServlet {
                 request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
         } catch (Exception e) {
+              writer = new FileWriter("TEST.txt");
+                    writer.write(e.getMessage());
+               
+                writer.close();
             utx.rollback();
         } finally {
            em.close();

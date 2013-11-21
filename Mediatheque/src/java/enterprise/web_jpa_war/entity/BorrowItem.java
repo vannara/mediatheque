@@ -28,9 +28,11 @@ public class BorrowItem implements Serializable {
     private Date expectedReturnDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "borrowId", updatable = false, insertable = false)
     private Borrow borrow;
     
     @ManyToOne
+    @JoinColumn(name = "itemCopyId", updatable = false, insertable = false)
     private ItemCopy itemCopy;
 
     public long getBorrowId() {
