@@ -16,9 +16,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.AbstractList;
+import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -108,6 +110,8 @@ public class BorrowServlet extends HttpServlet {
                 //persist in persistence context
                 em.persist(borrow);
                 
+                List<Item> itemsAdded = new ArrayList<Item>();
+                
                 for(ItemCopy ic: itemCopies){
                     BorrowItem borrowItem=new BorrowItem();
                     borrowItem.setBorrowId(borrow.getBorrowId());
@@ -119,14 +123,39 @@ public class BorrowServlet extends HttpServlet {
 
                     borrowItem.setExpectedReturnDate(expectedReturnDate);
                     em.persist(borrowItem);
+                    
+                    if(!itemsAdded.contains(ic.getItem())){
+                          itemsAdded.add(ic.getItem());
+                    }                  
                    
                 }
+            
+                for(Item currentitem: itemsAdded){
+                    Query itemcopiesexists =  em.createQuery("select i from ItemCopy i WHERE i.item=:currentitem");
+                    itemcopiesexists.setParameter("currentitem", currentitem);  
+                    int nbexists = itemcopiesexists.getResultList().size();
+                    
+                    Query itemcopiesborrowed =  em.createQuery("select b.itemCopy from BorrowItem b WHERE b.itemCopy.item=:currentitem");
+                    itemcopiesborrowed.setParameter("currentitem", currentitem);  
+                    int nbborrowed = itemcopiesborrowed.getResultList().size();
+                    
+                    if(nbexists <= nbborrowed){
+                        currentitem.setIsAvailable(false);
+                    }else{
+                        currentitem.setIsAvailable(true);
+                    }
+                    em.merge(currentitem);
+                }
                 utx.commit();
+                
                 ////remove all items before another save transaction
                /// after use this statement it throws error
+                itemCopies.clear();
 //                for(ItemCopy ic: itemCopies){
 //                    itemCopies.remove(ic);
 //                }
+                
+                
      
                 request.getRequestDispatcher("ListBorrows").forward(request, response);
                 
