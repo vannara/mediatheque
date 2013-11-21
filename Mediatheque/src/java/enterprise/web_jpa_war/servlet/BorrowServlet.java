@@ -123,9 +123,11 @@ public class BorrowServlet extends HttpServlet {
                 }
                 utx.commit();
                 ////remove all items before another save transaction
-                for(ItemCopy ic: itemCopies){
-                    itemCopies.remove(ic);
-                }
+               /// after use this statement it throws error
+//                for(ItemCopy ic: itemCopies){
+//                    itemCopies.remove(ic);
+//                }
+     
                 request.getRequestDispatcher("ListBorrows").forward(request, response);
                 
             }
@@ -134,10 +136,6 @@ public class BorrowServlet extends HttpServlet {
                 request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
         } catch (Exception e) {
-              writer = new FileWriter("TEST.txt");
-                    writer.write(e.getMessage());
-               
-                writer.close();
             utx.rollback();
         } finally {
            em.close();
