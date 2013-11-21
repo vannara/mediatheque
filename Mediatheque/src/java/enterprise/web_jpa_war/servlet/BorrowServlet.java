@@ -147,10 +147,10 @@ public class BorrowServlet extends HttpServlet {
                     em.merge(currentitem);
                 }
                 utx.commit();
-                
+               
                 ////remove all items before another save transaction
                /// after use this statement it throws error
-                itemCopies.clear();
+               // itemCopies.clear();
 //                for(ItemCopy ic: itemCopies){
 //                    itemCopies.remove(ic);
 //                }
