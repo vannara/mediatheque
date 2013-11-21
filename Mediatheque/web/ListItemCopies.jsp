@@ -40,7 +40,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="AdminLogin.jsp"><b>Logout</b></a></li>
-                    <li><a href="#Borrow"><b>Borrow</b></a></li>
+                    <li><a href="ListBorrows"><b>Borrow</b></a></li>
                     <li><a href="#Return"><b>Return</b></a></li>
                     <li><a href="#Order"><b>Order</b></a></li>
                     <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>

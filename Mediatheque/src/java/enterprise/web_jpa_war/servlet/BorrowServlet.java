@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +40,7 @@ public class BorrowServlet extends HttpServlet {
     @Resource
     private UserTransaction utx;
 
-    List<Item> items = new ArrayList<Item>();
+    List<ItemCopy> itemCopies = new ArrayList<ItemCopy>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,25 +58,37 @@ public class BorrowServlet extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
-            String ItemId = request.getParameter("itemCopyId");
-            utx.begin();            
+            String itemCopyCode = request.getParameter("itemCopyCode");
+            String adherentNumber = request.getParameter("adherentNumber");
+
+            utx.begin();
             em = emf.createEntityManager();
             if ("Add to List".equalsIgnoreCase(action)) {
-                Item borrowItem = em.find(Item.class, Long.parseLong(ItemId));
-                items.add(borrowItem);
-                request.setAttribute("borrowList", items);
+                //query the item_copy infor based on scanning barcode
+                Query itemCp = em.createQuery("select c from ItemCopy c WHERE c.itemCopyCode=:itemCode");
+                itemCp.setParameter("itemCode", itemCopyCode);
+                ItemCopy itemcopy = (ItemCopy) itemCp.getSingleResult();
+                if (itemcopy != null) {
+                    // ItemCopy borrowItem = em.find(ItemCopy.class, Long.parseLong(itemcopy.getItemCopyId()));
+                    itemCopies.add(itemcopy);
+                    request.setAttribute("borrowList", itemCopies);
+                    if (adherentNumber == null | adherentNumber == "null") {
+                        request.setAttribute("adherentNumber", "");
+                    } else {
+                        request.setAttribute("adherentNumber", adherentNumber);
+                    }
+                }
+
                 //request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
             if ("Save".equalsIgnoreCase(action)) {
-                
-                
+
                 //request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
             request.getRequestDispatcher("Borrow.jsp").forward(request, response);
-        }catch(Exception e){
+        } catch (Exception e) {
             utx.rollback();
-        } 
-        finally {
+        } finally {
             em.close();
         }
     }

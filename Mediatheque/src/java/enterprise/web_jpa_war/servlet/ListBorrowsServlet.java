@@ -8,7 +8,9 @@ package enterprise.web_jpa_war.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
@@ -43,21 +45,22 @@ public class ListBorrowsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        assert emf != null;  //Make sure injection went through correctly.
+        EntityManager em = null;
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ListBorrowsServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ListBorrowsServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+             em = emf.createEntityManager();
+
+            //query for all the borrows in database
+            List borrows = em.createQuery("select b from Borrow b").getResultList();
+            request.setAttribute("borrowList",borrows);
+            
+            //Forward to the jsp page for rendering
+            request.getRequestDispatcher("ListBorrows.jsp").forward(request, response);
+            
+        } catch (Exception ex) {
+            throw new ServletException(ex);
         } finally {
-            out.close();
+            em.close();
         }
     }
 

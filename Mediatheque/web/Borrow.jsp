@@ -4,6 +4,7 @@
     Author     : vannaraloch
 --%>
 
+<%@page import="enterprise.web_jpa_war.entity.ItemCopy"%>
 <%@page import="enterprise.web_jpa_war.entity.Item"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -22,14 +23,14 @@
     </head>
     <script type="text/javascript">
         function gohome() {
-            window.location = "HomeAdmin.jsp";
+            window.location = "ListBorrows";
         }
 
         function addToList() {
-            var itemCopyId = $("#itemCopyId").val();
+            var itemCopyCode = $("#itemCopyCode").val();
             
             $.ajax({
-                url: "/Borrow?itemCopyId=" + itemCopyId,
+                url: "/Borrow?itemCopyCode=" + itemCopyCode,
                 type: "GET"
 
 
@@ -56,7 +57,7 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="AdminLogin.jsp"><b>Logout</b></a></li>
-                        <li><a href="Borrow"><b>Borrow</b></a></li>
+                        <li><a href="ListBorrows"><b>Borrow</b></a></li>
                         <li><a href="#Return"><b>Return</b></a></li>
                         <li><a href="#Order"><b>Order</b></a></li>
                         <li><a href="#ReceiveDelivery"><b>Receive Order</b></a></li>
@@ -102,10 +103,13 @@
         <div class="span12 no-margin-left">
         <form id="listBorrowForm" action="Borrow" method="post" class="span12 no-margin-left">
             <div class="container">
-
+                <div class="span2 no-margin-left"><label class="span2 no-margin-left">Adherent number:</label> </div>    
+                <div class="span9 no-margin-left">
+                    <input type="text" id="itemCopyId" class="span5 input-lg" name="adherentNumber"  value="<%=request.getAttribute("adherentNumber")%>" />                    
+                </div>
                 <div class="span2 no-margin-left"><label class="span2 no-margin-left">Item Copy Code:</label> </div>    
                 <div class="span9 no-margin-left">
-                    <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyId" />
+                    <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyCode" />
                     <input type="submit" class="btn-primary btn-lg" onclick="addToList()" value="Add to List" name="action" />
 
                 </div>
@@ -114,13 +118,14 @@
                 <div class="span12">
                     <table class="table-hover table">
                         <tr>
+                            <th class="span1">Copy ID</th>
                             <th class="span2">Copy Code</th>
                             <th class="span2">Category</th>
                             <th class="span2">Item title</th>
                             <th class="span2">Borrow Qty</th>                              
                         </tr>
                         <%
-                            List<Item> list = new ArrayList();
+                            List<ItemCopy> list = new ArrayList();
                             if (request.getAttribute("borrowList") != null) {
                                 list.addAll((List) (request.getAttribute("borrowList")));
 
@@ -129,9 +134,10 @@
                         <%            for (int i = 0; i < list.size(); i++) {
                         %>
                         <tr>
-                            <td class="span2"><%=list.get(i).getItemId()%></td>   
-                            <td class="span2"><%=list.get(i).getCategory().getCategoryName()%></td>   
-                            <td class="span2"><%=list.get(i).getOeuvre().getTitle()%></td>   
+                            <td class="span1"><%=list.get(i).getItemCopyId()%></td>   
+                            <td class="span2"><%=list.get(i).getItemCopyCode()%></td>   
+                            <td class="span2"><%=list.get(i).getItem().getCategory().getCategoryName()%></td>   
+                            <td class="span2"><%=list.get(i).getItem().getOeuvre().getTitle()%></td>   
                             <td class="span2">1</td>   
                         </tr> 
 
