@@ -94,7 +94,7 @@
                 <tr>
                     <td class="span1">${borrow.borrowId}&nbsp;&nbsp;</td> 
                     <td class="span2">${borrow.borrowDate}&nbsp;&nbsp;</td> 
-                    <td class="span2">${borrow.getAdherent().getLastName()} - ${borrow.getAdherent().getFirstName()} +&nbsp;&nbsp;</td> 
+                    <td class="span2">${borrow.getAdherent().getLastName()} - ${borrow.getAdherent().getFirstName()}</td> 
                     
                 </tr> 
 
