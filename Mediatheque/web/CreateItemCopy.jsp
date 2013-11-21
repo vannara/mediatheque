@@ -93,8 +93,8 @@
                 <div class="span5">
                     <form id="createItemCopyForm"  action="CreateItemCopy" method="post" class="span6">
                         <table>
-                            <tr><td>Item Copy Number (barcode) :</td><td><input type="text" id="itemcopynb" required name="itemcopynb" /></td></tr>
-                            <tr><td>Item Id</td><td><input type="text" id="itemid" required name="itemid" /></td></tr>
+                            <tr><td>Number of item copies :</td><td><input type="text" id="itemcopynb" required name="itemcopynb" /></td></tr>
+                            <tr><td>Item Id associated</td><td><input type="text" id="itemid" required name="itemid" /></td></tr>
                         </table>
                         <hr>
                         <button class="btn-primary" onclick="SaveNew()" id="btnSaveNew">Save & New</button>

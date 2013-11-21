@@ -79,14 +79,17 @@
                 <th class="span1">ID</th>
                 <th class="span2">Item ID</th>
                 <th class="span2">Item Copy Code</th>
-                
+                <th class="span2">Oeuvre</th>
+                <th class="span2">Category</th>
             </tr>
 
-            <c:forEach var="item" begin="0" items="${requestScope.itemCopiesList}">
+            <c:forEach var="itemcopy" begin="0" items="${requestScope.itemCopiesList}">
                 <tr>
-                    <td class="span1">${item.itemCopyId}&nbsp;&nbsp;</td> 
-                    <td class="span2">${item.item.itemId}&nbsp;&nbsp;</td>                   
-                    <td class="span2">${item.itemCopyCode}&nbsp;&nbsp;</td>
+                    <td class="span1">${itemcopy.itemCopyId}&nbsp;&nbsp;</td> 
+                    <td class="span2">${itemcopy.item.itemId}&nbsp;&nbsp;</td>                   
+                    <td class="span2">${itemcopy.itemCopyCode}&nbsp;&nbsp;</td>
+                    <td class="span2">${itemcopy.item.oeuvre.title}&nbsp;&nbsp;</td> 
+                    <td class="span2">${itemcopy.item.category.categoryName}&nbsp;&nbsp;</td>
                 </tr> 
 
             </c:forEach>

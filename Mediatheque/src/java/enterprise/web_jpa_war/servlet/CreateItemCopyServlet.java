@@ -42,23 +42,39 @@ public class CreateItemCopyServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
-            //query for all the categories in database
+            //Get the data from user's form
+            Integer itemNumberOfCopies  = Integer.valueOf(request.getParameter("itemcopynb"));
+            Long itemId   = Long.valueOf(request.getParameter("itemid"));
+
+            //begin a transaction
             utx.begin();
             em = emf.createEntityManager();
+            
+            //Get item object associated
+            Item item = em.find(Item.class, itemId);
+            
+            if(item == null || itemNumberOfCopies < 1){
+                utx.rollback();   
+            }
+            else{
+                int itemcopynb = 1;
+                List itemcopies = em.createQuery("select i from ItemCopy i where i.item = :argument order by i.itemCopyId asc").setParameter("argument", item).getResultList();
+                if(itemcopies.size() > 0){
+                    String itemcopynbstring = ( (ItemCopy)itemcopies.get(itemcopies.size() - 1) ).getItemCopyCode();
+                    itemcopynb = Integer.valueOf(itemcopynbstring) + 1;
+                    itemNumberOfCopies += Integer.valueOf(itemcopynbstring);
+                }
+                //Create the number of copies aked
+                while(itemcopynb <= itemNumberOfCopies)
+                {
+                    //Create an ItemCopy instance out of it
+                    ItemCopy newItemCopy  = new ItemCopy (String.valueOf(itemcopynb),item);
 
-            //Get the data from user's form
-            String itemCopyCode = request.getParameter("itemcopynb");
-            String itemId = (String) request.getParameter("itemid");
-
-            if (itemId == null || itemCopyCode == null) {
-                utx.rollback();
-            } else {
-                Item item = em.find(Item.class, Long.parseLong(itemId));
-                //Create an ItemCopy instance out of it
-                ItemCopy newItemCopy = new ItemCopy(itemCopyCode, item);
-
-                em.persist(newItemCopy);
-
+                    //persist the new ItemCopy entity
+                    em.persist(newItemCopy);
+                    
+                    itemcopynb++;
+                }
                 //Since ItemCopies were created, some item at least are available
                 item.setIsAvailable(true);
                 em.merge(item);
