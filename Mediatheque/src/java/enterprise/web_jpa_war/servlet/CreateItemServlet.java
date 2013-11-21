@@ -72,32 +72,27 @@ public class CreateItemServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
+            //begin a transaction
+            utx.begin();
+          
             //query for all the categories in database
             em = emf.createEntityManager();
               
-            List categories = em.createQuery("select c from Category c").getResultList();
-            request.setAttribute("categoryList", categories);
-            
-            List oeuvres = em.createQuery("select c from Oeuvre c").getResultList();
-            request.setAttribute("oeuvreList",oeuvres);
-            
             //Get the data from user's form
             String itemNumber  = (String) request.getParameter("itemnb");
             String oeuvreId   = (String) request.getParameter("oeuvreid");
             String categoryId =(String) request.getParameter("categoryid");
 
-            //begin a transaction
-            utx.begin();
             
             //Get oeuvre and category object
-            Oeuvre oeuvre = em.find(Oeuvre.class, Long.valueOf(oeuvreId));
+            Oeuvre oeuvre = em.find(Oeuvre.class, Long.parseLong(oeuvreId));
 //            String dateOeuvre = "12-12-2012";
 //            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 //            Date releaseDate= sdf.parse(dateOeuvre);
 //            Oeuvre oeuvre = new Oeuvre("livre du suspens","auteur","policier","suspens",releaseDate);
-            Category category = em.find(Category.class, Integer.valueOf(categoryId));
+            Category category = em.find(Category.class, Integer.parseInt(categoryId));
             
-            if(oeuvre == null || category == null){
+            if(oeuvre == null & category == null){
                 utx.rollback();   
             }
             else
@@ -136,7 +131,20 @@ public class CreateItemServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        //processRequest(request, response);
+        assert emf != null;  //Make sure injection went through correctly.
+        EntityManager em = null;
+        em = emf.createEntityManager();
+
+        List categories = em.createQuery("select c from Category c").getResultList();
+        request.setAttribute("categoryList", categories);
+
+        List oeuvres = em.createQuery("select o from Oeuvre o").getResultList();
+        request.setAttribute("oeuvreList", oeuvres);
+        request.getRequestDispatcher("CreateItem.jsp").forward(request, response);
+        em.close();
+
     }
 
     /**
