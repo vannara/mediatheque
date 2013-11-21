@@ -41,6 +41,7 @@ public class ListItemsServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
+            
             em = emf.createEntityManager();
 
             //query for all the categories in database

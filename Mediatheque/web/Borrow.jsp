@@ -12,7 +12,7 @@
         <title>Borrow item</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
         <link href="bootstrap/css/logo-nav.css" rel="stylesheet">
 
@@ -25,13 +25,27 @@
 //        function addToList() {
 //            var itemCopyId = $("#itemCopyId").val();
 //            alert("called " + itemCopyId);
-//            
+//
 //            $.ajax({
-//                url: "/Borrow?action=add&itemCopyId=" + itemCopyId,
-//                type: "GET"
-//                
+//                url: "/Borrow?itemCopyId=" + itemCopyId,
+//                type: "POST",
+//                success: function(data, textStatus, jqXHR) {
+//                    alert(data);
+////                    var jsonObj = eval("(" + data + ")");
+////                    var tbody = document.getElementById("borrowData");
+////                    var borrowItems = jsonObj.borrows;
+////                    var i = 0;
+////                    while (i < borrowItems.length) {
+////                        row = tbody.insertRow(i + 1);
+////                        cell = row.insertCell(0);
+////                        cell.innerHTML = borrowItems[i++].itemCopyCode;
+////                        i++;
+////                        console.log(borrowItems[i].itemCopyCode);
+////                    }
+//                }
+//
 //            });
-//        }
+ //       }
 
     </script>
     <body>
@@ -80,15 +94,16 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container -->
         </nav>        
-        <div class="container">
-            <div class="span12"> <h1 class="text-center">Borrow Item Transaction</h1>
-            </div>
-            <div class="span12"><br><br></div>
-            <form id="listBorrowForm" action="Borrow" method="post" class="span12 no-margin-left">
+        <form id="listBorrowForm" action="Borrow" method="post" class="span12 no-margin-left">
+            <div class="container">
+                <div class="span12"> <h1 class="text-center">Borrow Item Transaction</h1>
+                </div>
+                <div class="span12"><br><br></div>
+
                 <div class="span2 no-margin-left"><label class="span2 no-margin-left">Item Copy Code:</label> </div>    
                 <div class="span9 no-margin-left">
                     <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyId" required />
-                    <button class="btn-primary btn-lg" id="btnAdd" name="btnAdd">Add to list</button>
+                    <input type="submit" class="btn-primary btn-lg" value="Add to List" name="action" />
 
                 </div>
 
@@ -110,9 +125,9 @@
                             </tr> 
 
                         </c:forEach>
-                            <tbody id="borrowData">
-                                
-                            </tbody>
+                        <tbody id="borrowData">
+
+                        </tbody>
 
                     </table>
                     <br>
@@ -122,19 +137,28 @@
                     <br><br>
 
                 </div>
-            </form>
 
-        </div>
+
+            </div>
+        </form>
         <script src="bootstrap/js/jquery.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
         <script>
-            $(document).ready(function() {                        // When the HTML DOM is ready loading, then execute the following function...
-                $('#btnAdd').click(function() {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-                    $.get('Borrow',$("#itemCopyId")), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                        $('#borrowData').html(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                    });
-                });
-            });
-        </script>
+
+                        $(document).ready(function() {
+
+                            // When the HTML DOM is ready loading, then execute the following function...
+                            $('#btnAdd').click(function() {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+                                $.get('Borrow', $("#itemCopyId").val()), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                    $('#borrowData').html(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                    
+        //alert(responseText);
+                                    
+
+                                });
+                            });
+                        });
+        
+    </script>
     </body>
 </html>

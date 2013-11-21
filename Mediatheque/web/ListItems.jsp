@@ -17,7 +17,7 @@
     </head>
     <script>
         function addItem() {
-            window.location = "CreateItem.jsp";
+            window.location = "CreateItem";
         }
     </script>
 
@@ -47,7 +47,7 @@
                     <li><a href="#Reservation"><b>Reservation</b></a></li> 
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Manage Adherent</b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="CreateAdherent.jsp">Create a new adherent</a></li>
+                            <li><a href="CreateAdherent">Create a new adherent</a></li>
                             <li><a href="ListAdherents">List adherent</a></li> 
                         </ul>       
                     </li>
@@ -56,9 +56,9 @@
                             <b> Configuration</b>                     
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="ListOeuvres.jsp">Oeuvre</a></li>
+                            <li><a href="ListOeuvres">Oeuvre</a></li>
                             <li><a href="ListCategories">Category</a></li>
-                            <li><a href="ListItems.jsp">Item</a></li>
+                            <li><a href="ListItems">Item</a></li>
                             <li class="divider"/>
                             <li><a href="ListAdherents">Adherent</a></li>
                             <li><a href="#">User</a></li>                    

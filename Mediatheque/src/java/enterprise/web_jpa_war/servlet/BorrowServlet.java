@@ -7,6 +7,7 @@ package enterprise.web_jpa_war.servlet;
 
 
 import enterprise.web_jpa_war.entity.ItemCopy;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -36,35 +37,48 @@ public class BorrowServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+//        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         try {
             String action = request.getParameter("action");
+              
             List<ItemCopy> borrowList = null;
-
-            if ("add".equalsIgnoreCase(action)) {
-
+            if ("Add to List".equalsIgnoreCase(action)) {           
+//                FileWriter writer1 = new FileWriter("TEST1.txt");
+//                writer1.write("add111111");
+//                writer1.close();
                 borrowList = new ArrayList<ItemCopy>();
                 ItemCopy itemcopy = new ItemCopy();
                 itemcopy.setItemCopyCode("222");
                 borrowList.add(itemcopy);
                 borrowList.add(itemcopy);
                 borrowList.add(itemcopy);
-                borrowList.add(itemcopy);             
+                borrowList.add(itemcopy);
                 request.setAttribute("borrowList", borrowList);
-                String text="";
-                text = "<tr>";
-                for(ItemCopy i:borrowList){
-                    text +=" <td class=\"span1\">"+ i.getItemCopyCode() + "</td> ";
-                }
-                text += "</tr>";
-                out.write(text);
-                               
-//request.getRequestDispatcher("Borrow").forward(request, response);
+//                String text = "";
+//                StringBuffer str = new StringBuffer();
+//                text = "<tr>";
+//               // str.append("{\"borrows\" : ");
+//                for (ItemCopy i : borrowList) {
+////                    str.append("{\"itemCopyCode\": ").append(i.getItemCopyCode())
+////                            .append("," + "\"itemCopyCode\": ").append(i.getItemCopyCode())
+////                            .append("," + "\"itemCopyCode\": ").append(i.getItemCopyCode())
+////                            .append("," + "\"itemCopyCode\": ").append(i.getItemCopyCode())
+////                            .append("}}");
+//                     text +=" <td class=\"span1\">"+ i.getItemCopyCode() + "</td> ";
+//                }
+//                text += "</tr>";
+//               // out.write(str.toString());
+//                out.write(text);
+                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             } else if ("save".equalsIgnoreCase(action)) {
 
-            } 
-            request.getRequestDispatcher("Borrow.jsp").forward(request, response);
-            
+            } else {
+//                 FileWriter writer1 = new FileWriter("TEST1.txt");
+//            writer1.write("else");
+//            writer1.close();
+                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+            }
         } finally {
             out.close();
         }

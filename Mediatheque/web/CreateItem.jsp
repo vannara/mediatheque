@@ -113,8 +113,8 @@
             </nav>
         </div>
         <br> 
-        <div class="container" >
-            <div class="span12"> <h1 class="text-center">Item Record</h1>
+        <div class="span12 no-margin-left" >
+            <div class="span12 no-margin-left"> <h1 class="text-center">Item Record</h1>
             </div>
             <div class="span1"><br><br></div>
             <div class="span12">
@@ -139,7 +139,7 @@
              
              
                 </div>
-                <div class="span5">
+                <div class="span4">
                 <h2> Categories </h2>
                 <table id="cateListTable" class="table table-hover">
                     <tr >
@@ -158,19 +158,19 @@
                 </table>
                 </div>
                 <br><br>
-                <div class="span5">
+                <div class="span7 no-margin-left">
                 <h2> Oeuvres </h2>
                 <table id="cateListTable" class="table table-hover">
                     <tr >
-                        <th class="span2">ID</th>
-                        <th class="span2">Title</th>
+                        <th class="span1">ID</th>
+                        <th class="span1">Title</th>
                         <th class="span2">Author</th>
                         <th class="span2">Genre</th>
                     </tr>
                     <c:forEach var="oeuvre" begin="0" items="${requestScope.oeuvreList}">
                         <tr>
-                            <td class="span2">${oeuvre.oeuvreId}&nbsp;&nbsp;</td> 
-                            <td class="span2">${oeuvre.title}&nbsp;&nbsp;</td> 
+                            <td class="span1">${oeuvre.oeuvreId}&nbsp;&nbsp;</td> 
+                            <td class="span1">${oeuvre.title}&nbsp;&nbsp;</td> 
                             <td class="span2">${oeuvre.author}&nbsp;&nbsp;</td> 
                             <td class="span2">${oeuvre.genre}&nbsp;&nbsp;</td> 
                         </tr> 
