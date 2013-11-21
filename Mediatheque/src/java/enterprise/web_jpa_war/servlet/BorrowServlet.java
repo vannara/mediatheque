@@ -76,8 +76,8 @@ public class BorrowServlet extends HttpServlet {
             
             if ("Add to List".equalsIgnoreCase(action)) {
                 //query the item_copy infor based on scanning barcode
-                Query itemCp = em.createQuery("select c from ItemCopy c WHERE c.itemCopyCode=:itemCode");
-                itemCp.setParameter("itemCode", itemCopyCode);
+                Query itemCp = em.createQuery("select c from ItemCopy c WHERE c.itemCopyId=:itemCode");
+                itemCp.setParameter("itemCode", Long.parseLong(itemCopyCode));
                 ItemCopy itemcopy = (ItemCopy) itemCp.getSingleResult();
                 if (itemcopy != null) {
                     // ItemCopy borrowItem = em.find(ItemCopy.class, Long.parseLong(itemcopy.getItemCopyId()));
