@@ -43,42 +43,25 @@ public class BorrowServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-//        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
+        assert emf != null;  //Make sure injection went through correctly.
+        EntityManager em = null;
+
         try {
             String action = request.getParameter("action");
-//              
-//            List<ItemCopy> borrowList = null;
+            em = emf.createEntityManager();
+            String ItemId = request.getParameter("itemCopyId");
+            if ("Add to List".equalsIgnoreCase(action)) {
+                Item borrowItem = em.find(Item.class, Long.parseLong(ItemId));
+                items.add(borrowItem);
+                request.setAttribute("borrowList", items);
+                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+            }
             if ("Save".equalsIgnoreCase(action)) {
-//                borrowList = new ArrayList<ItemCopy>();
-//                ItemCopy itemcopy = new ItemCopy();
-//                itemcopy.setItemCopyCode("222");
-//                borrowList.add(itemcopy);
-//                borrowList.add(itemcopy);
-//                borrowList.add(itemcopy);
-//                borrowList.add(itemcopy);
-//                request.setAttribute("borrowList", borrowList);
-//                String text = "";
-//                StringBuffer str = new StringBuffer();
-//                text = "<tr>";
-//               // str.append("{\"borrows\" : ");
-//                for (ItemCopy i : borrowList) {
-////                    str.append("{\"itemCopyCode\": ").append(i.getItemCopyCode())
-////                            .append("," + "\"itemCopyCode\": ").append(i.getItemCopyCode())
-////                            .append("," + "\"itemCopyCode\": ").append(i.getItemCopyCode())
-////                            .append("," + "\"itemCopyCode\": ").append(i.getItemCopyCode())
-////                            .append("}}");
-//                     text +=" <td class=\"span1\">"+ i.getItemCopyCode() + "</td> ";
-//                }
-//                text += "</tr>";
-//               // out.write(str.toString());
-//                out.write(text);
                 request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
             request.getRequestDispatcher("Borrow.jsp").forward(request, response);
         } finally {
-            out.close();
+            em.close();
         }
     }
 
@@ -94,19 +77,8 @@ public class BorrowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
-        assert emf != null;  //Make sure injection went through correctly.
-        EntityManager em = null;
-        em = emf.createEntityManager();
-        String action = request.getParameter("action");
-        String ItemId = request.getParameter("itemCopyId");
-        if ("Add to List".equalsIgnoreCase(action)) {
-            Item borrowItem = em.find(Item.class, Integer.parseInt(ItemId));
+        processRequest(request, response);
 
-            request.setAttribute("borrowList", borrowItem);
-
-        }
-        request.getRequestDispatcher("Borrow.jsp").forward(request, response);
     }
 
     /**
@@ -120,23 +92,8 @@ public class BorrowServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-         assert emf != null;  //Make sure injection went through correctly.
-        EntityManager em = null;
-        em = emf.createEntityManager();
-        String action = request.getParameter("action");
-        String ItemId = request.getParameter("itemCopyId");
-        if ("Add to List".equalsIgnoreCase(action)) {
-           
-            Item borrowItem = em.find(Item.class, Long.parseLong(ItemId));
-            items.add(borrowItem);
-              request.setAttribute("borrowList", items);
-              request.setAttribute("itemId", borrowItem.getItemId());
-              request.setAttribute("categoryName", borrowItem.getCategory().getCategoryName());
-                    
-        request.getRequestDispatcher("Borrow.jsp").forward(request, response);
-        }
-        
+        processRequest(request, response);
+
     }
 
     /**

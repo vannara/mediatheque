@@ -4,6 +4,9 @@
     Author     : vannaraloch
 --%>
 
+<%@page import="enterprise.web_jpa_war.entity.Item"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,13 +27,11 @@
 
         function addToList() {
             var itemCopyId = $("#itemCopyId").val();
-            alert("called " + itemCopyId);
-
             $.ajax({
                 url: "/Borrow?itemCopyId=" + itemCopyId,
-                type: "POST"
-              
-                    
+                type: "GET"
+
+
             });
         }
 
@@ -104,25 +105,24 @@
                             <th class="span2">Borrow Qty</th>                              
                         </tr>
                         <%
-                          list= <%=request.getAttribute("borrowList")%>;
-                            %>
-                        <c:forEach var="item" begin="0" items="${requestScope.borrowList}" >
-                            <tr>
-<!--                            <td class="span2"><%=request.getAttribute("itemId")%></td> 
-                                <td class="span2"><%=request.getAttribute("categoryName")%></td> 
-                                <td class="span2"><%=request.getAttribute("categoryName")%></td> 
-                                <td class="span2"><%=request.getAttribute("categoryName")%></td> -->
-                                <td class="span2">${item.itemId}</td> 
-                                <td class="span2">${item.category.categoryName}</td> 
-                                <td class="span2">${item.category.categoryName}</td> 
-                                <td class="span2">${item.category.categoryName}</td> 
-                            </tr> 
+                            List<Item> list = new ArrayList();
+                            if (request.getAttribute("borrowList") != null) {
+                                list.addAll((List) (request.getAttribute("borrowList")));
 
-                        </c:forEach>
-                        <tbody id="borrowData">
+                            }
+                        %>
+                        <%            for (int i = 0; i < list.size(); i++) {
+                        %>
+                        <tr>
+                            <td class="span2"><%=list.get(i).getItemId()%></td>   
+                            <td class="span2"><%=list.get(i).getCategory().getCategoryName()%></td>   
+                            <td class="span2"><%=list.get(i).getCategory().getCategoryName()%></td>   
+                            <td class="span2"><%=list.get(i).getCategory().getCategoryName()%></td>   
+                        </tr> 
 
-                        </tbody>
-
+                        <%
+                            }
+                        %>                     
                     </table>
                     <br>
                     <input type="submit" class="btn-primary" name ="action" value="Save"/>
@@ -139,22 +139,6 @@
         <script src="bootstrap/js/bootstrap.js"></script>
         <script>
 
-                        $(document).ready(function() {
-                            var list = <%= request.getAttribute("borrowList")%> ;
-                            aler(list.length);
-//
-//                            // When the HTML DOM is ready loading, then execute the following function...
-//                            $('#btnAdd').click(function() {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-//                                $.get('Borrow', $("#itemCopyId").val()), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-//                                    $('#borrowData').html(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-//                                    
-//        //alert(responseText);
-//                                    
-//
-//                                });
-//                            });
-                        });
-        
-    </script>
+        </script>
     </body>
 </html>
