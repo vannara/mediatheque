@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -121,8 +122,12 @@ public class BorrowServlet extends HttpServlet {
                    
                 }
                 utx.commit();
-               
+                ////remove all items before another save transaction
+                for(ItemCopy ic: itemCopies){
+                    itemCopies.remove(ic);
+                }
                 request.getRequestDispatcher("ListBorrows").forward(request, response);
+                
             }
             else {
             
