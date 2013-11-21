@@ -38,10 +38,10 @@ public class Return implements Serializable {
 
     
     @ManyToMany
-    @JoinTable(
-      name="Return_Item",
-      joinColumns={@JoinColumn(name="itemCopyId", referencedColumnName="itemCopyId")},
-      inverseJoinColumns={@JoinColumn(name="returnId", referencedColumnName="returnId")})
+//    @JoinTable(
+//      name="Return_Item",
+//      joinColumns={@JoinColumn(name="itemcopyid", referencedColumnName="itemcopyid")},
+//      inverseJoinColumns={@JoinColumn(name="returnid", referencedColumnName="returnid")})
     private Collection<ItemCopy> itemCopies;
 
     @ManyToOne

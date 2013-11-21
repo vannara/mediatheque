@@ -34,10 +34,10 @@ public class ItemCopy implements Serializable {
     private Borrow borrow;   
     
     @ManyToMany
-    @JoinTable(
-      name="Return_Item",
-      inverseJoinColumns={@JoinColumn(name="itemCopyId", referencedColumnName="itemCopyId")},
-      joinColumns={@JoinColumn(name="returnId", referencedColumnName="returnId")})
+//    @JoinTable(
+//      name="Return_Item",
+//      inverseJoinColumns={@JoinColumn(name="itemcopyid", referencedColumnName="itemcopyid")},
+//      joinColumns={@JoinColumn(name="returnid", referencedColumnName="returnid")})
     private Collection<Return> returns;
 
     public ItemCopy(String itemCopyCode, Item item) {
