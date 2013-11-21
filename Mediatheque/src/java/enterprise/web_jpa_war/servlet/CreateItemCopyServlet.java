@@ -112,6 +112,9 @@ public class CreateItemCopyServlet extends HttpServlet {
                     //commit transaction which will trigger the em to 
                     //commit newly created entity into database
                 }
+                //Since ItemCopies were created, some item at least are available
+                item.setIsAvailable(true);
+                em.merge(item);
                 utx.commit();
             }
             
