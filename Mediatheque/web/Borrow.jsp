@@ -27,6 +27,7 @@
 
         function addToList() {
             var itemCopyId = $("#itemCopyId").val();
+            
             $.ajax({
                 url: "/Borrow?itemCopyId=" + itemCopyId,
                 type: "GET"
@@ -81,16 +82,29 @@
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container -->
-        </nav>        
+        </nav>
+        <div class="span12"> <h1 class="text-center">Borrow Item Transaction</h1>
+        </div>
+        <div class="span12"><br><br></div>
+
+<!--        <div class="span12"> 
+            <div class="span1"></div>
+            <div class="span2 no-margin-left">
+                <label class="span2 no-margin-left">Adherent Number:</label>
+            </div>
+            <div class="span5 no-margin-left">
+                <input type="text" class ="span5  no-margin-left input-lg"/>
+
+            </div>
+
+        </div>-->
+        <div class="span12 no-margin-left">
         <form id="listBorrowForm" action="Borrow" method="post" class="span12 no-margin-left">
             <div class="container">
-                <div class="span12"> <h1 class="text-center">Borrow Item Transaction</h1>
-                </div>
-                <div class="span12"><br><br></div>
 
                 <div class="span2 no-margin-left"><label class="span2 no-margin-left">Item Copy Code:</label> </div>    
                 <div class="span9 no-margin-left">
-                    <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyId" required />
+                    <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyId" />
                     <input type="submit" class="btn-primary btn-lg" onclick="addToList()" value="Add to List" name="action" />
 
                 </div>
@@ -116,8 +130,8 @@
                         <tr>
                             <td class="span2"><%=list.get(i).getItemId()%></td>   
                             <td class="span2"><%=list.get(i).getCategory().getCategoryName()%></td>   
-                            <td class="span2"><%=list.get(i).getCategory().getCategoryName()%></td>   
-                            <td class="span2"><%=list.get(i).getCategory().getCategoryName()%></td>   
+                            <td class="span2"><%=list.get(i).getOeuvre().getTitle()%></td>   
+                            <td class="span2">1</td>   
                         </tr> 
 
                         <%
@@ -135,6 +149,7 @@
 
             </div>
         </form>
+                    </div>
         <script src="bootstrap/js/jquery.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
         <script>

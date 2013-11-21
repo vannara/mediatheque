@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -20,6 +23,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -30,6 +36,9 @@ public class BorrowServlet extends HttpServlet {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
+    @Resource
+    private UserTransaction utx;
+
     List<Item> items = new ArrayList<Item>();
 
     /**
@@ -42,25 +51,31 @@ public class BorrowServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, NotSupportedException, SystemException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
 
         try {
             String action = request.getParameter("action");
-            em = emf.createEntityManager();
             String ItemId = request.getParameter("itemCopyId");
+            utx.begin();            
+            em = emf.createEntityManager();
             if ("Add to List".equalsIgnoreCase(action)) {
                 Item borrowItem = em.find(Item.class, Long.parseLong(ItemId));
                 items.add(borrowItem);
                 request.setAttribute("borrowList", items);
-                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+                //request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
             if ("Save".equalsIgnoreCase(action)) {
-                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+                
+                
+                //request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
             request.getRequestDispatcher("Borrow.jsp").forward(request, response);
-        } finally {
+        }catch(Exception e){
+            utx.rollback();
+        } 
+        finally {
             em.close();
         }
     }
@@ -77,7 +92,13 @@ public class BorrowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(BorrowServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(BorrowServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -92,7 +113,13 @@ public class BorrowServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(BorrowServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(BorrowServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
