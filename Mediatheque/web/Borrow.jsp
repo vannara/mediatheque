@@ -22,30 +22,17 @@
             window.location = "HomeAdmin.jsp";
         }
 
-//        function addToList() {
-//            var itemCopyId = $("#itemCopyId").val();
-//            alert("called " + itemCopyId);
-//
-//            $.ajax({
-//                url: "/Borrow?itemCopyId=" + itemCopyId,
-//                type: "POST",
-//                success: function(data, textStatus, jqXHR) {
-//                    alert(data);
-////                    var jsonObj = eval("(" + data + ")");
-////                    var tbody = document.getElementById("borrowData");
-////                    var borrowItems = jsonObj.borrows;
-////                    var i = 0;
-////                    while (i < borrowItems.length) {
-////                        row = tbody.insertRow(i + 1);
-////                        cell = row.insertCell(0);
-////                        cell.innerHTML = borrowItems[i++].itemCopyCode;
-////                        i++;
-////                        console.log(borrowItems[i].itemCopyCode);
-////                    }
-//                }
-//
-//            });
- //       }
+        function addToList() {
+            var itemCopyId = $("#itemCopyId").val();
+            alert("called " + itemCopyId);
+
+            $.ajax({
+                url: "/Borrow?itemCopyId=" + itemCopyId,
+                type: "POST"
+              
+                    
+            });
+        }
 
     </script>
     <body>
@@ -83,9 +70,9 @@
                                 <b> Configuration</b>                     
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="ListOeuvres.jsp">Oeuvre</a></li>
+                                <li><a href="ListOeuvres">Oeuvre</a></li>
                                 <li><a href="ListCategories">Category</a></li>
-                                <li><a href="CreateItem.jsp">Item</a></li>
+                                <li><a href="ListItems">Item</a></li>
                                 <li class="divider"/>                      
                                 <li><a href="#">User</a></li>                    
                             </ul>
@@ -103,7 +90,7 @@
                 <div class="span2 no-margin-left"><label class="span2 no-margin-left">Item Copy Code:</label> </div>    
                 <div class="span9 no-margin-left">
                     <input type="text" id="itemCopyId" class="span5 input-lg" name="itemCopyId" required />
-                    <input type="submit" class="btn-primary btn-lg" value="Add to List" name="action" />
+                    <input type="submit" class="btn-primary btn-lg" onclick="addToList()" value="Add to List" name="action" />
 
                 </div>
 
@@ -116,12 +103,19 @@
                             <th class="span2">Item title</th>
                             <th class="span2">Borrow Qty</th>                              
                         </tr>
+                        <%
+                          list= <%=request.getAttribute("borrowList")%>;
+                            %>
                         <c:forEach var="item" begin="0" items="${requestScope.borrowList}" >
                             <tr>
-                                <td class="span1">${item.itemCopyCode}</td> 
-                                <td class="span2">${item.itemCopyCode}</td> 
-                                <td class="span2">${item.itemCopyCode}</td> 
-                                <td class="span2">${item.itemCopyCode}</td> 
+<!--                            <td class="span2"><%=request.getAttribute("itemId")%></td> 
+                                <td class="span2"><%=request.getAttribute("categoryName")%></td> 
+                                <td class="span2"><%=request.getAttribute("categoryName")%></td> 
+                                <td class="span2"><%=request.getAttribute("categoryName")%></td> -->
+                                <td class="span2">${item.itemId}</td> 
+                                <td class="span2">${item.category.categoryName}</td> 
+                                <td class="span2">${item.category.categoryName}</td> 
+                                <td class="span2">${item.category.categoryName}</td> 
                             </tr> 
 
                         </c:forEach>
@@ -146,17 +140,19 @@
         <script>
 
                         $(document).ready(function() {
-
-                            // When the HTML DOM is ready loading, then execute the following function...
-                            $('#btnAdd').click(function() {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-                                $.get('Borrow', $("#itemCopyId").val()), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                    $('#borrowData').html(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                    
-        //alert(responseText);
-                                    
-
-                                });
-                            });
+                            var list = <%= request.getAttribute("borrowList")%> ;
+                            aler(list.length);
+//
+//                            // When the HTML DOM is ready loading, then execute the following function...
+//                            $('#btnAdd').click(function() {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+//                                $.get('Borrow', $("#itemCopyId").val()), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+//                                    $('#borrowData').html(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+//                                    
+//        //alert(responseText);
+//                                    
+//
+//                                });
+//                            });
                         });
         
     </script>

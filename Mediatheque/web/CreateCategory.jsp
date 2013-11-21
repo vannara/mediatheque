@@ -58,7 +58,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="ListOeuvres">Oeuvre</a></li>
                                     <li><a href="ListCategories">Category</a></li>
-                                    <li><a href="CreateItem">Item</a></li>
+                                    <li><a href="ListItems">Item</a></li>
                                     <li class="divider"/>
                                     <li><a href="#">Adherent</a></li>
                                     <li><a href="#">User</a></li>                    

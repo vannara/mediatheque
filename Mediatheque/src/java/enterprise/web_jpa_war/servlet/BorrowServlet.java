@@ -5,13 +5,16 @@
  */
 package enterprise.web_jpa_war.servlet;
 
-
+import enterprise.web_jpa_war.entity.Item;
 import enterprise.web_jpa_war.entity.ItemCopy;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +27,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "BorrowServlet", urlPatterns = {"/Borrow"})
 public class BorrowServlet extends HttpServlet {
+
+    @PersistenceUnit
+    private EntityManagerFactory emf;
+    List<Item> items = new ArrayList<Item>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,20 +48,17 @@ public class BorrowServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String action = request.getParameter("action");
-              
-            List<ItemCopy> borrowList = null;
-            if ("Add to List".equalsIgnoreCase(action)) {           
-//                FileWriter writer1 = new FileWriter("TEST1.txt");
-//                writer1.write("add111111");
-//                writer1.close();
-                borrowList = new ArrayList<ItemCopy>();
-                ItemCopy itemcopy = new ItemCopy();
-                itemcopy.setItemCopyCode("222");
-                borrowList.add(itemcopy);
-                borrowList.add(itemcopy);
-                borrowList.add(itemcopy);
-                borrowList.add(itemcopy);
-                request.setAttribute("borrowList", borrowList);
+//              
+//            List<ItemCopy> borrowList = null;
+            if ("Save".equalsIgnoreCase(action)) {
+//                borrowList = new ArrayList<ItemCopy>();
+//                ItemCopy itemcopy = new ItemCopy();
+//                itemcopy.setItemCopyCode("222");
+//                borrowList.add(itemcopy);
+//                borrowList.add(itemcopy);
+//                borrowList.add(itemcopy);
+//                borrowList.add(itemcopy);
+//                request.setAttribute("borrowList", borrowList);
 //                String text = "";
 //                StringBuffer str = new StringBuffer();
 //                text = "<tr>";
@@ -71,14 +75,8 @@ public class BorrowServlet extends HttpServlet {
 //               // out.write(str.toString());
 //                out.write(text);
                 request.getRequestDispatcher("Borrow.jsp").forward(request, response);
-            } else if ("save".equalsIgnoreCase(action)) {
-
-            } else {
-//                 FileWriter writer1 = new FileWriter("TEST1.txt");
-//            writer1.write("else");
-//            writer1.close();
-                request.getRequestDispatcher("Borrow.jsp").forward(request, response);
             }
+            request.getRequestDispatcher("Borrow.jsp").forward(request, response);
         } finally {
             out.close();
         }
@@ -96,7 +94,19 @@ public class BorrowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // processRequest(request, response);
+        assert emf != null;  //Make sure injection went through correctly.
+        EntityManager em = null;
+        em = emf.createEntityManager();
+        String action = request.getParameter("action");
+        String ItemId = request.getParameter("itemCopyId");
+        if ("Add to List".equalsIgnoreCase(action)) {
+            Item borrowItem = em.find(Item.class, Integer.parseInt(ItemId));
+
+            request.setAttribute("borrowList", borrowItem);
+
+        }
+        request.getRequestDispatcher("Borrow.jsp").forward(request, response);
     }
 
     /**
@@ -110,7 +120,23 @@ public class BorrowServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+         assert emf != null;  //Make sure injection went through correctly.
+        EntityManager em = null;
+        em = emf.createEntityManager();
+        String action = request.getParameter("action");
+        String ItemId = request.getParameter("itemCopyId");
+        if ("Add to List".equalsIgnoreCase(action)) {
+           
+            Item borrowItem = em.find(Item.class, Long.parseLong(ItemId));
+            items.add(borrowItem);
+              request.setAttribute("borrowList", items);
+              request.setAttribute("itemId", borrowItem.getItemId());
+              request.setAttribute("categoryName", borrowItem.getCategory().getCategoryName());
+                    
+        request.getRequestDispatcher("Borrow.jsp").forward(request, response);
+        }
+        
     }
 
     /**
